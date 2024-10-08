@@ -1,18 +1,64 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f4f4f4;
-}
-.social-media {
+    margin: 0;
+    padding: 0;
+    height: 1000vh; /* Mengatur tinggi minimum halaman */
     display: flex;
-    gap: 15px;
+    flex-direction: column;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1600' height='900' preserveAspectRatio='none' viewBox='0 0 1600 900'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1095%26quot%3b)' fill='none'%3e%3crect width='1600' height='900' x='0' y='0' fill='rgba(46%2c 96%2c 138%2c 1)'%3e%3c/rect%3e%3cpath d='M864.444%2c430.738C887.198%2c430.433%2c908.174%2c418.775%2c919.787%2c399.205C931.65%2c379.214%2c931.884%2c355.088%2c921.749%2c334.168C909.985%2c309.885%2c891.411%2c285.911%2c864.444%2c284.971C836.325%2c283.991%2c812.374%2c304.758%2c799.774%2c329.915C788.394%2c352.636%2c792.748%2c379.336%2c806.468%2c400.725C819.061%2c420.357%2c841.122%2c431.051%2c864.444%2c430.738' fill='rgba(0%2c 0%2c 0%2c 0.69)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M241.18 59.73 a269.77 269.77 0 1 0 539.54 0 a269.77 269.77 0 1 0 -539.54 0z' fill='rgba(0%2c 0%2c 0%2c 0.69)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M-174.24 494.33 a186.5 186.5 0 1 0 373 0 a186.5 186.5 0 1 0 -373 0z' fill='rgba(0%2c 0%2c 0%2c 0.69)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M378.66 294.14 a229.86 229.86 0 1 0 459.72 0 a229.86 229.86 0 1 0 -459.72 0z' fill='rgba(0%2c 0%2c 0%2c 0.69)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1501.05%2c689.386C1578.304%2c685.164%2c1648.092%2c649.378%2c1690.665%2c584.775C1738.622%2c512.002%2c1767.984%2c421.66%2c1728.775%2c343.824C1686.187%2c259.28%2c1595.709%2c207.329%2c1501.05%2c208.359C1408.04%2c209.371%2c1328.06%2c268.02%2c1281.746%2c348.686C1235.642%2c428.985%2c1221.671%2c529.807%2c1271.787%2c607.665C1318.852%2c680.783%2c1414.224%2c694.131%2c1501.05%2c689.386' fill='rgba(0%2c 0%2c 0%2c 0.69)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1328.54 9.83 a217.36 217.36 0 1 0 434.72 0 a217.36 217.36 0 1 0 -434.72 0z' fill='rgba(0%2c 0%2c 0%2c 0.69)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1255.15 350.95 a269.04 269.04 0 1 0 538.08 0 a269.04 269.04 0 1 0 -538.08 0z' fill='rgba(0%2c 0%2c 0%2c 0.69)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1316.09 505.39 a184.46 184.46 0 1 0 368.92 0 a184.46 184.46 0 1 0 -368.92 0z' fill='rgba(0%2c 0%2c 0%2c 0.69)' class='triangle-float1'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1095'%3e%3crect width='1600' height='900' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
+    background-size: cover; /* Atau gunakan contain */
+    background-position: center; /* Mengatur posisi gambar di tengah */
+    background-repeat: no-repeat; /* Menghindari pengulangan gambar */
+    height: 100vh; /* Mengatur tinggi body untuk mengisi viewport */
+    margin: 0;
+}
+
+
+.content {
+    flex: 1; /* Membuat konten utama fleksibel */
+    padding: 20px;
+    background-color: #000000;
+}
+.footer {
+    background-color: #333;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 10px 0;
+    position: fixed; /* Memastikan footer selalu di bawah */
+    bottom: 0;
+    width: 100%;
 }
 .social-media a {
+    left: 100%;
     text-decoration: none;
-    font-size: 24px;
-    color: #333;
+    color: rgb(228, 215, 215); /* Warna ikon media sosial */
+    margin: 0 15px; /* Jarak antar ikon */
+    font-size: 24px; /* Ukuran ikon */
     transition: color 0.3s;
 }
 .social-media a:hover {
     color: #007BFF; /* Warna saat hover */
+}
+
+nav {
+    background-color: #363030;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+}
+
+#img1 {
+    display: block; 
+    margin: auto; 
+    width: 60%; 
+    opacity: 20%;
+}
+
+#title1 {
+    text-align: center;
+    font-family: 'Algeria';
 }
