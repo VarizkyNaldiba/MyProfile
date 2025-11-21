@@ -484,6 +484,16 @@ body {
     transform: translateX(5px);
 }
 
+/* Section Subtitle */
+.section-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    text-align: center;
+    margin: -1.5rem auto 3rem;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
 /* Tech Stack Section */
 .techstack-section {
     padding: 80px 20px;
