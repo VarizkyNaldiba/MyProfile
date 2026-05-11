@@ -7,6 +7,11 @@
     --text-tertiary: #737373;
     --accent-color: #0f172a;
     --accent-hover: #1e293b;
+    --accent-blue: #3b82f6;
+    --accent-purple: #8b5cf6;
+    --accent-emerald: #10b981;
+    --accent-amber: #f59e0b;
+    --accent-rose: #f43f5e;
     --border-color: #e5e5e5;
     --border-hover: #d4d4d4;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -45,7 +50,7 @@ body {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-color);
-    padding: 1rem 0;
+    padding: 0.5rem 0; /* reduced vertical padding */
     position: fixed;
     top: 0;
     width: 100%;
@@ -354,6 +359,41 @@ body {
 
 .btn-project:hover i {
     transform: translateX(3px);
+}
+
+.project-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: auto;
+    width: 100%;
+}
+
+.project-links .btn-project {
+    flex: 1;
+    padding: 0.75rem 0.5rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+}
+
+.divider {
+    color: var(--border-color);
+    font-weight: 300;
+    user-select: none;
+    display: none; /* Hide textual divider as we use gap and flex */
+}
+
+/* Icon Variations */
+.project-card:nth-child(1n) .project-icon { background: var(--accent-blue); }
+.project-card:nth-child(2n) .project-icon { background: var(--accent-purple); }
+.project-card:nth-child(3n) .project-icon { background: var(--accent-emerald); }
+.project-card:nth-child(4n) .project-icon { background: var(--accent-amber); }
+.project-card:nth-child(5n) .project-icon { background: var(--accent-rose); }
+
+.project-card:hover {
+    border-color: var(--accent-blue);
+    background: linear-gradient(to bottom right, #ffffff, #f8fafc);
 }
 
 /* Footer */
