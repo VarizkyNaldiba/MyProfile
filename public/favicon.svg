@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Background rounded box -->
+  <rect width="512" height="512" rx="128" fill="#2563eb"/>
+  
+  <!-- Left side: Terminal Prompt / Code angle bracket -->
+  <path d="M130 160 L230 256 L130 352" stroke="#ffffff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Right side: Data nodes connected by lines -->
+  <line x1="380" y1="170" x2="300" y2="270" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+  <line x1="300" y1="270" x2="400" y2="350" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+  
+  <!-- Connected circles (Data / ML nodes) -->
+  <circle cx="380" cy="170" r="32" fill="#38bdf8" stroke="#ffffff" stroke-width="12"/>
+  <circle cx="300" cy="270" r="32" fill="#38bdf8" stroke="#ffffff" stroke-width="12"/>
+  <circle cx="400" cy="350" r="32" fill="#38bdf8" stroke="#ffffff" stroke-width="12"/>
+</svg>
