@@ -384,6 +384,53 @@ body {
     display: none; /* Hide textual divider as we use gap and flex */
 }
 
+/* Tech Stack Badges */
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.375rem;
+    margin-bottom: 1.5rem;
+}
+
+.tech-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    background: rgba(59, 130, 246, 0.08);
+    color: var(--accent-blue);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    letter-spacing: 0.02em;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.tech-tag:nth-child(2n) {
+    background: rgba(139, 92, 246, 0.08);
+    color: var(--accent-purple);
+    border-color: rgba(139, 92, 246, 0.2);
+}
+
+.tech-tag:nth-child(3n) {
+    background: rgba(16, 185, 129, 0.08);
+    color: var(--accent-emerald);
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.tech-tag:nth-child(4n) {
+    background: rgba(245, 158, 11, 0.08);
+    color: var(--accent-amber);
+    border-color: rgba(245, 158, 11, 0.2);
+}
+
+.project-card:hover .tech-tag {
+    transform: translateY(-1px);
+}
+
 /* Icon Variations */
 .project-card:nth-child(1n) .project-icon { background: var(--accent-blue); }
 .project-card:nth-child(2n) .project-icon { background: var(--accent-purple); }
