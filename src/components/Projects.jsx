@@ -14,7 +14,7 @@ const projectsData = [
     role: "Project Manager",
     desc: "Web-based dashboard for catfish (lele) pond water quality monitoring, integrating live telemetry.",
     tech: ["Next.js", "Firebase", "ESP32"],
-    categories: ["IoT", "Web Dev"],
+    categories: ["Web Dev"],
     links: [
       { type: "web", url: "https://aqua-vion.vercel.app/" },
       { type: "repo", url: "https://github.com/Naditya206/AquaVion" }
@@ -89,7 +89,7 @@ const projectsData = [
     role: "Data Analyst",
     desc: "Data-driven study analyzing regional distribution of Special Education Schools (SLB) across East Java.",
     tech: ["Python", "Pandas", "Matplotlib", "Excel"],
-    categories: ["Data Science"],
+    categories: ["Data Science", "Data Analyst"],
     links: [
       { type: "repo", url: "https://github.com/FarrelAD/Tim-Maju-Lancar-Datathon-Jatim-2025" }
     ],
@@ -125,7 +125,7 @@ const projectsData = [
     role: "Data Analyst",
     desc: "Geographic distribution mapping of academic locations in East Java utilizing GIS datasets.",
     tech: ["Python", "GeoJSON", "GIS"],
-    categories: ["Data Science"],
+    categories: ["Data Science", "Data Analyst"],
     links: [
       { type: "repo", url: "https://github.com/VarizkyNaldiba/SchoolSpatial_on_EastJava" }
     ],
@@ -145,7 +145,7 @@ const projectsData = [
   }
 ];
 
-const filterCategories = ["All", "IoT", "Data Science", "Machine Learning", "Web Dev"];
+const filterCategories = ["All", "IoT", "Data Science", "Machine Learning", "Web Dev", "Data Analyst"];
 
 export default function Projects() {
   const [selectedCategory, setSelectedCategory] = useState("All");
