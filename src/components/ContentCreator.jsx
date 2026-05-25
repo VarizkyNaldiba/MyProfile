@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Video, Music, Users, Film, Tv, MessageSquare } from 'lucide-react';
+import { Video, Gamepad2, Users, Film, MessageSquare } from 'lucide-react';
 
 const TikTokIcon = () => (
   <svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -22,14 +22,14 @@ const channelData = [
     id: 1,
     title: "TikTok Content",
     platform: "TikTok",
-    desc: "Creating engaging short-form videos, creative content, and tech/student lifestyle entertainment for the TikTok community.",
+    desc: "Creating short-form gaming content, creative highlights, and gameplay edits from Mobile Legends, Valorant, Genshin Impact, PUBG, and more.",
     link: "https://www.tiktok.com/@oryzasatirva",
     gradient: "#161823",
     icon: TikTokIcon,
     features: [
-      { icon: Video, label: "Short Videos" },
-      { icon: Music, label: "Creative Media" },
-      { icon: Users, label: "Community" }
+      { icon: Gamepad2, label: "Gaming Clips" },
+      { icon: Video, label: "Short Highlights" },
+      { icon: Users, label: "Gaming Community" }
     ],
     buttonText: "Visit TikTok"
   },
@@ -37,14 +37,14 @@ const channelData = [
     id: 2,
     title: "Bilibili Channel",
     platform: "Bilibili",
-    desc: "Sharing video content, tutorials, and creative editing works. Join my space for tutorials and interactive streaming content.",
+    desc: "Sharing full gameplay videos, walkthrough guides, and high-quality game edits for a variety of popular game titles.",
     link: "https://www.bilibili.tv/id/space/1416802109",
     gradient: "#00a1d6",
     icon: BilibiliIcon,
     features: [
-      { icon: Film, label: "Video Content" },
-      { icon: Tv, label: "Tutorials & Tech" },
-      { icon: MessageSquare, label: "Interactive Spaces" }
+      { icon: Film, label: "Gameplay Videos" },
+      { icon: Gamepad2, label: "Game Walkthroughs" },
+      { icon: MessageSquare, label: "Interactive Space" }
     ],
     buttonText: "Visit Bilibili"
   }
@@ -77,7 +77,7 @@ export default function ContentCreator() {
           <span className="section-badge">Channels</span>
           <h2 className="section-title">Content Creation</h2>
           <p className="section-desc text-secondary">
-            Sharing creativity, tech projects, and video essays to engage audiences on TikTok and Bilibili.
+            Sharing gameplay highlights, video game edits, and walkthroughs of Mobile Legends, Valorant, Genshin Impact, PUBG, and other popular titles.
           </p>
         </div>
 
