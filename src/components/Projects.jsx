@@ -230,7 +230,6 @@ export default function Projects() {
         {/* Projects Grid Display with Animation */}
         <motion.div 
           className="projects-grid"
-          layout
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => {
@@ -239,10 +238,16 @@ export default function Projects() {
                 <motion.div
                   key={project.id}
                   layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2, ease: 'easeOut' }}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  whileHover={{ y: -6 }}
+                  transition={{
+                    opacity: { duration: 0.2 },
+                    scale: { duration: 0.2 },
+                    layout: { type: 'spring', stiffness: 250, damping: 28 },
+                    y: { type: 'spring', stiffness: 400, damping: 25 }
+                  }}
                   className="project-card"
                 >
                   <div className="project-card-header">

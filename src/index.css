@@ -495,7 +495,7 @@ p {
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-sm);
-  transition: var(--transition-normal);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
   position: relative;
   overflow: hidden;
 }
@@ -513,7 +513,6 @@ p {
 }
 
 .project-card:hover {
-  transform: translateY(-6px);
   border-color: var(--border-hover);
   box-shadow: var(--shadow-lg);
 }
