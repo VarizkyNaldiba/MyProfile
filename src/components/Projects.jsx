@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, TrendingUp, Bot, Camera, ShieldAlert, Trophy, 
   Droplet, GraduationCap, Wifi, Users, Map, Thermometer,
-  ExternalLink, UserCheck
+  ExternalLink, UserCheck, Brain
 } from 'lucide-react';
 import { Github } from './BrandIcons';
 
@@ -79,7 +79,8 @@ const projectsData = [
     tech: ["Python", "TensorFlow", "Keras", "IoT"],
     categories: ["IoT", "Machine Learning"],
     links: [
-      { type: "repo", url: "https://github.com/VarizkyNaldiba/Algasense" }
+      { type: "repo", url: "https://github.com/VarizkyNaldiba/Algasense" },
+      { type: "colab", url: "https://colab.research.google.com/drive/188LKZtiXvQ8Q-nwy9ZtR2h_-UmRNYp_3" }
     ],
     icon: Droplet
   },
@@ -286,6 +287,10 @@ export default function Projects() {
                           {link.type === 'web' ? (
                             <>
                               View Web <ExternalLink size={14} />
+                            </>
+                          ) : link.type === 'colab' ? (
+                            <>
+                              View Colab <Brain size={14} />
                             </>
                           ) : (
                             <>
