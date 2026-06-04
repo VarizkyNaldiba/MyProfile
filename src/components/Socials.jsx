@@ -9,7 +9,7 @@ const TikTokIcon = () => (
   </svg>
 );
 
-const socialData = [
+const getSocialData = () => [
   {
     id: 1,
     name: "Facebook",
@@ -67,6 +67,8 @@ const socialData = [
 ];
 
 export default function Socials() {
+  const socialData = getSocialData();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

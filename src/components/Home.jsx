@@ -61,7 +61,7 @@ export default function Home({ setActiveTab }) {
             </motion.h3>
 
             <motion.p className="hero-bio" variants={itemVariants}>
-              "Data is Using the Past for a Better Future." Specializing in Data Science, Data Analysis, Machine Learning, Full-Stack Development, and IoT.
+              "Transforming complex data into future intelligence." Specializing in Data Science, Data Analysis, Machine Learning, Full-Stack Development, and IoT.
             </motion.p>
 
             <motion.div className="hero-buttons" variants={itemVariants}>

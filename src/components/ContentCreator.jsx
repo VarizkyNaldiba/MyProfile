@@ -17,7 +17,7 @@ const BilibiliIcon = () => (
   </svg>
 );
 
-const channelData = [
+const getChannelData = () => [
   {
     id: 1,
     title: "TikTok Content",
@@ -51,6 +51,8 @@ const channelData = [
 ];
 
 export default function ContentCreator() {
+  const channelData = getChannelData();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
