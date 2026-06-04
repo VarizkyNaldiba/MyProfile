@@ -179,6 +179,7 @@ const getProjectsData = () => [
     tech: ["Python", "Pandas", "Matplotlib", "Excel"],
     categories: ["Data Science", "Data Analyst"],
     links: [
+      { type: "web", url: "https://huggingface.co/spaces/Tim-Maju-Lancar-Datathon/Dashboard-Tim-Maju-Lancar-Datathon-Jatim-2025" },
       { type: "repo", url: "https://github.com/FarrelAD/Tim-Maju-Lancar-Datathon-Jatim-2025" }
     ],
     icon: GraduationCap,
