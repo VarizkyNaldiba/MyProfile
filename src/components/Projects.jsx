@@ -26,7 +26,7 @@ const getProjectsData = () => [
     links: [
       { type: "iot", url: "https://github.com/VarizkyNaldiba/Smart_Aqua_IOT" },
       { type: "web", url: "https://aqua-vion.vercel.app/" },
-      { type: "progress", url: "https://github.com/Naditya206/AquaVion" }
+      { type: "progress", url: "https://dashboard-notion-aqua-vion.vercel.app/" }
     ],
     icon: Droplet,
     images: [imgAquavionIot, imgAquavionDashboard],
