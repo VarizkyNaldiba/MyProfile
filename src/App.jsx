@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
+import About from './components/About';
 import Projects from './components/Projects';
+import Skills from './components/Skills';
 import ContentCreator from './components/ContentCreator';
 import Socials from './components/Socials';
+import { ArrowUp } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('home');
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('portfolio-theme');
     if (savedTheme) return savedTheme;
@@ -23,60 +24,48 @@ export default function App() {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'home':
-        return <Home key="home" setActiveTab={setActiveTab} />;
-      case 'projects':
-        return <Projects key="projects" />;
-      case 'content':
-        return <ContentCreator key="content" />;
-      case 'socials':
-        return <Socials key="socials" />;
-      default:
-        return <Home key="home" setActiveTab={setActiveTab} />;
-    }
-  };
-
-  // Page Transition Animations (Minimalist snappy fade)
-  const pageVariants = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 }
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="app-container">
-      {/* Navigation */}
-      <Navbar 
-        activeTab={activeTab} 
-        setActiveTab={setActiveTab} 
-        theme={theme} 
-        toggleTheme={toggleTheme} 
-      />
+    <div className="site-wrapper">
+      {/* Navigation Header */}
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
 
-      {/* Main View Shell with animated transitions */}
-      <main style={{ flexGrow: 1 }}>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            variants={pageVariants}
-            transition={{ duration: 0.15, ease: "easeOut" }}
-          >
-            {renderContent()}
-          </motion.div>
-        </AnimatePresence>
+      {/* Main Content Sections */}
+      <main className="main-content">
+        <Home />
+        <About />
+        <Projects />
+        <Skills />
+        <ContentCreator />
+        <Socials />
       </main>
 
-      {/* Unified Footer */}
-      <footer className="footer">
-        <div className="container">
-          <p className="footer-text">
-            &copy; {new Date().getFullYear()} Varizky Naldiba Rimra. All rights reserved.
-          </p>
+      {/* Modern Footer */}
+      <footer className="site-footer">
+        <div className="container footer-container">
+          <div className="footer-left">
+            <span className="footer-brand">Varizky Naldiba Rimra</span>
+            <p className="footer-subtext">
+              Informatics Engineering — Politeknik Negeri Malang (Polinema). Applied Machine Learning & IoT Systems.
+            </p>
+          </div>
+
+          <div className="footer-right">
+            <p className="footer-copyright">
+              &copy; {new Date().getFullYear()} Varizky Naldiba Rimra. All rights reserved.
+            </p>
+            <button 
+              onClick={scrollToTop} 
+              className="btn-back-to-top"
+              aria-label="Scroll back to top"
+            >
+              <span>Back to Top</span>
+              <ArrowUp size={14} />
+            </button>
+          </div>
         </div>
       </footer>
     </div>

@@ -1,8 +1,6 @@
-import React from 'react';
+// Unified Brand SVGs based on standard stroke/fill specs
 
-// Custom Brand SVGs based on Lucide/Feather specs
-
-export const Github = ({ size = 24, ...props }) => (
+export const Github = ({ size = 20, ...props }) => (
   <svg 
     viewBox="0 0 24 24" 
     width={size} 
@@ -19,7 +17,7 @@ export const Github = ({ size = 24, ...props }) => (
   </svg>
 );
 
-export const Linkedin = ({ size = 24, ...props }) => (
+export const Linkedin = ({ size = 20, ...props }) => (
   <svg 
     viewBox="0 0 24 24" 
     width={size} 
@@ -37,7 +35,7 @@ export const Linkedin = ({ size = 24, ...props }) => (
   </svg>
 );
 
-export const Instagram = ({ size = 24, ...props }) => (
+export const Instagram = ({ size = 20, ...props }) => (
   <svg 
     viewBox="0 0 24 24" 
     width={size} 
@@ -55,7 +53,7 @@ export const Instagram = ({ size = 24, ...props }) => (
   </svg>
 );
 
-export const Twitter = ({ size = 24, ...props }) => (
+export const Twitter = ({ size = 20, ...props }) => (
   <svg 
     viewBox="0 0 24 24" 
     width={size} 
@@ -71,7 +69,7 @@ export const Twitter = ({ size = 24, ...props }) => (
   </svg>
 );
 
-export const Facebook = ({ size = 24, ...props }) => (
+export const Facebook = ({ size = 20, ...props }) => (
   <svg 
     viewBox="0 0 24 24" 
     width={size} 
@@ -84,5 +82,36 @@ export const Facebook = ({ size = 24, ...props }) => (
     {...props}
   >
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+export const TikTok = ({ size = 20, ...props }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    width={size} 
+    height={size} 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    {...props}
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
+
+export const Bilibili = ({ size = 20, ...props }) => (
+  <svg 
+    viewBox="0 0 64 64" 
+    width={size} 
+    height={size} 
+    fill="currentColor" 
+    {...props}
+  >
+    <path d="M54 22.8c.8 0 1.5.7 1.5 1.5v20.4c0 .8-.7 1.5-1.5 1.5H10c-.8 0-1.5-.7-1.5-1.5V24.3c0-.8.7-1.5 1.5-1.5h44m0-3H10C7.2 19.8 5 22 5 24.8v20.4C5 48 7.2 50.2 10 50.2h44c2.8 0 5-2.2 5-5V24.8c0-2.8-2.2-5-5-5z" />
+    <path d="M19.1 10.4l8.3 8.3-2.1 2.1-8.3-8.3zM44.9 10.4l2.1 2.1-8.3 8.3-2.1-2.1z" />
+    <path d="M21 29.5h6v4.5h-6zM37 29.5h6v4.5h-6z" />
+    <path d="M26 39.5c6 3 12 0 12 0" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" />
   </svg>
 );

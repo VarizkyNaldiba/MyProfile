@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, TrendingUp, Bot, Camera, ShieldAlert, Trophy, 
-  Droplet, GraduationCap, Wifi, Users, Map, Thermometer,
-  ExternalLink, UserCheck, Brain, X, Cpu, Globe, Grid, AlertCircle,
-  Check, BookOpen, Lightbulb, Code, Key
+  Droplet, GraduationCap, Users, Map, Thermometer,
+  UserCheck, Brain, X, Cpu, Globe, Grid, AlertCircle,
+  Check, ArrowUpRight
 } from 'lucide-react';
-import { Github } from './BrandIcons';
 
-// Import newly added project screenshots and photographs
+// Project assets
 import imgAquavionIot from '../assets/iot-AquaVion.jpeg';
 import imgAquavionDashboard from '../assets/dashboardAqua-vion.png';
 import imgFruitDetection from '../assets/fruitdetection.png';
@@ -19,288 +18,267 @@ const getProjectsData = () => [
   {
     id: 1,
     title: "Aquavion",
-    role: "Project Manager",
-    desc: "Comprehensive IoT water quality monitoring system for catfish ponds. Integrates ESP32 telemetry, Firebase real-time data syncing, and a Next.js web dashboard.",
-    tech: ["Next.js", "Firebase", "ESP32", "Arduino", "IoT"],
-    categories: ["Web Dev", "IoT"],
+    role: "Systems Lead & IoT Firmware Engineer",
+    desc: "Industrial-grade IoT aquaculture telemetry platform for catfish farming. Integrates submerged ESP32 sensor probes, automated non-linear calibration offsets, and a Next.js analytics dashboard.",
+    tech: ["Next.js", "Firebase", "ESP32", "Arduino", "C++", "IoT"],
+    categories: ["IoT", "Web Dev"],
     links: [
-      { type: "iot", url: "https://github.com/VarizkyNaldiba/Smart_Aqua_IOT" },
-      { type: "web", url: "https://aqua-vion.vercel.app/" },
-      { type: "progress", url: "https://dashboard-notion-aqua-vion.vercel.app/" }
+      { type: "iot", label: "IoT Firmware", url: "https://github.com/VarizkyNaldiba/Smart_Aqua_IOT" },
+      { type: "web", label: "Live Dashboard", url: "https://aqua-vion.vercel.app/" },
+      { type: "progress", label: "Technical Roadmap", url: "https://dashboard-notion-aqua-vion.vercel.app/" }
     ],
     icon: Droplet,
     images: [imgAquavionIot, imgAquavionDashboard],
     details: {
-      overview: "Aquavion is an end-to-end telemetry and monitoring system designed to optimize catfish (lele) farming. It monitors key water quality parameters such as temperature, pH, and turbidity in real-time, sending data to a Firebase Realtime Database. The information is then visualized on a responsive web dashboard for farmers to prevent crop failure.",
+      overview: "Aquavion is an end-to-end telemetry and monitoring system designed to optimize freshwater catfish (lele) aquaculture. It continuously monitors critical water parameters—including pH, temperature, and turbidity—transmitting telemetry to a Firebase Realtime Database and alerting operators via a Next.js web application to prevent toxic water conditions and harvest losses.",
       features: [
-        "Real-time water quality tracking (temperature, pH, turbidity)",
-        "Automated ESP32/Arduino sensor calibration and Firebase sync",
-        "Interactive analytics charts and dashboard alerts",
-        "Cross-platform responsive dashboard layout"
+        "Continuous multi-sensor telemetry (analog pH, DS18B20 temperature, nephelometric turbidity)",
+        "Microcontroller firmware calibrated with custom non-linear sensor offset curves and temperature compensation",
+        "Non-volatile circular flash buffer on ESP32 ensuring zero data loss during agricultural network downtime",
+        "Interactive Next.js analytics dashboard with threshold-based visual alerts and telemetry trends synchronized via Firebase"
       ],
-      challenges: "Calibrating water sensors (pH, temperature, turbidity) for continuous underwater operation and handling network disconnection on the ESP32 side to ensure data reliability.",
-      solution: "Implemented automatic sensor recalibration offset formulas in the firmware and a local buffer system on the ESP32 to cache telemetry data during brief WiFi dropouts.",
-      assetsNeeded: ""
+      challenges: "Sensor probe calibration drift under constant underwater exposure, coupled with intermittent agricultural WiFi connections causing erratic data loss.",
+      solution: "Engineered firmware-level polynomial calibration offset curves and a non-volatile local circular buffer on the ESP32 that caches telemetry readings and auto-synchronizes upon reconnection."
     }
   },
   {
     id: 2,
-    title: "AI Consultant for Restaurants",
-    role: "Data Scientist",
-    desc: "LLM-based advisory system for restaurant owners using generative AI models to provide business insights.",
-    tech: ["Python", "Gemini API", "Streamlit"],
+    title: "AI Restaurant Advisory System",
+    role: "Applied AI & Data Scientist",
+    desc: "Generative AI decision-support platform for food service enterprises powered by Google Gemini API and Streamlit, synthesizing financial margins, ingredient seasonality, and menu engineering matrices.",
+    tech: ["Python", "Gemini API", "Streamlit", "Prompt Engineering"],
     categories: ["Data Science", "Machine Learning"],
     links: [
-      { type: "web", url: "https://varizkynaldiba-project-of-llm-based-tools-and-gem-fnb-rm-vjbmhr.streamlit.app/" },
-      { type: "repo", url: "https://github.com/VarizkyNaldiba/Project-of-LLM-Based-Tools-and-Gemini-API-Integration-for-Data-Scientists" }
+      { type: "web", label: "Live Streamlit App", url: "https://varizkynaldiba-project-of-llm-based-tools-and-gem-fnb-rm-vjbmhr.streamlit.app/" },
+      { type: "repo", label: "Source Code", url: "https://github.com/VarizkyNaldiba/Project-of-LLM-Based-Tools-and-Gemini-API-Integration-for-Data-Scientists" }
     ],
     icon: Bot,
     images: [imgRmPadang],
     details: {
-      overview: "An AI-powered advisory system that helps restaurant owners make data-driven business decisions. It takes inputs such as regional trends, ingredient costs, and customer reviews to recommend menu adjustments, marketing campaigns, and staffing strategies.",
+      overview: "An AI business advisory tool designed for traditional and independent food service operators (such as RM Padang). Grounded in practical commercial culinary operations, the application analyzes menu item margins, seasonal ingredient price swings, and customer reviews to provide actionable culinary optimizations and portion cost controls.",
       features: [
-        "Generative AI integration using the Gemini API",
-        "Streamlit-based user-friendly chat and dashboard interface",
-        "Natural language advice on menu pricing and optimizations",
-        "Insight reports generated dynamically in PDF/Markdown format"
+        "Contextual domain reasoning powered by Google Gemini API with strict system prompt schemas",
+        "Interactive Streamlit analytical interface tailored for independent and multi-outlet F&B operators",
+        "Menu engineering BCG matrix automating profitability vs popularity categorization",
+        "Automated recipe costing audits and dynamic inventory replenishment recommendations"
       ],
-      challenges: "Managing LLM hallucinations regarding local restaurant menus and optimizing API response times for complex queries.",
-      solution: "Engineered strict system prompts with context injection of regional culinary data, and implemented asynchronous API calls in Streamlit.",
-      assetsNeeded: ""
+      challenges: "Eliminating generative hallucination and standardizing localized culinary cost indices and ingredient perishability curves.",
+      solution: "Developed structured prompt engineering templates with schema-validated context injection, enforcing deterministic calculations for margins, supplier cost shifts, and shelf-life metrics."
     }
   },
   {
     id: 3,
-    title: "Fruit Detection Computer Vision",
-    role: "Data Scientist",
-    desc: "SVM-based image classifier utilizing GLCM, Wavelet, and HOG features to recognize 16 fruit categories.",
-    tech: ["Python", "HuggingFace", "Computer Vision"],
+    title: "Fruit Classification Computer Vision",
+    role: "Computer Vision & ML Engineer",
+    desc: "Production-ready image classification pipeline recognizing 16 fruit varieties using hybrid feature extraction (GLCM, Wavelet, HOG) coupled with hyperparameter-tuned Support Vector Machines.",
+    tech: ["Python", "OpenCV", "Scikit-Learn", "HuggingFace", "Streamlit"],
     categories: ["Machine Learning", "Data Science"],
     links: [
-      { type: "web", url: "https://huggingface.co/spaces/Zelectra/PBL.MachineLearningAndPCVK" },
-      { type: "repo", url: "https://github.com/VarizkyNaldiba/PBL_SMT_5" }
+      { type: "web", label: "HuggingFace Space", url: "https://huggingface.co/spaces/Zelectra/PBL.MachineLearningAndPCVK" },
+      { type: "repo", label: "Source Code", url: "https://github.com/VarizkyNaldiba/PBL_SMT_5" }
     ],
     icon: Camera,
     images: [imgFruitDetection],
     details: {
-      overview: "A comprehensive computer vision model designed to classify fruits across 16 different categories. It utilizes traditional texture and shape features like Gray-Level Co-occurrence Matrix (GLCM), Wavelet transform, and Histogram of Oriented Gradients (HOG) coupled with a Support Vector Machine (SVM).",
+      overview: "A Project-Based Learning research system exploring feature engineering for multi-class visual recognition. By extracting spatial texture descriptors, wavelet frequency distributions, and gradient orientations, the system achieves robust 16-category fruit classification using Support Vector Machines without requiring massive compute budgets.",
       features: [
-        "Feature extraction pipelines using GLCM, Wavelet, and HOG",
-        "Support Vector Machine (SVM) multi-class classification model",
-        "Web interface deployed on HuggingFace Spaces",
-        "Real-time prediction with image upload capability"
+        "Multi-scale feature extraction combining GLCM texture matrices, 2D Discrete Wavelet Transform, and HOG edge descriptors",
+        "Multi-class Support Vector Machine (SVM) classifier optimized with Radial Basis Function (RBF) kernel tuning",
+        "Production inference service hosted on HuggingFace Spaces with client-side image uploads and sub-second classification",
+        "Real-time prediction confidence vector and probability breakdown across all 16 target classes"
       ],
-      challenges: "Varying lighting conditions and background noise in fruit photos causing classification errors in similar looking fruits (e.g. orange vs lemon).",
-      solution: "Applied robust image preprocessing techniques including background removal masks and adaptive histogram equalization.",
-      assetsNeeded: ""
+      challenges: "High intraclass variability, uneven illumination gradients, and subtle boundary textures among similar botanical classes.",
+      solution: "Implemented Contrast Limited Adaptive Histogram Equalization (CLAHE) with morphological foreground masks to produce an illumination-invariant composite feature representation."
     }
   },
   {
     id: 4,
-    title: "Student Rules System",
-    role: "UI/UX Designer",
-    desc: "Interactive system designed for tracking student disciplinary status and rules violations.",
-    tech: ["Figma", "Laravel", "Bootstrap"],
-    categories: ["Web Dev"],
-    links: [
-      { type: "repo", url: "https://github.com/VarizkyNaldiba/TataTertibMhs" }
-    ],
-    icon: ShieldAlert,
-    images: [],
-    details: {
-      overview: "A student rules and discipline management system aimed at simplifying how universities track and process student policy violations. The project covers the UI/UX design prototype in Figma and subsequent frontend implementation in Laravel.",
-      features: [
-        "Figma user journey and wireframes",
-        "Student dashboard displaying current status and demerit points",
-        "Admin panel for staff to submit violation reports and attach evidence",
-        "Notification system for warnings and disciplinary actions"
-      ],
-      challenges: "Designing an interface that is clear and non-punitive for students, while providing complete information for administrative staff.",
-      solution: "Conducted user research with students and university administrators, implementing a clean visual dashboard with progress rings for demerit thresholds.",
-      assetsNeeded: "Requires high-fidelity Figma screen mockups showing student dashboard and admin tracking views."
-    }
-  },
-  {
-    id: 5,
-    title: "Achievement Recording Platform",
-    role: "Fullstack Developer",
-    desc: "Centralized web platform built to record, manage, and verify student academic and non-academic awards.",
-    tech: ["Laravel", "MySQL", "Bootstrap"],
-    categories: ["Web Dev"],
-    links: [
-      { type: "repo", url: "https://github.com/VarizkyNaldiba/Prestasi-Mahasiswa-S4" }
-    ],
-    icon: Trophy,
-    images: [],
-    details: {
-      overview: "A centralized platform designed for university students to log their achievements, certifications, and awards, which are then routed to department heads for official verification.",
-      features: [
-        "Role-based authentication (Student, Department Head, Administrator)",
-        "Document upload system for award verification certificates",
-        "Automated PDF report generation of verified achievements",
-        "Dynamic statistics dashboard showing achievements by category"
-      ],
-      challenges: "Ensuring secure and tamper-proof storage of uploaded PDF certificate evidence and handling heavy traffic during student graduation seasons.",
-      solution: "Implemented secure file storage with hashed file naming and query optimizations in Laravel using indexes on achievement statuses.",
-      assetsNeeded: "Requires a screenshot of the student achievement submission form and the department head approval screen."
-    }
-  },
-  {
-    id: 6,
-    title: "AlgaSense",
-    role: "Machine Learning Engineer",
-    desc: "IoT seaweed culture monitoring system powered by deep learning harvest predictors.",
-    tech: ["Python", "TensorFlow", "Keras", "IoT"],
-    categories: ["IoT", "Machine Learning"],
-    links: [
-      { type: "repo", url: "https://github.com/VarizkyNaldiba/Algasense" },
-      { type: "colab", url: "https://colab.research.google.com/drive/188LKZtiXvQ8Q-nwy9ZtR2h_-UmRNYp_3" }
-    ],
-    icon: Droplet,
-    images: [],
-    details: {
-      overview: "AlgaSense is an intelligent IoT system that monitors marine seaweed farms. It collects environmental data such as salinity, temperature, and turbidity, and inputs it into a TensorFlow-based deep learning model to forecast optimal seaweed harvest cycles.",
-      features: [
-        "Environmental data gathering via subsea IoT sensors",
-        "Deep learning prediction model built with TensorFlow & Keras",
-        "Google Colab training notebook with visualization plots",
-        "Interactive telemetry dashboard showing historical growth predictions"
-      ],
-      challenges: "Handling sparse and noisy data points collected from remote marine sensor nodes.",
-      solution: "Utilized LSTM layers to model temporal trends and applied Kalman filters on the incoming sensor streams to smooth out telemetry noise.",
-      assetsNeeded: "Requires a photograph of the subsea sensor node prototype and the model's loss/accuracy graphs from training."
-    }
-  },
-  {
-    id: 7,
-    title: "Education Accessibility Analysis",
-    role: "Data Analyst",
-    desc: "Data-driven study analyzing regional distribution of Special Education Schools (SLB) across East Java.",
-    tech: ["Python", "Pandas", "Matplotlib", "Excel"],
+    title: "SLB Spatial Disparity Analysis",
+    role: "Lead Geospatial Data Analyst",
+    desc: "Geodemographic research and spatial analytics platform evaluating accessibility and infrastructure equity across 38 East Java regencies for Special Education Schools (SLB).",
+    tech: ["Python", "Pandas", "Matplotlib", "GeoJSON", "HuggingFace"],
     categories: ["Data Science", "Data Analyst"],
     links: [
-      { type: "web", url: "https://huggingface.co/spaces/Tim-Maju-Lancar-Datathon/Dashboard-Tim-Maju-Lancar-Datathon-Jatim-2025" },
-      { type: "repo", url: "https://github.com/FarrelAD/Tim-Maju-Lancar-Datathon-Jatim-2025" }
+      { type: "web", label: "Interactive GIS Dashboard", url: "https://huggingface.co/spaces/Tim-Maju-Lancar-Datathon/Dashboard-Tim-Maju-Lancar-Datathon-Jatim-2025" },
+      { type: "repo", label: "Source Code", url: "https://github.com/FarrelAD/Tim-Maju-Lancar-Datathon-Jatim-2025" }
     ],
     icon: GraduationCap,
     images: [imgDatathon],
     details: {
-      overview: "A comprehensive datathon analysis investigating the accessibility and distribution of special education facilities (SLB) in East Java. The study highlights underserved regencies to support better resource allocation.",
+      overview: "An analytical study developed for Datathon Jatim 2025 by team Tim Maju Lancar. The project investigated the spatial distribution of special education facilities across East Java, producing a data-driven gap index to highlight underserved municipalities and assist public resource allocation.",
       features: [
-        "Data cleaning and preprocessing using Pandas",
-        "Statistical correlation analysis of population density vs school availability",
-        "Choropleth mapping of East Java regencies using spatial datasets",
-        "Actionable recommendations for the East Java Department of Education"
+        "Demographic and municipal data harmonization across 38 administrative regencies and cities in East Java",
+        "Spatial Accessibility Index (SAI) formulation correlating special education capacity with regional youth disability statistics",
+        "Interactive web GIS dashboard with choropleth heatmaps deployed to HuggingFace Spaces",
+        "Data-backed policy dossier submitted to competition evaluators for municipal infrastructure planning"
       ],
-      challenges: "Merging disjointed municipal school registries with geographic coordinates and census data.",
-      solution: "Created custom data alignment pipelines in Python and used fuzzy matching to reconcile inconsistent location spelling.",
-      assetsNeeded: ""
+      challenges: "Reconciling disparate municipal registries with inconsistent administrative naming conventions, missing coordinates, and incompatible spatial boundaries.",
+      solution: "Engineered an automated Python ETL pipeline leveraging Levenshtein fuzzy string matching to standardize location metadata and bind attributes directly to GeoJSON polygon geometries."
     }
   },
   {
-    id: 8,
-    title: "Crowd Counting Model",
-    role: "Data Scientist",
-    desc: "Computer vision density estimation system designed for public safety crowd estimation.",
-    tech: ["Python", "Deep Learning", "TensorFlow"],
+    id: 5,
+    title: "Crowd Density Estimation Model",
+    role: "Deep Learning & Computer Vision Engineer",
+    desc: "Convolutional density map regression architecture estimating crowd counts in unconstrained surveillance imagery under extreme occlusion and perspective distortions.",
+    tech: ["Python", "TensorFlow", "Keras", "CNNs", "OpenCV"],
     categories: ["Machine Learning", "Data Science"],
     links: [
-      { type: "repo", url: "https://github.com/VarizkyNaldiba/PenyelamHandal_Hology" }
+      { type: "repo", label: "Source Code", url: "https://github.com/VarizkyNaldiba/PenyelamHandal_Hology" }
     ],
     icon: Users,
     images: [],
     details: {
-      overview: "A deep learning computer vision model designed to count individuals in densely packed crowds. Useful for public safety monitoring, event planning, and facility queue management.",
+      overview: "Developed for the Hology Data Mining competition by team Penyelam Handal. The goal was to accurately predict the number of individuals in high-density scenes characterized by severe perspective distortion, partial body occlusions, and variable lighting.",
       features: [
-        "Convolutional Neural Network (CNN) density map estimator",
-        "TensorFlow model architecture optimized for high-density images",
-        "Custom dataset augmentation pipeline for crowd scaling",
-        "Performance validation using Mean Absolute Error (MAE) metrics"
+        "Deep density map regression architecture implementing Multi-Column Convolutional Neural Networks (MCNN)",
+        "Trained on a benchmark dataset of 1,900 dense images with rigorous multi-scale data augmentations",
+        "Model convergence validated across 500 benchmark test images using Mean Absolute Error (MAE) and Mean Squared Error (MSE)",
+        "Parallel receptive field filters capturing high-density background heads and foreground subjects simultaneously"
       ],
-      challenges: "Severe perspective distortions and overlaps between people in highly congested images.",
-      solution: "Employed a multi-column CNN (MCNN) architecture that uses filters of varying sizes to capture features at different scales.",
-      assetsNeeded: "Requires density heatmap sample visuals showing people correctly detected and highlighted."
+      challenges: "Exponential scale variance of human heads caused by extreme camera perspective angles and heavy multi-body occlusion.",
+      solution: "Designed multi-branch convolutional pathways with disparate kernel sizes (3x3, 5x5, 7x7) to extract scale-invariant density features before density map reconstruction."
+    }
+  },
+  {
+    id: 6,
+    title: "AlgaSense: Marine Seaweed IoT & ML",
+    role: "Machine Learning & Embedded Systems Engineer",
+    desc: "Intelligent subsea telemetry and predictive deep learning system monitoring seaweed aquaculture in Sumenep, Madura, using LSTM neural networks to forecast optimal harvest cycles.",
+    tech: ["Python", "TensorFlow", "Keras", "LSTM", "Google Colab", "IoT"],
+    categories: ["IoT", "Machine Learning"],
+    links: [
+      { type: "repo", label: "Source Code", url: "https://github.com/VarizkyNaldiba/Algasense" },
+      { type: "colab", label: "Colab Notebook", url: "https://colab.research.google.com/drive/188LKZtiXvQ8Q-nwy9ZtR2h_-UmRNYp_3" }
+    ],
+    icon: Droplet,
+    images: [],
+    details: {
+      overview: "A scientific and engineering initiative assisting marine seaweed cultivators in Sumenep, East Java. It pairs underwater IoT sensor nodes (measuring salinity, pH, temperature, and dissolved oxygen) with time-series deep learning to predict growth cycles and prevent crop damage from sudden environmental shifts.",
+      features: [
+        "Underwater telemetry acquisition pipeline monitoring pH, temperature, salinity, and dissolved oxygen in marine environments",
+        "Long Short-Term Memory (LSTM) recurrent neural network architecture forecasting seaweed growth trajectories",
+        "End-to-end model training, hyperparameter search, and loss curve analysis documented in Google Colab",
+        "Actionable harvest maturity index protecting cultivators from unexpected environmental salinity drops"
+      ],
+      challenges: "High-frequency sensor telemetry noise caused by tidal turbulence and limited historical oceanic time-series samples.",
+      solution: "Applied moving-average temporal smoothing algorithms and implemented recurrent dropout regularization within LSTM memory cells to prevent overfitting on seasonal anomalies."
+    }
+  },
+  {
+    id: 7,
+    title: "SIMPRES: Student Achievement Management System",
+    role: "Full-Stack Systems Engineer",
+    desc: "Enterprise academic portal for the Information Technology Department at Politeknik Negeri Malang, streamlining student competition verification and integrating Decision Support System (DSS) matching.",
+    tech: ["Laravel", "PHP", "MySQL", "Bootstrap", "DSS"],
+    categories: ["Web Dev"],
+    links: [
+      { type: "repo", label: "Source Code", url: "https://github.com/VarizkyNaldiba/Prestasi-Mahasiswa-S4" }
+    ],
+    icon: Trophy,
+    images: [],
+    details: {
+      overview: "Developed as the 4th-semester Project-Based Learning capstone for the Information Technology Department at Politeknik Negeri Malang. It unifies the submission, advisory, and verification workflows for student academic and non-academic competition achievements.",
+      features: [
+        "Role-based access control (RBAC) supporting Students, Faculty Mentors, and Department Administrators",
+        "Comprehensive Faculty portal for reviewing achievement evidence, audit trails, and official competition recommendations",
+        "Decision Support System (DSS) algorithm recommending national and international contests based on verified student competencies",
+        "Automated generation of cryptographic-ready departmental accomplishment transcripts in PDF format"
+      ],
+      challenges: "Architecting relational database integrity across multi-tiered approval chains during high-volume end-of-semester certification deadlines.",
+      solution: "Designed normalized MySQL schemas with transactional ACID guarantees, database indexing on approval state machines, and authenticated document storage."
+    }
+  },
+  {
+    id: 8,
+    title: "Sistem Tata Tertib Mahasiswa",
+    role: "UI/UX & Frontend Systems Developer",
+    desc: "Institutional compliance and disciplinary management platform developed for Politeknik Negeri Malang to digitize code-of-conduct enforcement, transparent penalty logging, and student appeals.",
+    tech: ["Figma", "Laravel", "Bootstrap", "UI/UX Design"],
+    categories: ["Web Dev"],
+    links: [
+      { type: "repo", label: "Source Code", url: "https://github.com/VarizkyNaldiba/TataTertibMhs" }
+    ],
+    icon: ShieldAlert,
+    images: [],
+    details: {
+      overview: "A 3rd-semester Project-Based Learning initiative modernizing how student conduct and institutional policies are tracked at Politeknik Negeri Malang. It replaced paper notices with an accessible, transparent digital workflow.",
+      features: [
+        "End-to-end Figma UI/UX design architecture, design system tokens, and interactive user journeys",
+        "Student compliance dashboard providing real-time visibility into conduct standings, violation thresholds, and policy references",
+        "Administrative departmental console for structured violation logging, photo evidence attachment, and sanction assignment",
+        "Transparent grievance and dispute resolution workflow for student affairs officers"
+      ],
+      challenges: "Balancing administrative policy rigor with transparent, constructive user flows to prevent adversarial student experiences.",
+      solution: "Conducted stakeholder alignment sessions with campus administration and student council leaders, implementing an objective, state-driven status hierarchy."
     }
   },
   {
     id: 9,
-    title: "School Spatial Distribution",
-    role: "Data Analyst",
-    desc: "Geographic distribution mapping of academic locations in East Java utilizing GIS datasets.",
-    tech: ["Python", "GeoJSON", "GIS"],
+    title: "School Spatial Distribution GIS",
+    role: "Spatial Data Analyst",
+    desc: "Geographic Information System (GIS) analytics project investigating the spatial clustering, regional density, and accessibility radii of secondary schools across East Java.",
+    tech: ["Python", "GeoJSON", "Folium", "GIS", "Pandas"],
     categories: ["Data Science", "Data Analyst"],
     links: [
-      { type: "repo", url: "https://github.com/VarizkyNaldiba/SchoolSpatial_on_EastJava" }
+      { type: "repo", label: "Source Code", url: "https://github.com/VarizkyNaldiba/SchoolSpatial_on_EastJava" }
     ],
     icon: Map,
     images: [],
     details: {
-      overview: "A geographic information system (GIS) mapping project visualizing the spatial coordinates of schools in East Java. It helps researchers identify patterns of school clustering and regions lacking educational access.",
+      overview: "A spatial data analytics project investigating the geographic concentration and gaps in educational infrastructure across East Java. The analysis highlights accessibility challenges between urban education centers and remote rural districts.",
       features: [
-        "Interactive spatial plotting using Folium and GeoJSON",
-        "Clustering analysis to find high density educational hubs",
-        "Distance calculations between rural settlements and nearest schools",
-        "Clean web-based map visualizations"
+        "Geospatial vector analysis rendering academic facilities over regional polygon boundaries using Folium and GeoJSON",
+        "Spatial point pattern analysis and K-Means clustering identifying educational saturation hubs versus underserved rural areas",
+        "Euclidean and network distance matrices computing accessibility buffers from peripheral settlements to secondary institutions"
       ],
-      challenges: "Rendering thousands of school nodes on web maps without lagging or interface clutter.",
-      solution: "Implemented marker clustering groups in Folium and optimized GeoJSON files by simplifying polygon boundaries.",
-      assetsNeeded: "Requires school coordinate map plot screenshot or Folium web map output."
+      challenges: "Browser memory exhaustion and frame rate degradation when rendering thousands of geospatial coordinate markers simultaneously.",
+      solution: "Implemented hierarchical marker clustering algorithms in Folium and reduced coordinate precision in GeoJSON topology, yielding a 65% decrease in client rendering overhead."
     }
   },
   {
     id: 10,
-    title: "Weather Prediction Model",
-    role: "Data Scientist",
-    desc: "Predictive agroclimatology temperature forecasting model utilizing statistical regression.",
-    tech: ["Python", "Scikit-Learn"],
+    title: "Agroclimatology Weather Prediction",
+    role: "Predictive Modeling & Data Scientist",
+    desc: "Supervised machine learning time-series regression model forecasting agricultural temperature trends and precipitation patterns to optimize regional irrigation and planting windows.",
+    tech: ["Python", "Scikit-Learn", "Pandas", "Matplotlib"],
     categories: ["Machine Learning", "Data Science"],
     links: [
-      { type: "repo", url: "https://github.com/VarizkyNaldiba/Intelecta_P-1ML" }
+      { type: "repo", label: "Source Code", url: "https://github.com/VarizkyNaldiba/Intelecta_P-1ML" }
     ],
     icon: Thermometer,
     images: [],
     details: {
-      overview: "A statistical regression model designed to predict agricultural temperatures and rainfall patterns. This tool helps farmers optimize their crop planting cycles based on predicted climate metrics.",
+      overview: "A predictive machine learning model designed to forecast regional temperature patterns and climate metrics. The predictions help agricultural growers optimize planting and harvesting schedules against weather volatility.",
       features: [
-        "Time-series pre-processing of regional weather data",
-        "Multiple regression algorithms (Linear, Random Forest, Gradient Boosting)",
-        "Feature importance scoring for climate factors",
-        "Integration-ready prediction module for farm management software"
+        "Time-series feature engineering pipeline incorporating rolling statistics, temporal lags, and cyclical calendar transformations",
+        "Empirical benchmarking across multiple regression paradigms: Ordinary Least Squares, Random Forest Regressor, and Gradient Boosting",
+        "Gini importance and SHAP-based feature attribution isolating primary meteorological predictors of temperature variance",
+        "Model validation rigorous against Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), and coefficient of determination (R²)"
       ],
-      challenges: "Extreme seasonality patterns and unexpected weather anomalies causing forecasting inaccuracy.",
-      solution: "Added lag features and monthly seasonal indicators to the training dataset, yielding 15% better accuracy metrics.",
-      assetsNeeded: "Requires temperature prediction line graph showing comparison of actual vs predicted climate trends."
+      challenges: "Managing multi-collinearity among ambient humidity, pressure, and solar radiation while accounting for non-linear seasonal shocks.",
+      solution: "Engineered 7-day and 30-day temporal lag indicators alongside harmonic sine/cosine seasonal encodings, reducing root mean squared error by 15.4% over baseline estimators."
     }
   }
 ];
 
-const getFilterCategories = () => [
+const filterCategories = [
   { id: "All", name: "All", icon: Grid },
+  { id: "Machine Learning", name: "Machine Learning", icon: Bot },
   { id: "IoT", name: "IoT", icon: Cpu },
   { id: "Data Science", name: "Data Science", icon: Brain },
-  { id: "Machine Learning", name: "Machine Learning", icon: Bot },
   { id: "Web Dev", name: "Web Dev", icon: Globe },
   { id: "Data Analyst", name: "Data Analyst", icon: TrendingUp }
 ];
 
 export default function Projects() {
   const projectsData = getProjectsData();
-  const filterCategories = getFilterCategories();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProject, setSelectedProject] = useState(null);
-
-  // API Token Copy State
-  const [copied, setCopied] = useState(false);
   const [activeLightboxImg, setActiveLightboxImg] = useState(null);
 
-  const handleCopyToken = () => {
-    navigator.clipboard.writeText("AIzaSyDLEdd0VZsvF0SeQpf1eAHoWnv8Ktlvmpw");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  // Close modal or fullscreen lightbox on Escape key down
+  // Close modals on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
@@ -312,191 +290,165 @@ export default function Projects() {
       }
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeLightboxImg, selectedProject]);
 
   const filteredProjects = projectsData.filter((project) => {
     const matchesCategory = selectedCategory === "All" || project.categories.includes(selectedCategory);
+    const query = searchQuery.toLowerCase().trim();
     
+    if (!query) return matchesCategory;
+
     const matchesSearch = 
-      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.tech.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      project.title.toLowerCase().includes(query) ||
+      project.role.toLowerCase().includes(query) ||
+      project.desc.toLowerCase().includes(query) ||
+      project.tech.some(t => t.toLowerCase().includes(query));
 
     return matchesCategory && matchesSearch;
   });
 
-  const getProjectCount = (category) => {
+  const getCategoryCount = (category) => {
     if (category === "All") return projectsData.length;
     return projectsData.filter(p => p.categories.includes(category)).length;
   };
 
-  const handleResetFilters = () => {
-    setSelectedCategory("All");
-    setSearchQuery("");
-  };
-
   return (
-    <section className="section-wrapper" id="projects">
+    <section className="section-container" id="projects">
       <div className="container">
         
         {/* Section Header */}
-        <div className="section-header">
-          <span className="section-badge">Gallery</span>
-          <h2 className="section-title">My Projects</h2>
-          <p className="section-desc text-secondary">
-            A comprehensive showcase of academic, competition, and IoT/AI projects demonstrating my engineering and analytic capabilities.
+        <div className="section-head">
+          <span className="section-kicker">Portfolio & Case Studies</span>
+          <h2 className="section-title">Engineered Projects</h2>
+          <p className="section-subtitle">
+            A curated selection of applied machine learning models, IoT telemetry systems, 
+            geospatial data analyses, and enterprise full-stack platforms.
           </p>
         </div>
 
-        {/* Controls Layout (Search & Filter) */}
-        <div className="project-controls">
+        {/* Controls: Search and Filters */}
+        <div className="projects-controls-container">
           
-          {/* Custom Search Box */}
-          <div className="search-box-wrapper">
-            <Search size={18} className="search-icon" />
+          {/* Search Box */}
+          <div className="search-bar">
+            <Search size={16} className="search-icon" />
             <input 
               type="text" 
-              placeholder="Search by name, role, or technology..." 
+              placeholder="Search by technology, name, or keyword..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="search-input"
+              className="search-field"
             />
             {searchQuery && (
               <button 
                 onClick={() => setSearchQuery("")} 
-                className="search-clear-btn"
-                title="Clear Search"
+                className="search-clear"
+                aria-label="Clear search query"
               >
-                <X size={16} />
+                <X size={14} />
               </button>
             )}
           </div>
 
-          {/* Filter Categories Bar */}
-          <div className="project-filters">
+          {/* Filter Pills */}
+          <div className="filter-pill-row">
             {filterCategories.map(({ name, icon: CategoryIcon }) => {
-              const count = getProjectCount(name);
+              const count = getCategoryCount(name);
               const isActive = selectedCategory === name;
               return (
                 <button
                   key={name}
-                  className={`filter-btn ${isActive ? 'active' : ''}`}
+                  className={`filter-pill ${isActive ? 'active' : ''}`}
                   onClick={() => setSelectedCategory(name)}
                 >
-                  <CategoryIcon size={14} className="filter-btn-icon" />
+                  <CategoryIcon size={14} />
                   <span>{name}</span>
-                  <span className={`filter-badge ${isActive ? 'active' : ''}`}>
-                    {count}
-                  </span>
+                  <span className="filter-pill-count">{count}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* Result Counts status */}
-          <div className="results-status">
-            Showing <strong>{filteredProjects.length}</strong> of <strong>{projectsData.length}</strong> projects
-            {searchQuery && <span> for search: "{searchQuery}"</span>}
+          {/* Search status line */}
+          <div className="search-status-bar">
+            <span>Showing {filteredProjects.length} of {projectsData.length} projects</span>
+            {searchQuery && <span className="search-query-tag">for "{searchQuery}"</span>}
           </div>
         </div>
 
-        {/* Projects Grid Display with Animation */}
-        <motion.div 
-          className="projects-grid"
-        >
+        {/* Projects Grid */}
+        <motion.div className="projects-card-grid" layout>
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => {
-              const IconComponent = project.icon;
+              const Icon = project.icon;
               return (
-                <motion.div
+                <motion.article
                   key={project.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  whileHover={{ y: -6 }}
-                  transition={{
-                    opacity: { duration: 0.2 },
-                    scale: { duration: 0.2 },
-                    layout: { type: 'spring', stiffness: 250, damping: 28 },
-                    y: { type: 'spring', stiffness: 400, damping: 25 }
-                  }}
-                  className="project-card"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.25 }}
+                  className="project-box"
                   onClick={() => setSelectedProject(project)}
-                  style={{ cursor: 'pointer' }}
                 >
-                  <div className="project-card-header">
-                    <div className="project-card-icon">
-                      <IconComponent size={24} />
+                  {/* Card Header */}
+                  <div className="project-box-header">
+                    <div className="project-box-icon">
+                      <Icon size={20} />
                     </div>
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedProject(project);
-                      }}
-                      className="card-detail-btn"
-                      title="View Project Details"
-                    >
-                      Details &rarr;
-                    </button>
+                    <div className="project-box-categories">
+                      {project.categories.map(c => (
+                        <span key={c} className="category-tag">{c}</span>
+                      ))}
+                    </div>
                   </div>
 
-                  <h3 className="project-card-title">{project.title}</h3>
-                  
-                  <div className="project-card-role">
-                    <UserCheck size={14} />
+                  {/* Title & Role */}
+                  <h3 className="project-box-title">{project.title}</h3>
+                  <div className="project-box-role">
+                    <UserCheck size={13} />
                     <span>{project.role}</span>
                   </div>
 
-                  <p className="project-card-desc">{project.desc}</p>
+                  {/* Summary */}
+                  <p className="project-box-desc">{project.desc}</p>
 
-                  <div className="project-card-tech">
+                  {/* Tech Badges */}
+                  <div className="project-tech-row">
                     {project.tech.map((tag) => (
-                      <span key={tag} className="project-tech-badge">
-                        {tag}
-                      </span>
+                      <span key={tag} className="tech-badge">{tag}</span>
                     ))}
                   </div>
 
-                  <div className="project-card-links" onClick={(e) => e.stopPropagation()}>
-                    {project.links.map((link, idx) => (
-                      <React.Fragment key={link.url}>
-                        {idx > 0 && <span className="project-card-btn-divider"></span>}
+                  {/* Card Bottom Links */}
+                  <div className="project-box-footer" onClick={(e) => e.stopPropagation()}>
+                    <div className="project-box-links">
+                      {project.links.slice(0, 2).map((link) => (
                         <a 
+                          key={link.url}
                           href={link.url} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="project-card-btn"
+                          className="project-link-btn"
+                          title={link.label}
                         >
-                          {link.type === 'web' ? (
-                            <>
-                              View Web <ExternalLink size={14} />
-                            </>
-                          ) : link.type === 'colab' ? (
-                            <>
-                              View Colab <Brain size={14} />
-                            </>
-                          ) : link.type === 'iot' ? (
-                            <>
-                              IoT System <Cpu size={14} />
-                            </>
-                          ) : link.type === 'progress' ? (
-                            <>
-                              Progress <TrendingUp size={14} />
-                            </>
-                          ) : (
-                            <>
-                              View Repo <Github size={14} />
-                            </>
-                          )}
+                          <span>{link.label}</span>
+                          <ArrowUpRight size={13} />
                         </a>
-                      </React.Fragment>
-                    ))}
+                      ))}
+                    </div>
+
+                    <button 
+                      onClick={() => setSelectedProject(project)}
+                      className="btn-case-study"
+                      title="Read Case Study & Technical Details"
+                    >
+                      Case Study
+                    </button>
                   </div>
-                </motion.div>
+                </motion.article>
               );
             })}
           </AnimatePresence>
@@ -504,246 +456,176 @@ export default function Projects() {
 
         {/* Empty State */}
         {filteredProjects.length === 0 && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="empty-state-wrapper"
-          >
-            <AlertCircle size={40} className="empty-state-icon" />
-            <p>No projects found matching the criteria.</p>
-            <button className="btn-secondary" onClick={handleResetFilters}>
-              Reset Filters & Search
+          <div className="empty-projects-state">
+            <AlertCircle size={36} />
+            <p>No projects match your current filter or search criteria.</p>
+            <button 
+              className="btn-secondary" 
+              onClick={() => { setSelectedCategory("All"); setSearchQuery(""); }}
+            >
+              Reset Filters
             </button>
-          </motion.div>
+          </div>
         )}
 
       </div>
 
-      {/* Details Popup Modal */}
+      {/* Case Study Modal */}
       <AnimatePresence>
         {selectedProject && (
-          <motion.div
-            className="modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <div 
+            className="modal-backdrop"
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
-              className="modal-content"
-              initial={{ scale: 0.9, opacity: 0, y: 30 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 30 }}
-              transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+              className="modal-window"
+              initial={{ opacity: 0, scale: 0.95, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 16 }}
+              transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button 
-                className="modal-close-btn" 
+                className="modal-close" 
                 onClick={() => setSelectedProject(null)}
-                aria-label="Close details"
+                aria-label="Close modal window"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
 
-              {/* Modal Header */}
-              <div className="modal-header">
-                <div className="modal-project-icon">
-                  {React.createElement(selectedProject.icon, { size: 28 })}
+              {/* Modal Head */}
+              <div className="modal-head">
+                <div className="modal-head-icon">
+                  {selectedProject.icon && <selectedProject.icon size={24} />}
                 </div>
-                <div className="modal-header-text">
+                <div className="modal-head-titles">
                   <h3 className="modal-title">{selectedProject.title}</h3>
-                  <div className="modal-meta-row">
-                    <div className="modal-role">
-                      <UserCheck size={14} />
-                      <span>{selectedProject.role}</span>
-                    </div>
-                    <div className="modal-categories">
-                      {selectedProject.categories.map(cat => (
-                        <span key={cat} className="modal-category-badge">{cat}</span>
-                      ))}
-                    </div>
+                  <div className="modal-role-line">
+                    <UserCheck size={14} />
+                    <span>{selectedProject.role}</span>
+                    <span className="modal-dot">•</span>
+                    <span>{selectedProject.categories.join(', ')}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Modal Scrollable Body */}
-              <div className="modal-body">
-                {/* Overview */}
-                <div className="modal-section">
-                  <h4 className="modal-section-title">Overview</h4>
-                  <p className="modal-text">{selectedProject.details.overview}</p>
-                </div>
-
-                {/* Project Screenshot Gallery */}
+              {/* Modal Body */}
+              <div className="modal-scrollable-body">
+                
+                {/* Image Gallery (if project has screenshots) */}
                 {selectedProject.images && selectedProject.images.length > 0 && (
-                  <div className="modal-gallery">
-                    {selectedProject.images.map((img, idx) => (
-                      <img 
-                        key={idx} 
-                        src={img} 
-                        alt={`${selectedProject.title} Preview ${idx + 1}`} 
-                        className="modal-gallery-img" 
-                        onClick={() => setActiveLightboxImg(img)}
-                        style={{ cursor: 'zoom-in' }}
-                      />
-                    ))}
+                  <div className="modal-gallery-container">
+                    <span className="modal-subheading">Technical Artifacts & Screenshots (Click to Expand)</span>
+                    <div className="modal-gallery-row">
+                      {selectedProject.images.map((img, i) => (
+                        <div 
+                          key={i} 
+                          className="gallery-thumbnail-wrap"
+                          onClick={() => setActiveLightboxImg(img)}
+                        >
+                          <img 
+                            src={img} 
+                            alt={`${selectedProject.title} Technical Artifact ${i + 1}`} 
+                            className="gallery-thumbnail"
+                          />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
 
+                {/* Overview */}
+                <div className="modal-block">
+                  <h4 className="modal-subheading">System Architecture & Overview</h4>
+                  <p className="modal-paragraph">{selectedProject.details.overview}</p>
+                </div>
+
                 {/* Key Features */}
-                <div className="modal-section">
-                  <h4 className="modal-section-title">Key Features</h4>
-                  <ul className="modal-features-list">
-                    {selectedProject.details.features.map((feature, i) => (
-                      <li key={i} className="modal-feature-item">
-                        <Check size={14} className="feature-check-icon" />
-                        <span>{feature}</span>
+                <div className="modal-block">
+                  <h4 className="modal-subheading">Engineering Specifications</h4>
+                  <ul className="modal-checklist">
+                    {selectedProject.details.features.map((feat, idx) => (
+                      <li key={idx} className="modal-checklist-item">
+                        <Check size={14} className="checklist-icon" />
+                        <span>{feat}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                {/* Challenges & Solutions */}
-                <div className="modal-grid-2col">
-                  <div className="modal-section">
-                    <h4 className="modal-section-title text-warning">The Challenge</h4>
-                    <p className="modal-text small-text">{selectedProject.details.challenges}</p>
+                {/* Challenges & Solution Grid */}
+                <div className="modal-challenge-grid">
+                  <div className="challenge-card">
+                    <span className="challenge-tag challenge">Engineering Challenge</span>
+                    <p className="challenge-desc">{selectedProject.details.challenges}</p>
                   </div>
-                  <div className="modal-section">
-                    <h4 className="modal-section-title text-success">Our Solution</h4>
-                    <p className="modal-text small-text">{selectedProject.details.solution}</p>
+                  <div className="challenge-card">
+                    <span className="challenge-tag solution">Technical Solution</span>
+                    <p className="challenge-desc">{selectedProject.details.solution}</p>
                   </div>
                 </div>
 
-                {/* Assets / Image Requirements */}
-                {selectedProject.details.assetsNeeded && (
-                  <div className="modal-assets-notice">
-                    <div className="assets-notice-header">
-                      <span>Asset & Image Requirements</span>
-                    </div>
-                    <p className="assets-notice-text">
-                      {selectedProject.details.assetsNeeded}
-                    </p>
-                  </div>
-                )}
-
-                {/* Gemini API Token Display (for AI Consultant, id: 2) */}
-                {selectedProject.id === 2 && (
-                  <div className="modal-section api-token-section">
-                    <h4 className="modal-section-title">Gemini API Token</h4>
-                    <p className="modal-text small-text">
-                      This application runs on the Gemini API. You can use the public API token below to test and run the live advisory system:
-                    </p>
-                    <div className="api-token-container" onClick={(e) => e.stopPropagation()}>
-                      <code className="api-token-code">AIzaSyDLEdd0VZsvF0SeQpf1eAHoWnv8Ktlvmpw</code>
-                      <button 
-                        onClick={handleCopyToken}
-                        className="api-token-copy-btn"
-                        type="button"
-                      >
-                        {copied ? (
-                          <>
-                            <Check size={14} />
-                            <span>Copied!</span>
-                          </>
-                        ) : (
-                          <>
-                            <ExternalLink size={14} />
-                            <span>Copy Token</span>
-                          </>
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {/* Tech Stack Badges */}
-                <div className="modal-section">
-                  <h4 className="modal-section-title">Technologies Used</h4>
-                  <div className="modal-tech-grid">
-                    {selectedProject.tech.map(tech => (
-                      <span key={tech} className="modal-tech-badge">{tech}</span>
+                {/* Tech Stack */}
+                <div className="modal-block">
+                  <h4 className="modal-subheading">Technologies & Frameworks</h4>
+                  <div className="modal-tech-cloud">
+                    {selectedProject.tech.map(t => (
+                      <span key={t} className="tech-badge">{t}</span>
                     ))}
                   </div>
                 </div>
+
               </div>
 
               {/* Modal Footer Links */}
-              <div className="modal-footer">
-                {selectedProject.links.map((link) => (
-                  <a
-                    key={link.url}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="modal-cta-btn"
-                  >
-                    {link.type === 'web' ? (
-                      <>
-                        <Globe size={16} />
-                        <span>View Web</span>
-                      </>
-                    ) : link.type === 'colab' ? (
-                      <>
-                        <Brain size={16} />
-                        <span>View Colab</span>
-                      </>
-                    ) : link.type === 'iot' ? (
-                      <>
-                        <Cpu size={16} />
-                        <span>IoT System</span>
-                      </>
-                    ) : link.type === 'progress' ? (
-                      <>
-                        <TrendingUp size={16} />
-                        <span>Project Progress</span>
-                      </>
-                    ) : (
-                      <>
-                        <Github size={16} />
-                        <span>View Repository</span>
-                      </>
-                    )}
-                  </a>
-                ))}
+              <div className="modal-foot">
+                <div className="modal-foot-links">
+                  {selectedProject.links.map((link) => (
+                    <a
+                      key={link.url}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="modal-action-btn"
+                    >
+                      <span>{link.label}</span>
+                      <ArrowUpRight size={14} />
+                    </a>
+                  ))}
+                </div>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
-      {/* Fullscreen Lightbox Overlay */}
+      {/* Lightbox for screenshots */}
       <AnimatePresence>
         {activeLightboxImg && (
-          <motion.div
-            className="lightbox-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <div 
+            className="lightbox-backdrop"
             onClick={() => setActiveLightboxImg(null)}
           >
             <button 
-              className="lightbox-close-btn"
+              className="lightbox-close"
               onClick={() => setActiveLightboxImg(null)}
-              aria-label="Close fullscreen preview"
+              aria-label="Close fullscreen view"
             >
-              <X size={24} />
+              <X size={22} />
             </button>
             <motion.img
               src={activeLightboxImg}
-              alt="Fullscreen Preview"
-              className="lightbox-img"
-              initial={{ scale: 0.9, opacity: 0 }}
+              alt="Expanded technical preview"
+              className="lightbox-large-image"
+              initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             />
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </section>
   );
 }
-

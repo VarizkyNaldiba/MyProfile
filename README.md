@@ -1,16 +1,43 @@
-# React + Vite
+# Varizky Naldiba Rimra — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal engineering portfolio showcasing applied machine learning models, IoT telemetry systems, geospatial analytics, and full-stack software applications.
 
-Currently, two official plugins are available:
+Built with **React 19**, **Vite**, **Framer Motion**, and **Lucide React**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Unified Flow Architecture**: Seamless navigation across sections (Hero, About, Projects, Skills, Creative, Contact) with smooth scrollspy tracking.
+- **Engineered Case Studies**: Detailed modal case studies for 10 academic and competition projects, highlighting real problem contexts, technical challenges, and engineered solutions.
+- **Interactive Lightbox**: Fullscreen preview modal for hardware prototypes, dashboards, and spatial analytics heatmaps.
+- **Real-Time Project Filtering & Search**: Instant categorical filtering and multi-attribute search across project names, roles, and tech stacks.
+- **Dual Theme Support**: Persistent Light and Dark mode with responsive contrast tokens and smooth transitions.
+- **Direct Resume & Contact Hub**: One-click email copy with visual feedback, PDF curriculum vitae download, and verified links to GitHub, LinkedIn, and community channels.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+- **Framework**: React 19, Vite
+- **Animations**: Framer Motion
+- **Icons**: Lucide React + Custom Brand SVGs
+- **Styling**: Tailored CSS design tokens (responsive, zero-dependency)
+
+---
+
+## 💻 Local Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start local dev server
+npm run dev
+
+# Run production build
+npm run build
+
+# Run linting check
+npm run lint
+```

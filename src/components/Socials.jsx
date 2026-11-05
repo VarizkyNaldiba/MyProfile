@@ -1,140 +1,157 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Mail, ArrowRight } from 'lucide-react';
-import { Facebook, Instagram, Github, Linkedin } from './BrandIcons';
-
-const TikTokIcon = () => (
-  <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
-  </svg>
-);
-
-const getSocialData = () => [
-  {
-    id: 1,
-    name: "Facebook",
-    desc: "Connect with me on Facebook for social updates and networking.",
-    url: "https://www.facebook.com/varizkynaldiba.rimra",
-    color: "#1877f2",
-    icon: Facebook,
-    actionText: "Visit Profile"
-  },
-  {
-    id: 2,
-    name: "TikTok",
-    desc: "Follow my TikTok channel for engaging and creative short videos.",
-    url: "https://www.tiktok.com/@oryzasatirva",
-    color: "#000000",
-    icon: TikTokIcon,
-    actionText: "Visit Profile"
-  },
-  {
-    id: 3,
-    name: "Instagram",
-    desc: "Check out my daily posts, study updates, and tech stories on Instagram.",
-    url: "https://www.instagram.com/v.naldiba/",
-    color: "#e4405f",
-    icon: Instagram,
-    actionText: "Visit Profile"
-  },
-  {
-    id: 4,
-    name: "GitHub",
-    desc: "Browse my repositories, check out source code, and inspect open-source contributions.",
-    url: "https://github.com/VarizkyNaldiba",
-    color: "#24292e",
-    icon: Github,
-    actionText: "Explore Projects"
-  },
-  {
-    id: 5,
-    name: "LinkedIn",
-    desc: "Connect with me professionally, read my career posts, and networking.",
-    url: "https://www.linkedin.com/in/varizkynaldiba/",
-    color: "#0077b5",
-    icon: Linkedin,
-    actionText: "Connect with Me"
-  },
-  {
-    id: 6,
-    name: "Email",
-    desc: "Send me an email for collaborations, questions, or project discussions.",
-    url: "mailto:varizky.naldiba@gmail.com",
-    color: "#ea4335",
-    icon: Mail,
-    actionText: "Send Email"
-  }
-];
+import { useState } from 'react';
+import { Mail, Check, Copy, FileText, ArrowUpRight } from 'lucide-react';
+import { Github, Linkedin, Instagram, Facebook, TikTok } from './BrandIcons';
 
 export default function Socials() {
-  const socialData = getSocialData();
+  const [copied, setCopied] = useState(false);
+  const emailAddress = "varizky.naldiba@gmail.com";
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.04 }
-    }
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(emailAddress);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2200);
   };
 
-  const cardVariants = {
-    hidden: { y: 6, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.3, ease: 'easeOut' }
+  const socialLinks = [
+    {
+      name: "GitHub",
+      handle: "@VarizkyNaldiba",
+      desc: "Production repositories, machine learning models, and embedded IoT firmware.",
+      url: "https://github.com/VarizkyNaldiba",
+      icon: Github
+    },
+    {
+      name: "LinkedIn",
+      handle: "varizkynaldiba",
+      desc: "Professional background, engineering credentials, and academic networking.",
+      url: "https://www.linkedin.com/in/varizkynaldiba/",
+      icon: Linkedin
+    },
+    {
+      name: "Instagram",
+      handle: "@v.naldiba",
+      desc: "Technical milestones, university research activities, and campus updates.",
+      url: "https://www.instagram.com/v.naldiba/",
+      icon: Instagram
+    },
+    {
+      name: "TikTok",
+      handle: "@oryzasatirva",
+      desc: "Short-form digital media, motion graphics video edits, and production showcase.",
+      url: "https://www.tiktok.com/@oryzasatirva",
+      icon: TikTok
+    },
+    {
+      name: "Facebook",
+      handle: "varizkynaldiba.rimra",
+      desc: "Professional network and regional alumni community.",
+      url: "https://www.facebook.com/varizkynaldiba.rimra",
+      icon: Facebook
     }
-  };
+  ];
 
   return (
-    <section className="section-wrapper" id="socials">
+    <section className="section-container" id="contact">
       <div className="container">
         
         {/* Section Header */}
-        <div className="section-header">
-          <span className="section-badge">Connect</span>
-          <h2 className="section-title">Let's Stay Connected</h2>
-          <p className="section-desc text-secondary">
-            Feel free to connect, collaborate, or reach out on any of these social platforms. I'm always open to discussing new ideas!
+        <div className="section-head">
+          <span className="section-kicker">Professional Inquiries</span>
+          <h2 className="section-title">Communication & Network</h2>
+          <p className="section-subtitle">
+            Available for software engineering roles, applied research initiatives, and technical collaborations. Direct inquiries are welcome.
           </p>
         </div>
 
-        {/* Social Cards Grid */}
-        <motion.div 
-          className="social-grid"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {socialData.map((social) => {
-            const IconComponent = social.icon;
+        {/* Primary Contact Action Hub */}
+        <div className="contact-hub-wrapper">
+          {/* Main Direct Email Card */}
+          <div className="contact-email-card">
+            <div className="email-card-icon">
+              <Mail size={24} />
+            </div>
+            <div className="email-card-text">
+              <span className="email-card-label">Primary Direct Email</span>
+              <span className="email-card-address">{emailAddress}</span>
+            </div>
+            <div className="email-card-buttons">
+              <button 
+                onClick={handleCopyEmail}
+                className="btn-copy-email"
+                type="button"
+                title="Copy email to clipboard"
+              >
+                {copied ? (
+                  <>
+                    <Check size={14} />
+                    <span>Copied to Clipboard</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={14} />
+                    <span>Copy Address</span>
+                  </>
+                )}
+              </button>
+
+              <a 
+                href={`mailto:${emailAddress}`}
+                className="btn-send-email"
+              >
+                <span>Compose Message</span>
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Resume Download Banner */}
+          <div className="resume-banner-card">
+            <div className="resume-banner-content">
+              <FileText size={22} className="resume-icon" />
+              <div>
+                <h4 className="resume-title">Curriculum Vitae / Professional Dossier</h4>
+                <p className="resume-desc">Comprehensive record of engineering projects, competition honors, academic credentials, and verified certifications.</p>
+              </div>
+            </div>
+            <a 
+              href="/Portofolio - Varizky Naldiba Rimra.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-download-resume"
+            >
+              <span>Download PDF</span>
+              <ArrowUpRight size={14} />
+            </a>
+          </div>
+        </div>
+
+        {/* Social Network Cards Grid */}
+        <div className="social-links-grid">
+          {socialLinks.map((item) => {
+            const Icon = item.icon;
             return (
-              <motion.a
-                key={social.id}
-                href={social.url}
+              <a 
+                key={item.name}
+                href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="social-card"
-                variants={cardVariants}
+                className="social-portal-card"
               >
-                <div 
-                  className="social-icon-wrapper" 
-                  style={{ backgroundColor: social.color }}
-                >
-                  <IconComponent size={28} />
+                <div className="social-portal-icon">
+                  <Icon size={18} />
                 </div>
-
-                <h3 className="social-card-title">{social.name}</h3>
-                <p className="social-card-desc">{social.desc}</p>
-
-                <div className="social-card-action">
-                  <span>{social.actionText}</span>
-                  <ArrowRight size={14} />
+                <div className="social-portal-content">
+                  <div className="social-portal-top">
+                    <span className="social-portal-name">{item.name}</span>
+                    <ArrowUpRight size={13} className="portal-arrow" />
+                  </div>
+                  <span className="social-portal-handle">{item.handle}</span>
+                  <p className="social-portal-desc">{item.desc}</p>
                 </div>
-              </motion.a>
+              </a>
             );
           })}
-        </motion.div>
+        </div>
 
       </div>
     </section>

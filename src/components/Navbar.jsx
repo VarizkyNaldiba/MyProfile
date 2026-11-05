@@ -1,77 +1,157 @@
-import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Menu, X, FolderGit2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Sun, Moon, Menu, X, FileText, ArrowUpRight } from 'lucide-react';
 
-export default function Navbar({ activeTab, setActiveTab, theme, toggleTheme }) {
+export default function Navbar({ theme, toggleTheme }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
+      setScrolled(window.scrollY > 20);
+
+      // Section tracking
+      const sections = ['home', 'about', 'projects', 'skills', 'creative', 'contact'];
+      const scrollPos = window.scrollY + 120;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i]);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveSection(sections[i]);
+          break;
+        }
       }
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navItems = [
-    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
     { id: 'projects', label: 'Projects' },
-    { id: 'content', label: 'Content Creator' },
-    { id: 'socials', label: 'Social Media' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'creative', label: 'Media' },
+    { id: 'contact', label: 'Contact' },
   ];
 
-  const handleNavClick = (id) => {
-    setActiveTab(id);
+  const handleNavClick = (e, id) => {
+    e.preventDefault();
     setMobileMenuOpen(false);
-    // Smooth scroll to top when changing tab
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const targetEl = document.getElementById(id);
+    if (targetEl) {
+      const navOffset = 80;
+      const targetPos = targetEl.getBoundingClientRect().top + window.scrollY - navOffset;
+      window.scrollTo({ top: targetPos, behavior: 'smooth' });
+    }
   };
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <a href="#home" className="nav-brand" onClick={(e) => { e.preventDefault(); handleNavClick('home'); }}>
-        <FolderGit2 size={22} className="brand-accent" />
-        <span>Porto<span className="brand-accent">folio</span></span>
-      </a>
-
-      {/* Desktop Menu */}
-      <ul className={`nav-menu ${mobileMenuOpen ? 'open' : ''}`}>
-        {navItems.map((item) => (
-          <li key={item.id}>
-            <a
-              className={`nav-link ${activeTab === item.id ? 'active' : ''}`}
-              onClick={() => handleNavClick(item.id)}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-
-      <div className="nav-actions">
-        {/* Theme Toggle Button */}
-        <button
-          onClick={toggleTheme}
-          className="theme-toggle-btn"
-          aria-label="Toggle Theme"
-          title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+    <header className={`navbar-header ${scrolled ? 'scrolled' : ''}`}>
+      <div className="navbar-container">
+        {/* Brand */}
+        <a 
+          href="#home" 
+          className="navbar-brand" 
+          onClick={(e) => handleNavClick(e, 'home')}
         >
-          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-        </button>
+          <span className="brand-monogram">VR</span>
+          <span className="brand-name">
+            Varizky Rimra
+            <span className="brand-badge">Polinema TI</span>
+          </span>
+        </a>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="mobile-menu-toggle"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle Menu"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Desktop Navigation */}
+        <nav className="desktop-nav">
+          <ul className="nav-links">
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
+                  onClick={(e) => handleNavClick(e, item.id)}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Right side actions */}
+        <div className="navbar-actions">
+          {/* Resume link */}
+          <a
+            href="/Portofolio - Varizky Naldiba Rimra.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-resume"
+            title="Download PDF Curriculum Vitae"
+          >
+            <FileText size={15} />
+            <span className="btn-resume-text">CV / Resume</span>
+            <ArrowUpRight size={13} className="btn-resume-arrow" />
+          </a>
+
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            className="theme-toggle"
+            aria-label="Toggle Color Theme"
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+          </button>
+
+          {/* Mobile menu button */}
+          <button
+            className="mobile-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
-    </nav>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div className="mobile-drawer">
+          <ul className="mobile-nav-links">
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className={`mobile-nav-link ${activeSection === item.id ? 'active' : ''}`}
+                  onClick={(e) => handleNavClick(e, item.id)}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a
+                href="/Portofolio - Varizky Naldiba Rimra.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mobile-resume-link"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <FileText size={16} />
+                <span>Download Curriculum Vitae (PDF)</span>
+                <ArrowUpRight size={14} />
+              </a>
+            </li>
+          </ul>
+        </div>
+      )}
+    </header>
   );
 }
