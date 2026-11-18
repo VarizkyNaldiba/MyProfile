@@ -72,6 +72,7 @@ export default function TomDeKoningCarousel() {
   const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
   const [cursorVisible, setCursorVisible] = useState(false);
 
+  const sectionRef = useRef(null);
   const trackRef = useRef(null);
   const isProgrammaticScroll = useRef(false);
   const scrollTimeoutRef = useRef(null);
@@ -143,22 +144,42 @@ export default function TomDeKoningCarousel() {
 
   // Horizontal mouse-wheel support via Shift + Scroll & horizontal gestures
   useEffect(() => {
+    const section = sectionRef.current;
     const track = trackRef.current;
-    if (!track) return;
+    if (!section || !track) return;
 
     const onWheel = (e) => {
-      // Shift + vertical wheel scroll OR native horizontal wheel/trackpad swipe
-      if (e.shiftKey && Math.abs(e.deltaY) > 0) {
+      // Normalize wheel delta across deltaMode (0: pixels, 1: lines, 2: pages)
+      const lineMultiplier = 40;
+      const pageMultiplier = 800;
+      let dx = e.deltaX;
+      let dy = e.deltaY;
+
+      if (e.deltaMode === 1) {
+        dx *= lineMultiplier;
+        dy *= lineMultiplier;
+      } else if (e.deltaMode === 2) {
+        dx *= pageMultiplier;
+        dy *= pageMultiplier;
+      }
+
+      // 1. Shift key is held: map vertical or horizontal wheel to sideways carousel movement
+      if (e.shiftKey) {
+        // Chromium Windows maps Shift+Wheel to dx; Firefox/macOS may use dy
+        const scrollDelta = Math.abs(dx) >= Math.abs(dy) ? dx : dy;
+        if (Math.abs(scrollDelta) > 0) {
+          e.preventDefault();
+          track.scrollLeft += scrollDelta * 1.35;
+        }
+      } else if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 0) {
+        // 2. Native horizontal gestures (touchpad swipe or mouse horizontal tilt wheel)
         e.preventDefault();
-        track.scrollLeft += e.deltaY;
-      } else if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 0) {
-        e.preventDefault();
-        track.scrollLeft += e.deltaX;
+        track.scrollLeft += dx * 1.35;
       }
     };
 
-    track.addEventListener('wheel', onWheel, { passive: false });
-    return () => track.removeEventListener('wheel', onWheel);
+    section.addEventListener('wheel', onWheel, { passive: false });
+    return () => section.removeEventListener('wheel', onWheel);
   }, []);
 
   const handleMouseMove = (e) => {
@@ -225,7 +246,7 @@ export default function TomDeKoningCarousel() {
   };
 
   return (
-    <section className="section-padding carousel-section" id="projects">
+    <section ref={sectionRef} className="section-padding carousel-section" id="projects">
       {/* Floating magnetic cursor (VIEW SPECS pill) */}
       {cursorVisible && !selectedProject && (
         <div 

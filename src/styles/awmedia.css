@@ -812,11 +812,13 @@ body {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   overflow-x: auto;
-  scroll-snap-type: x proximity;
+  overflow-y: hidden;
   scrollbar-width: none;
   cursor: default;
   padding: 1.5rem 0 2.5rem 0;
   user-select: none;
+  scroll-behavior: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .carousel-track-outer::-webkit-scrollbar {
@@ -956,7 +958,6 @@ body {
 .carousel-project-card {
   width: clamp(380px, 28vw, 520px);
   flex-shrink: 0;
-  scroll-snap-align: start;
   background: var(--bg-glass);
   backdrop-filter: blur(20px);
   border: 1px solid var(--border-subtle);
