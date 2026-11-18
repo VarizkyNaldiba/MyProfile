@@ -1,0 +1,135 @@
+---
+import { ArrowRight, FileText, Mail, MapPin, Award, Layers, GraduationCap } from 'lucide-react';
+import { Github, Linkedin, Instagram } from './BrandIcons';
+---
+
+<section class="hero-section" id="home">
+  <div class="container">
+    <div class="hero-grid">
+      
+      {/* Left Column: Hero Narrative & CTA */}
+      <div class="hero-content">
+        
+        {/* Pulsing Status Pill */}
+        <div class="hero-status-pill">
+          <span class="pulse-dot"></span>
+          <span>Open to Software & ML Engineering Opportunities</span>
+        </div>
+
+        {/* Executive Headline */}
+        <h1 class="hero-title">Varizky Naldiba Rimra</h1>
+
+        <div class="hero-role">
+          <span>Applied Machine Learning</span>
+          <span class="sep">/</span>
+          <span>IoT Systems Engineer</span>
+        </div>
+
+        {/* Location & Academic Tag */}
+        <div class="hero-meta-row" style="margin-bottom: 1.5rem; border: none; padding: 0;">
+          <div class="meta-item">
+            <MapPin size={15} color="var(--accent-cyan)" />
+            <span>Malang, Jawa Timur, Indonesia</span>
+          </div>
+          <span style="color: var(--text-muted)">•</span>
+          <div class="meta-item">
+            <GraduationCap size={15} color="var(--accent-blue)" />
+            <span>Politeknik Negeri Malang (Polinema)</span>
+          </div>
+        </div>
+
+        {/* Bio Copy */}
+        <p class="hero-bio">
+          Informatics Engineer (D4 Teknik Informatika Polinema) dengan spesialisasi rekayasa hulu-ke-hilir: 
+          dari kalibrasi sensor telemetri mikrokontroler (ESP32) dan komputasi edge, 
+          hingga pemodelan deep learning (Computer Vision / MCNN / LSTM) dan pengembangan platform enterprise.
+        </p>
+
+        {/* Action Buttons Row */}
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">
+            <span>Explore 13 Projects</span>
+            <ArrowRight size={16} />
+          </a>
+
+          <a 
+            href="/CV - Varizky Naldiba Rimra.pdf" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn btn-glass"
+            title="Download Curriculum Vitae (PDF)"
+          >
+            <FileText size={16} />
+            <span>CV Dossier (PDF)</span>
+          </a>
+
+          <a 
+            href="/Portofolio - Varizky Naldiba Rimra.pdf" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn btn-glass"
+            title="Download Portfolio Presentation Deck (PDF)"
+          >
+            <FileText size={16} />
+            <span>Porto Deck (PDF)</span>
+          </a>
+
+          <a href="#contact" class="btn btn-ghost">
+            <Mail size={16} />
+            <span>Contact</span>
+          </a>
+        </div>
+
+        {/* Social Network Quick Row */}
+        <div class="hero-meta-row">
+          <span style="font-weight: 600; color: var(--text-secondary)">Verified Channels:</span>
+          <a href="https://github.com/VarizkyNaldiba" target="_blank" rel="noopener noreferrer" class="btn-ghost btn-sm" style="padding: 0.3rem 0.6rem;">
+            <Github size={16} />
+            <span>GitHub</span>
+          </a>
+          <a href="https://www.linkedin.com/in/varizkynaldiba/" target="_blank" rel="noopener noreferrer" class="btn-ghost btn-sm" style="padding: 0.3rem 0.6rem;">
+            <Linkedin size={16} />
+            <span>LinkedIn</span>
+          </a>
+          <a href="mailto:varizkynr@gmail.com" class="btn-ghost btn-sm" style="padding: 0.3rem 0.6rem;">
+            <Mail size={16} />
+            <span>varizkynr@gmail.com</span>
+          </a>
+        </div>
+
+      </div>
+
+      {/* Right Column: AW Media Framed Portrait Card */}
+      <div class="hero-portrait-col">
+        <div class="hero-portrait-card">
+          <div class="portrait-img-box">
+            <img 
+              src="/assets/image/saya.jpg" 
+              alt="Varizky Naldiba Rimra"
+              width="450"
+              height="450"
+              loading="eager"
+            />
+          </div>
+
+          {/* 3 Metric Chips */}
+          <div class="portrait-chips-grid">
+            <div class="stat-chip">
+              <span class="stat-chip-val">13</span>
+              <span class="stat-chip-lbl">Systems Built</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-chip-val" style="color: #fbbf24;">Harapan 2</span>
+              <span class="stat-chip-lbl">TFS 2026 LKTI</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-chip-val" style="color: var(--accent-cyan);">Polinema</span>
+              <span class="stat-chip-lbl">D4 TI Engineer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

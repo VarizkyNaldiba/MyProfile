@@ -1,0 +1,50 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Varizky Naldiba Rimra — Applied Machine Learning & IoT Systems Engineer",
+  description = "Informatics Engineer from Politeknik Negeri Malang (Polinema). Specializing in applied machine learning, computer vision, IoT telemetry firmware, and geospatial analytics."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Varizky Naldiba Rimra" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#060709" />
+
+    <!-- Open Graph / Meta -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://myprofile-nine-sigma.vercel.app/" />
+    <meta property="og:image" content="/assets/image/saya.jpg" />
+
+    <!-- Typography: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- AW Media & Tom de Koning System Styles -->
+    <link rel="stylesheet" href="/src/styles/awmedia.css" />
+  </head>
+  <body>
+    <!-- Ambient subtle background grid -->
+    <div class="bg-grid-mesh" aria-hidden="true"></div>
+
+    <div class="site-content">
+      <slot />
+    </div>
+  </body>
+</html>

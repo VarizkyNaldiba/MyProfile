@@ -1,0 +1,185 @@
+---
+import { BookOpen, Trophy, Award, CheckCircle, Cpu, Brain, Database, Utensils } from 'lucide-react';
+
+const pillars = [
+  {
+    icon: Cpu,
+    title: "Edge-to-Cloud Telemetry",
+    desc: "Merancang pipa telemetri dari mikrokontroler (ESP32/Arduino) dengan kalibrasi sensor non-linear, failover buffer sirkular pada flash memory, hingga sinkronisasi data real-time."
+  },
+  {
+    icon: Brain,
+    title: "Applied Computer Vision & ML",
+    desc: "Membangun arsitektur density map regression (MCNN/CSRNet) untuk crowd counting, model sekuensial LSTM untuk oseanografi, serta klasifikasi fitur visual hibrida (GLCM/HOG + SVM)."
+  },
+  {
+    icon: Database,
+    title: "Geospatial & Spatial Intelligence",
+    desc: "Mengolah dataset spasial kewilayahan ke dalam peta interaktif (WebGIS Leaflet & Folium) dan mengidentifikasi disparitas aksesibilitas infrastruktur pendidikan/bencana."
+  },
+  {
+    icon: Utensils,
+    title: "Operational Rigor & Discipline",
+    desc: "Latar belakang operasional kuliner komersial menanamkan ketahanan kerja di bawah tekanan tinggi, manajemen alur suplai, dan standar eksekusi ketat tanpa kompromi."
+  }
+];
+
+const honors = [
+  {
+    badge: "Juara Harapan 2 LKTI Nasional",
+    title: "Technology for Society (TFS) 2026 — CatfishCare",
+    sk: "SK Direktur Polinema No. 27881/PL2.3/KM/2026",
+    desc: "Otomasi aerasi dan sirkulasi kolam budidaya lele berbasis pemantauan parameter kimia air real-time."
+  },
+  {
+    badge: "Lolos Seleksi Tahap 2 Insentif",
+    title: "PKM-GFT POLINEMA 2026 — Smart Aquaculture Intelligence System (SAIS)",
+    sk: "SK No. 40/WADIR.III/KM/2026",
+    desc: "Konsep tata kelola akuakultur presisi berbasis digital twin dan simulasi prediktif multi-kolam."
+  },
+  {
+    badge: "Peringkat 18 / 82 (Skor 94.310)",
+    title: "Intelecta Cup 2025 — Agroclimatology Time-Series Weather Forecasting",
+    sk: "Leaderboard Kompetisi Nasional",
+    desc: "Prediksi curah hujan dan anomali cuaca ekstrem pertanian menggunakan regresi ensemble multi-variat."
+  },
+  {
+    badge: "Finalis Nasional LKTI",
+    title: "Technology for Society (TFS) 2025 — AlgaSense",
+    sk: "SK Direktur Polinema No. 16002/PL2.3/KM/2025",
+    desc: "Telemetri oseanografi bawah laut dan peramalan panen rumput laut menggunakan jaringan syaraf LSTM di Sumenep."
+  },
+  {
+    badge: "Peserta Resmi",
+    title: "Hology 8.0 (2025) Data Mining — Crowd Density Estimation",
+    sk: "Kompetisi Nasional Universitas Brawijaya",
+    desc: "Pengembangan regresi estimasi kerumunan manusia skala variabel berbasis Multi-Column CNN (MCNN)."
+  },
+  {
+    badge: "Peserta Resmi",
+    title: "Jatim Datathon 2025 — SLB Spatial Disparity Analysis",
+    sk: "Kompetisi Sains Data Jawa Timur",
+    desc: "Analisis disparitas spasial dan rasio aksesibilitas sekolah luar biasa di seluruh Jawa Timur."
+  }
+];
+---
+
+<section class="section-padding" id="about">
+  <div class="container">
+    
+    {/* Section Head */}
+    <div class="section-head">
+      <div class="kicker">Professional Background</div>
+      <h2 class="section-title">Engineering with Purpose & Rigor</h2>
+      <p class="section-subtitle">
+        Fondasi akademik D4 Teknik Informatika Politeknik Negeri Malang dipadukan dengan disiplin operasional lapangan untuk membangun sistem yang handal.
+      </p>
+    </div>
+
+    {/* Main Grid: Left Narrative + Right Verified Honors */}
+    <div class="about-grid">
+      
+      {/* Left Column: Narrative & Pillars */}
+      <div>
+        <div class="glass-card" style="margin-bottom: 2rem;">
+          <h3 style="font-size: 1.45rem; font-weight: 800; color: #fff; margin-bottom: 1rem; letter-spacing: -0.02em;">
+            Menjembatani Perangkat Keras Fisik, Data Spasial, dan Kecerdasan Buatan Terapan.
+          </h3>
+          <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            Saya merupakan mahasiswa <strong>D4 Teknik Informatika di Politeknik Negeri Malang (Polinema)</strong>. 
+            Prinsip rekayasa saya berakar pada <em>Project-Based Learning</em> dan pemecahan masalah konkret: 
+            mengkalibrasi sensor kimia air untuk pembudidaya lele dan rumput laut, memetakan risiko banjir 
+            DAS Brantas bersama BRIN, hingga merancang portal akademik terdesentralisasi.
+          </p>
+          <p style="color: var(--text-secondary); line-height: 1.7;">
+            Disiplin operasional di dapur komersial sebelum mendalami informatika membentuk cara kerja saya: 
+            selalu siap menangani kondisi kritis, menghargai toleransi kesalahan nol, dan memastikan setiap baris kode 
+            berfungsi optimal di lingkungan produksi.
+          </p>
+
+          {/* Education Callout */}
+          <div class="education-callout">
+            <div class="edu-icon-wrap">
+              <BookOpen size={22} />
+            </div>
+            <div>
+              <span style="display: block; font-size: 0.95rem; font-weight: 700; color: #fff;">
+                D4 Teknik Informatika (Informatics Engineering)
+              </span>
+              <span style="display: block; font-size: 0.82rem; color: var(--accent-cyan); margin-top: 0.2rem;">
+                Politeknik Negeri Malang (Polinema) · 2022 – Sekarang
+              </span>
+              <span style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">
+                Fokus: Kecerdasan Buatan Terapan, Telemetri IoT, Sistem Informasi & WebGIS
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* 4 Core Pillars */}
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
+          {pillars.map((p, idx) => {
+            const Icon = p.icon;
+            return (
+              <div key={idx} class="glass-card" style="padding: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.85rem;">
+                  <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.25); display: flex; align-items: center; justify-content: center; color: var(--accent-blue);">
+                    <Icon size={16} />
+                  </div>
+                  <h4 style="font-size: 0.95rem; font-weight: 700; color: #fff;">{p.title}</h4>
+                </div>
+                <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+                  {p.desc}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Right Column: Verified Competition Honors & SK */}
+      <div>
+        <div class="glass-card">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); display: flex; align-items: center; justify-content: center; color: #fbbf24;">
+              <Trophy size={18} />
+            </div>
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff;">Prestasi & Rekam Jejak Terverifikasi</h3>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Didukung dokumen SK resmi dan sertifikat nasional</span>
+            </div>
+          </div>
+
+          <div class="honors-list">
+            {honors.map((h, idx) => (
+              <div key={idx} class="honor-item">
+                <div class="honor-badge-icon">
+                  <Award size={16} />
+                </div>
+                <div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+                    <span style="font-size: 0.72rem; font-weight: 700; color: #fbbf24; background: rgba(245, 158, 11, 0.12); padding: 0.2rem 0.55rem; border-radius: 9999px; border: 1px solid rgba(245, 158, 11, 0.3);">
+                      {h.badge}
+                    </span>
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">
+                      {h.sk}
+                    </span>
+                  </div>
+                  <h4 style="font-size: 0.92rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem;">
+                    {h.title}
+                  </h4>
+                  <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+                    {h.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

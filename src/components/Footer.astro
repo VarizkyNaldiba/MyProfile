@@ -1,0 +1,33 @@
+---
+import { ArrowUp } from 'lucide-react';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <span style="font-size: 1.15rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; display: block; margin-bottom: 0.35rem;">
+          Varizky Naldiba Rimra
+        </span>
+        <p style="font-size: 0.84rem; color: var(--text-muted); max-width: 550px; line-height: 1.5;">
+          D4 Teknik Informatika — Politeknik Negeri Malang (Polinema). Rekayasa Machine Learning Terapan, Telemetri IoT & WebGIS.
+        </p>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 1.25rem;">
+        <span style="font-size: 0.8rem; color: var(--text-muted);">
+          &copy; {new Date().getFullYear()} Varizky Naldiba Rimra. All rights reserved.
+        </span>
+
+        <a 
+          href="#home"
+          class="btn btn-glass btn-sm"
+          aria-label="Kembali ke atas"
+        >
+          <span>Ke Atas</span>
+          <ArrowUp size={14} />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,95 @@
+---
+import { ArrowUpRight, Video, Play, Film, Share2 } from 'lucide-react';
+import { TikTok, Bilibili } from './BrandIcons';
+
+const channels = [
+  {
+    platform: 'TikTok',
+    handle: '@oryzasatirva',
+    title: 'Short-Form Motion Production & Visual Storytelling',
+    desc: 'Memproduksi konten video edukasi mekanik permainan dan motion graphics dinamis, mengoptimalkan ritme pacing dan retensi penonton berdurasi pendek.',
+    url: 'https://www.tiktok.com/@oryzasatirva',
+    icon: TikTok,
+    tags: ['Motion Graphics', 'Short-Form Video', 'Audience Retention']
+  },
+  {
+    platform: 'Bilibili',
+    handle: 'Space 1416802109',
+    title: 'Long-Form Video Documentation & Mechanics Breakdown',
+    desc: 'Publikasi arsip dokumentasi beresolusi tinggi, analisis breakdown mekanik taktis, dan panduan komprehensif bagi komunitas.',
+    url: 'https://www.bilibili.tv/id/space/1416802109',
+    icon: Bilibili,
+    tags: ['Long-Form Archive', 'Game Mechanics', 'Community Guides']
+  }
+];
+---
+
+<section class="section-padding" id="creative">
+  <div class="container">
+    
+    <div class="section-head center">
+      <div class="kicker">Digital Media & Visual Engineering</div>
+      <h2 class="section-title">Media Production & Distribution</h2>
+      <p class="section-subtitle">
+        Penerapan teknik visual motion, penyusunan narasi terstruktur, dan analisis analitik retensi audiens di kanal multimedia digital.
+      </p>
+    </div>
+
+    <div class="creative-grid">
+      {channels.map((ch, idx) => {
+        const Icon = ch.icon;
+        return (
+          <div key={idx} class="creative-portal-card">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+              <div style="display: flex; align-items: center; gap: 0.85rem;">
+                <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; color: #fff;">
+                  <Icon size={22} />
+                </div>
+                <div>
+                  <span style="display: block; font-size: 1rem; font-weight: 700; color: #fff;">{ch.platform}</span>
+                  <span style="display: block; font-size: 0.8rem; color: var(--accent-cyan); font-family: var(--font-mono);">{ch.handle}</span>
+                </div>
+              </div>
+              <a 
+                href={ch.url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="btn-ghost btn-sm"
+                title={`Kunjungi ${ch.platform}`}
+              >
+                <ArrowUpRight size={16} />
+              </a>
+            </div>
+
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; line-height: 1.35;">
+              {ch.title}
+            </h3>
+            <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+              {ch.desc}
+            </p>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; margin-bottom: 1.5rem;">
+              {ch.tags.map((t, tIdx) => (
+                <span key={tIdx} class="skill-tag">
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            <a 
+              href={ch.url} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="btn btn-glass"
+              style="width: 100%; text-decoration: none;"
+            >
+              <span>Buka Saluran {ch.platform}</span>
+              <ArrowUpRight size={14} />
+            </a>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</section>

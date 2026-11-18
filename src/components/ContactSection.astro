@@ -1,0 +1,211 @@
+---
+import { Mail, FileText, ArrowUpRight, Copy, ExternalLink, QrCode } from 'lucide-react';
+import { Github, Linkedin, Instagram, TikTok, Facebook } from './BrandIcons';
+
+const emailAddress = "varizkynr@gmail.com";
+
+const socialLinks = [
+  {
+    name: "GitHub",
+    handle: "@VarizkyNaldiba",
+    desc: "Repositori rekayasa, model AI, dan kode sumber firmware IoT.",
+    url: "https://github.com/VarizkyNaldiba",
+    icon: Github
+  },
+  {
+    name: "LinkedIn",
+    handle: "varizkynaldiba",
+    desc: "Rekam jejak profesional, jejaring akademik, dan relasi industri.",
+    url: "https://www.linkedin.com/in/varizkynaldiba/",
+    icon: Linkedin
+  },
+  {
+    name: "Instagram",
+    handle: "@v.naldiba",
+    desc: "Aktivitas riset kampus, proyek kompetisi, dan kehidupan akademik.",
+    url: "https://www.instagram.com/v.naldiba/",
+    icon: Instagram
+  },
+  {
+    name: "TikTok",
+    handle: "@oryzasatirva",
+    desc: "Portofolio motion graphic video pendek dan eksplorasi gameplay.",
+    url: "https://www.tiktok.com/@oryzasatirva",
+    icon: TikTok
+  },
+  {
+    name: "Facebook",
+    handle: "varizkynaldiba.rimra",
+    desc: "Jejaring alumni dan komunikasi regional.",
+    url: "https://www.facebook.com/varizkynaldiba.rimra",
+    icon: Facebook
+  }
+];
+---
+
+<section class="section-padding" id="contact">
+  <div class="container">
+    
+    <div class="section-head center">
+      <div class="kicker">Official Communication</div>
+      <h2 class="section-title">Hubungi & Unduh Dokumen Resmi</h2>
+      <p class="section-subtitle">
+        Terbuka untuk kesempatan rekayasa perangkat lunak, kolaborasi riset kecerdasan buatan, dan implementasi telemetri IoT.
+      </p>
+    </div>
+
+    <div class="contact-layout">
+      
+      {/* Left: Email Hub & Download Buttons */}
+      <div class="contact-direct-card">
+        
+        {/* Direct Email Header */}
+        <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem;">
+          <div style="width: 48px; height: 48px; border-radius: 14px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); display: flex; align-items: center; justify-content: center; color: var(--accent-blue); flex-shrink: 0;">
+            <Mail size={22} />
+          </div>
+          <div>
+            <span style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 0.2rem;">
+              Primary Direct Email
+            </span>
+            <a href={`mailto:${emailAddress}`} style="font-size: 1.35rem; font-weight: 800; color: #fff; text-decoration: none; word-break: break-all;">
+              {emailAddress}
+            </a>
+          </div>
+        </div>
+
+        {/* Action Buttons for Email */}
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem;">
+          <a href={`mailto:${emailAddress}`} class="btn btn-primary btn-sm">
+            <span>Kirim Pesan Email</span>
+            <ArrowUpRight size={14} />
+          </a>
+          <button 
+            type="button" 
+            class="btn btn-glass btn-sm"
+            onclick={`navigator.clipboard.writeText('${emailAddress}'); alert('Alamat email ${emailAddress} berhasil disalin!');`}
+          >
+            <Copy size={14} />
+            <span>Salin Alamat</span>
+          </button>
+        </div>
+
+        {/* Official Document Download Cards */}
+        <div style="padding-top: 1.75rem; border-top: 1px solid var(--border-subtle);">
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 1rem;">
+            Dokumen Dossier & Presentasi Resmi
+          </span>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+            {/* CV Download Card */}
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.5rem;">
+                <FileText size={18} color="var(--accent-blue)" />
+                <h4 style="font-size: 0.92rem; font-weight: 700; color: #fff;">Curriculum Vitae</h4>
+              </div>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.5;">
+                Dossier lengkap 2 halaman A4 monokrom memuat seluruh 13 proyek & prestasi.
+              </p>
+              <a 
+                href="/CV - Varizky Naldiba Rimra.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn btn-glass btn-sm"
+                style="width: 100%; text-decoration: none;"
+              >
+                <span>Unduh CV (PDF)</span>
+                <ArrowUpRight size={13} />
+              </a>
+            </div>
+
+            {/* Portfolio Presentation Deck Download Card */}
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.5rem;">
+                <FileText size={18} color="#fbbf24" />
+                <h4 style="font-size: 0.92rem; font-weight: 700; color: #fff;">Portofolio Deck</h4>
+              </div>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.5;">
+                Dek presentasi eksekutif 23 slide 16:9 geometris modern bebas foto background.
+              </p>
+              <a 
+                href="/Portofolio - Varizky Naldiba Rimra.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn btn-primary btn-sm"
+                style="width: 100%; text-decoration: none;"
+              >
+                <span>Unduh Dek (PDF)</span>
+                <ArrowUpRight size={13} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Right: Interactive QR Code & Verified Portal Card */}
+      <div class="qr-interactive-card">
+        <div class="qr-box">
+          <img 
+            src="/portfolio-qr.png" 
+            alt="Scan QR Portofolio Web"
+            width="146"
+            height="146"
+          />
+        </div>
+        
+        <span style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem;">
+          Pindai untuk Akses Cepat
+        </span>
+        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-cyan); margin-bottom: 1rem;">
+          myprofile-nine-sigma.vercel.app
+        </span>
+        <p style="font-size: 0.82rem; color: var(--text-secondary); max-width: 320px; line-height: 1.55; margin-bottom: 1.5rem;">
+          Pindai menggunakan kamera ponsel pintar Anda untuk membuka portofolio interaktif ini di perangkat seluler kapan saja.
+        </p>
+
+        <a 
+          href="https://myprofile-nine-sigma.vercel.app/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="btn btn-glass btn-sm"
+        >
+          <span>Kunjungi Versi Live Web</span>
+          <ExternalLink size={13} />
+        </a>
+      </div>
+
+    </div>
+
+    {/* Social Portal Cards Grid */}
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 2rem;">
+      {socialLinks.map((item, idx) => {
+        const Icon = item.icon;
+        return (
+          <a 
+            key={idx}
+            href={item.url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="glass-card" 
+            style="padding: 1.25rem; text-decoration: none; display: flex; align-items: flex-start; gap: 0.85rem; transition: transform 0.2s ease;"
+          >
+            <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0;">
+              <Icon size={16} />
+            </div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.4rem;">
+                <span style="font-size: 0.88rem; font-weight: 700; color: #fff;">{item.name}</span>
+                <ArrowUpRight size={12} color="var(--text-muted)" />
+              </div>
+              <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent-cyan); display: block; margin-top: 0.1rem;">
+                {item.handle}
+              </span>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+
+  </div>
+</section>

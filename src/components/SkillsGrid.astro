@@ -1,0 +1,90 @@
+---
+import { Brain, Database, Globe, Cpu, Wrench } from 'lucide-react';
+
+const skillCategories = [
+  {
+    icon: Brain,
+    title: "Machine Learning & Computer Vision",
+    skills: [
+      "TensorFlow", "Keras", "OpenCV", "Scikit-Learn", 
+      "LSTM Networks", "CSRNet & MCNN", "Support Vector Machines (SVM)", 
+      "GLCM & Wavelet 2D", "HOG Edge Gradients", "Google Gemini API"
+    ]
+  },
+  {
+    icon: Database,
+    title: "Data Science & Geospatial Intelligence",
+    skills: [
+      "Python", "Pandas", "NumPy", "Matplotlib", 
+      "GeoJSON", "Leaflet", "Folium GIS", "Spatial Disparity Indexing", 
+      "Fuzzy String Matching", "Statistical Regression"
+    ]
+  },
+  {
+    icon: Globe,
+    title: "Web & Enterprise Systems",
+    skills: [
+      "React", "Astro", "Next.js", "Laravel (PHP)", "Streamlit", 
+      "Firebase Realtime DB", "MySQL", "PROMETHEE DSS", 
+      "RESTful APIs", "Bootstrap & Modern CSS"
+    ]
+  },
+  {
+    icon: Cpu,
+    title: "IoT Firmware & Embedded Telemetry",
+    skills: [
+      "ESP32", "Arduino", "C / C++", 
+      "Water Probes (pH, Turbidity, Temp DS18B20)", 
+      "Polynomial Offset Calibration", "Circular Flash Failover Buffers", 
+      "WiFi Telemetry Synchronization"
+    ]
+  },
+  {
+    icon: Wrench,
+    title: "Workflow, Prototyping & Cloud",
+    skills: [
+      "Git & GitHub", "Figma UI/UX", 
+      "HuggingFace Spaces", "Google Colab", 
+      "VS Code", "Vite", "Vercel Deployment", "Linux Environment"
+    ]
+  }
+];
+---
+
+<section class="section-padding" id="skills">
+  <div class="container">
+    
+    <div class="section-head center">
+      <div class="kicker">Technical Capabilities</div>
+      <h2 class="section-title">Architectural Tooling & Engineering Stack</h2>
+      <p class="section-subtitle">
+        Perangkat lunak, pustaka komputasi, dan instrumen perangkat keras yang digunakan secara aktif dalam proyek riset, kompetisi nasional, dan sistem produksi.
+      </p>
+    </div>
+
+    <div class="skills-grid-layout">
+      {skillCategories.map((cat, idx) => {
+        const Icon = cat.icon;
+        return (
+          <div key={idx} class="skill-category-card">
+            <div class="skill-cat-header">
+              <div class="skill-icon-pill">
+                <Icon size={18} />
+              </div>
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: #fff;">{cat.title}</h3>
+            </div>
+
+            <div class="skill-tags-wrap">
+              {cat.skills.map((s, sIdx) => (
+                <span key={sIdx} class="skill-tag">
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</section>

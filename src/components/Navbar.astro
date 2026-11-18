@@ -1,0 +1,53 @@
+---
+import { ArrowUpRight, FileText } from 'lucide-react';
+---
+
+<header class="nav-wrapper">
+  <div class="container">
+    <nav class="nav-container" aria-label="Main Navigation">
+      
+      {/* Brand Monogram */}
+      <a href="#home" class="nav-brand">
+        <span class="brand-badge">VNR</span>
+        <span class="brand-text">Varizky Naldiba Rimra</span>
+      </a>
+
+      {/* Nav Links */}
+      <ul class="nav-links">
+        <li><a href="#home" class="nav-link">Overview</a></li>
+        <li><a href="#about" class="nav-link">About & Honors</a></li>
+        <li><a href="#projects" class="nav-link">13 Projects</a></li>
+        <li><a href="#skills" class="nav-link">Capabilities</a></li>
+        <li><a href="#methodology" class="nav-link">Methodology</a></li>
+        <li><a href="#creative" class="nav-link">Media Production</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      {/* Header CTA & Quick Links */}
+      <div class="nav-cta-row">
+        <a 
+          href="/CV - Varizky Naldiba Rimra.pdf" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="btn btn-glass btn-sm desktop-only"
+          title="Download Curriculum Vitae (PDF)"
+        >
+          <FileText size={14} />
+          <span>CV PDF</span>
+        </a>
+
+        <a 
+          href="/Portofolio - Varizky Naldiba Rimra.pdf" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="btn btn-primary btn-sm desktop-only"
+          title="Download Portfolio Presentation Deck (PDF)"
+        >
+          <span>Porto Deck</span>
+          <ArrowUpRight size={14} />
+        </a>
+      </div>
+
+    </nav>
+  </div>
+</header>
