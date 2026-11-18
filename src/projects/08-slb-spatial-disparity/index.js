@@ -5,7 +5,7 @@ import imgMap1 from './assets/datathon1.png';
 export const slbSpatialDisparity = {
   id: 8,
   slug: "slb-spatial-disparity",
-  title: "SLB Spatial Disparity Analysis (Datathon Finalist)",
+  title: "SLB Spatial Disparity Analysis (Jatim Datathon 2025)",
   role: "Lead Geospatial Data Analyst (Team Tim Maju Lancar)",
   desc: "Geodemographic spatial accessibility analysis evaluating infrastructure equity across 38 East Java regencies for Special Education Schools (SLB) at Jatim Datathon 2025.",
   tech: ["Python", "Pandas", "Matplotlib", "GeoJSON", "Folium", "HuggingFace"],
@@ -19,7 +19,7 @@ export const slbSpatialDisparity = {
   details: {
     overview: "An analytical study developed for Datathon Jatim 2025 ('Shaping The Future with Open Data') by team Tim Maju Lancar. The project investigated the spatial distribution of special education facilities across East Java, producing a data-driven gap index to highlight underserved municipalities and assist public resource allocation.",
     features: [
-      "Finalist of Jatim Datathon 2025 competition recognized by municipal evaluation bodies",
+      "Official Participant in Jatim Datathon 2025 ('Shaping The Future with Open Data') by Diskominfo Provinsi Jawa Timur",
       "Demographic and municipal data harmonization across 38 administrative regencies and cities in East Java",
       "Spatial Accessibility Index (SAI) formulation correlating special education capacity with regional youth disability statistics",
       "Interactive web GIS dashboard with choropleth heatmaps deployed to HuggingFace Spaces"

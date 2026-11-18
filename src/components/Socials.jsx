@@ -4,7 +4,7 @@ import { Github, Linkedin, Instagram, Facebook, TikTok } from './BrandIcons';
 
 export default function Socials() {
   const [copied, setCopied] = useState(false);
-  const emailAddress = "varizky.naldiba@gmail.com";
+  const emailAddress = "varizkynr@gmail.com";
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(emailAddress);
@@ -109,19 +109,32 @@ export default function Socials() {
             <div className="resume-banner-content">
               <FileText size={22} className="resume-icon" />
               <div>
-                <h4 className="resume-title">Curriculum Vitae / Professional Dossier</h4>
-                <p className="resume-desc">Comprehensive record of engineering projects, competition honors, academic credentials, and verified certifications.</p>
+                <h4 className="resume-title">Curriculum Vitae & Presentasi Portofolio</h4>
+                <p className="resume-desc">Arsip komprehensif proyek rekayasa, penghargaan kompetisi nasional terverifikasi, riwayat akademik, dan sertifikasi resmi.</p>
               </div>
             </div>
-            <a 
-              href="/Portofolio - Varizky Naldiba Rimra.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-download-resume"
-            >
-              <span>Download PDF</span>
-              <ArrowUpRight size={14} />
-            </a>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+              <a 
+                href="/CV - Varizky Naldiba Rimra.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-download-resume"
+                title="Download CV (PDF)"
+              >
+                <span>Unduh CV</span>
+                <ArrowUpRight size={14} />
+              </a>
+              <a 
+                href="/Portofolio - Varizky Naldiba Rimra.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-download-resume"
+                title="Download Portfolio Presentation (PDF)"
+              >
+                <span>Unduh Porto Deck</span>
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
           </div>
         </div>
 

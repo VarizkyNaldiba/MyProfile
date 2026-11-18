@@ -89,7 +89,7 @@ export default function Navbar({ theme, toggleTheme }) {
         <div className="navbar-actions">
           {/* Resume link */}
           <a
-            href="/Portofolio - Varizky Naldiba Rimra.pdf"
+            href="/CV - Varizky Naldiba Rimra.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-resume"
@@ -138,7 +138,7 @@ export default function Navbar({ theme, toggleTheme }) {
             ))}
             <li>
               <a
-                href="/Portofolio - Varizky Naldiba Rimra.pdf"
+                href="/CV - Varizky Naldiba Rimra.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mobile-resume-link"

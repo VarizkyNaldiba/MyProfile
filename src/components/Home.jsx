@@ -87,13 +87,25 @@ export default function Home() {
               </button>
 
               <a 
+                href="/CV - Varizky Naldiba Rimra.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                title="Download Curriculum Vitae (PDF)"
+              >
+                <FileText size={16} />
+                <span>Curriculum Vitae (PDF)</span>
+              </a>
+
+              <a 
                 href="/Portofolio - Varizky Naldiba Rimra.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary"
+                title="Download Portfolio Presentation Deck (PDF)"
               >
                 <FileText size={16} />
-                <span>Curriculum Vitae (PDF)</span>
+                <span>Portfolio Deck (PDF)</span>
               </a>
 
               <button 
@@ -128,9 +140,9 @@ export default function Home() {
                 <Linkedin size={18} />
               </a>
               <a 
-                href="mailto:varizky.naldiba@gmail.com" 
+                href="mailto:varizkynr@gmail.com" 
                 className="social-icon-btn" 
-                title="Email: varizky.naldiba@gmail.com"
+                title="Email: varizkynr@gmail.com"
                 aria-label="Send Email"
               >
                 <Mail size={18} />
