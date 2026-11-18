@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { 
   ChevronLeft, ChevronRight, ArrowUpRight, ExternalLink, 
-  X, CheckCircle, Maximize2, Check, Image as ImageIcon
+  X, CheckCircle, Maximize2, Check, Image as ImageIcon,
+  GalleryHorizontal, Columns2
 } from 'lucide-react';
 import { Github } from './BrandIcons';
 import { projectsData } from '../projects';
@@ -28,6 +29,9 @@ export default function TomDeKoningCarousel() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeModalImg, setActiveModalImg] = useState(0);
   
+  // View Mode: 'horizontal' (Geser Samping) or 'vertical' (Vertikal Kiri-Kanan)
+  const [viewMode, setViewMode] = useState('horizontal');
+
   // Custom cover image index per project (allows swapping the outer photo)
   const [cardCoverIndexes, setCardCoverIndexes] = useState({});
 
@@ -115,10 +119,10 @@ export default function TomDeKoningCarousel() {
     scrollToCardIndex(currentIndex + 1);
   }, [currentIndex, scrollToCardIndex]);
 
-  // Horizontal mouse-wheel support (seamless horizontal glide like tomdekoning.work)
+  // Horizontal mouse-wheel support in carousel mode (seamless horizontal glide like tomdekoning.work)
   useEffect(() => {
     const track = trackRef.current;
-    if (!track) return;
+    if (!track || viewMode !== 'horizontal') return;
 
     const onWheel = (e) => {
       if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && Math.abs(e.deltaY) > 5) {
@@ -129,11 +133,11 @@ export default function TomDeKoningCarousel() {
 
     track.addEventListener('wheel', onWheel, { passive: false });
     return () => track.removeEventListener('wheel', onWheel);
-  }, []);
+  }, [viewMode]);
 
   // Drag-to-scroll with inertia momentum implementation
   const handleMouseDown = (e) => {
-    if (!trackRef.current) return;
+    if (!trackRef.current || viewMode !== 'horizontal') return;
     if (momentumRafRef.current) cancelAnimationFrame(momentumRafRef.current);
 
     setIsDragging(true);
@@ -173,7 +177,7 @@ export default function TomDeKoningCarousel() {
     setCursorPos({ x: e.clientX, y: e.clientY });
     if (!cursorVisible) setCursorVisible(true);
 
-    if (!isDragging || !trackRef.current) return;
+    if (!isDragging || !trackRef.current || viewMode !== 'horizontal') return;
     e.preventDefault();
 
     const now = performance.now();
@@ -196,12 +200,14 @@ export default function TomDeKoningCarousel() {
         if (e.key === 'Escape') setSelectedProject(null);
         return;
       }
-      if (e.key === 'ArrowLeft') handlePrev();
-      if (e.key === 'ArrowRight') handleNext();
+      if (viewMode === 'horizontal') {
+        if (e.key === 'ArrowLeft') handlePrev();
+        if (e.key === 'ArrowRight') handleNext();
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedProject, handlePrev, handleNext]);
+  }, [selectedProject, viewMode, handlePrev, handleNext]);
 
   // Photo Switcher on Card: lets visitor/user flip outer photo right on the card
   const handleCardPhotoSwitch = (e, proj, direction) => {
@@ -247,8 +253,8 @@ export default function TomDeKoningCarousel() {
 
   return (
     <section className="section-padding carousel-section" id="projects">
-      {/* Floating magnetic cursor (tomdekoning.work luxury follower) */}
-      {cursorVisible && !selectedProject && (
+      {/* Floating magnetic cursor (tomdekoning.work luxury follower - active in horizontal mode) */}
+      {cursorVisible && !selectedProject && viewMode === 'horizontal' && (
         <div 
           className={`tdk-cursor-pill ${cursorMode === 'view' ? 'view-mode' : ''} ${cursorMode === 'grab' ? 'grab-mode' : ''}`}
           style={{
@@ -267,11 +273,11 @@ export default function TomDeKoningCarousel() {
           <div className="kicker">Featured Engineering Systems</div>
           <h2 className="section-title">13 Engineered Systems & Portfolios</h2>
           <p className="section-subtitle">
-            Pilih kategori atau geser trek horisontal untuk mengeksplorasi arsitektur machine learning, telemetri IoT akuakultur, WebGIS hidrologi, dan platform enterprise.
+            Pilih tata letak (Geser Samping atau Vertikal Kiri-Kanan) dan filter kategori untuk mengeksplorasi arsitektur machine learning, telemetri IoT, WebGIS, dan platform enterprise.
           </p>
         </div>
 
-        {/* Controls Bar: Categories & Counter/Arrows */}
+        {/* Controls Bar: Categories & Layout Mode Switcher */}
         <div className="carousel-controls-bar">
           {/* Category Filter Pills */}
           <div className="carousel-filter-pills">
@@ -291,203 +297,399 @@ export default function TomDeKoningCarousel() {
             ))}
           </div>
 
-          {/* Navigation Controls: Slide Counter & Prev/Next */}
+          {/* Navigation Controls & View Mode Toggle */}
           <div className="carousel-nav-group">
-            <div className="carousel-counter">
-              <span className="active-num">
-                {String(currentIndex + 1).padStart(2, '0')}
-              </span>
-              {' '}/ {String(filteredProjects.length).padStart(2, '0')}
+            {/* View Mode Toggle: Samping (Carousel) vs Vertikal (Kiri-Kanan) */}
+            <div className="view-mode-toggle-group">
+              <button
+                type="button"
+                className={`view-toggle-btn ${viewMode === 'horizontal' ? 'active' : ''}`}
+                onClick={() => setViewMode('horizontal')}
+                title="Tampilan Geser Samping (Horizontal Carousel)"
+                aria-label="Tampilan Geser Samping"
+              >
+                <GalleryHorizontal size={15} />
+                <span>Samping</span>
+              </button>
+              <button
+                type="button"
+                className={`view-toggle-btn ${viewMode === 'vertical' ? 'active' : ''}`}
+                onClick={() => setViewMode('vertical')}
+                title="Tampilan Vertikal Kiri-Kanan (Split Showcase)"
+                aria-label="Tampilan Vertikal Kiri-Kanan"
+              >
+                <Columns2 size={15} />
+                <span>Vertikal Kiri-Kanan</span>
+              </button>
             </div>
-            
-            <button
-              type="button"
-              className="carousel-arrow-btn"
-              onClick={handlePrev}
-              disabled={currentIndex === 0}
-              aria-label="Previous slide"
-              title="Previous project"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              type="button"
-              className="carousel-arrow-btn"
-              onClick={handleNext}
-              disabled={currentIndex >= filteredProjects.length - 1}
-              aria-label="Next slide"
-              title="Next project"
-            >
-              <ChevronRight size={18} />
-            </button>
+
+            {/* In Horizontal Mode: Show slide counter & arrow buttons */}
+            {viewMode === 'horizontal' ? (
+              <>
+                <div className="carousel-counter">
+                  <span className="active-num">
+                    {String(currentIndex + 1).padStart(2, '0')}
+                  </span>
+                  {' '}/ {String(filteredProjects.length).padStart(2, '0')}
+                </div>
+                
+                <button
+                  type="button"
+                  className="carousel-arrow-btn"
+                  onClick={handlePrev}
+                  disabled={currentIndex === 0}
+                  aria-label="Previous slide"
+                  title="Previous project"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button
+                  type="button"
+                  className="carousel-arrow-btn"
+                  onClick={handleNext}
+                  disabled={currentIndex >= filteredProjects.length - 1}
+                  aria-label="Next slide"
+                  title="Next project"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </>
+            ) : (
+              <div className="carousel-counter">
+                <span className="active-num">{filteredProjects.length}</span> Systems Listed
+              </div>
+            )}
           </div>
         </div>
 
       </div>
 
-      {/* Full-width Draggable Track */}
-      <div 
-        className="carousel-track-outer"
-        ref={trackRef}
-        onScroll={handleScroll}
-        onMouseDown={handleMouseDown}
-        onMouseLeave={handleMouseLeave}
-        onMouseUp={handleMouseUp}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setCursorVisible(true)}
-      >
-        <div className="carousel-track-inner">
-          {filteredProjects.map((proj, idx) => {
-            const totalImgs = proj.images ? proj.images.length : 0;
-            const activeCoverIdx = cardCoverIndexes[proj.id] ?? 0;
-            const coverImg = (proj.images && proj.images[activeCoverIdx]) 
-              ? getImgSrc(proj.images[activeCoverIdx]) 
-              : (proj.images && proj.images[0] ? getImgSrc(proj.images[0]) : '');
-            const honor = getProjectHonor(proj.slug);
-            const numStr = String(idx + 1).padStart(2, '0');
+      {/* ==========================================================================
+          VIEW MODE 1: HORIZONTAL CAROUSEL (SAMPING / TOM DE KONING STYLE)
+          ========================================================================== */}
+      {viewMode === 'horizontal' && (
+        <>
+          <div 
+            className="carousel-track-outer"
+            ref={trackRef}
+            onScroll={handleScroll}
+            onMouseDown={handleMouseDown}
+            onMouseLeave={handleMouseLeave}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setCursorVisible(true)}
+          >
+            <div className="carousel-track-inner">
+              {filteredProjects.map((proj, idx) => {
+                const totalImgs = proj.images ? proj.images.length : 0;
+                const activeCoverIdx = cardCoverIndexes[proj.id] ?? 0;
+                const coverImg = (proj.images && proj.images[activeCoverIdx]) 
+                  ? getImgSrc(proj.images[activeCoverIdx]) 
+                  : (proj.images && proj.images[0] ? getImgSrc(proj.images[0]) : '');
+                const honor = getProjectHonor(proj.slug);
+                const numStr = String(idx + 1).padStart(2, '0');
 
-            return (
-              <article 
-                key={proj.id} 
-                className="carousel-project-card"
-                onMouseEnter={() => setCursorMode('view')}
-                onMouseLeave={() => setCursorMode('drag')}
-                onClick={() => {
-                  setSelectedProject(proj);
-                  setActiveModalImg(activeCoverIdx);
-                }}
-              >
-                {/* Image Cover with Interactive Switcher */}
-                <div className="card-img-wrap">
-                  {coverImg ? (
-                    <img 
-                      src={coverImg} 
-                      alt={proj.title}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div style={{ width: '100%', height: '100%', background: '#111622' }} />
-                  )}
-                  
-                  {/* Category & Honor Badges */}
-                  <div className="card-badge-row">
-                    <span className="card-cat-badge">{proj.categories[0] || 'Engineering'}</span>
-                    {honor && (
-                      <span className="card-honor-badge">{honor}</span>
+                return (
+                  <article 
+                    key={proj.id} 
+                    className="carousel-project-card"
+                    onMouseEnter={() => setCursorMode('view')}
+                    onMouseLeave={() => setCursorMode('drag')}
+                    onClick={() => {
+                      setSelectedProject(proj);
+                      setActiveModalImg(activeCoverIdx);
+                    }}
+                  >
+                    {/* Image Cover with Interactive Switcher */}
+                    <div className="card-img-wrap">
+                      {coverImg ? (
+                        <img 
+                          src={coverImg} 
+                          alt={proj.title}
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div style={{ width: '100%', height: '100%', background: '#111622' }} />
+                      )}
+                      
+                      {/* Category & Honor Badges */}
+                      <div className="card-badge-row">
+                        <span className="card-cat-badge">{proj.categories[0] || 'Engineering'}</span>
+                        {honor && (
+                          <span className="card-honor-badge">{honor}</span>
+                        )}
+                      </div>
+
+                      {/* Interactive Photo Switcher Controls */}
+                      {totalImgs > 1 && (
+                        <>
+                          <button
+                            type="button"
+                            className="card-photo-switcher prev-photo"
+                            onClick={(e) => handleCardPhotoSwitch(e, proj, -1)}
+                            title="Foto Sebelumnya"
+                            aria-label="Previous photo"
+                          >
+                            <ChevronLeft size={16} />
+                          </button>
+
+                          <button
+                            type="button"
+                            className="card-photo-switcher next-photo"
+                            onClick={(e) => handleCardPhotoSwitch(e, proj, 1)}
+                            title="Foto Berikutnya"
+                            aria-label="Next photo"
+                          >
+                            <ChevronRight size={16} />
+                          </button>
+
+                          <div className="card-photo-dots" onClick={(e) => e.stopPropagation()}>
+                            {proj.images.map((_, pIdx) => (
+                              <button
+                                key={pIdx}
+                                type="button"
+                                className={`card-photo-dot ${activeCoverIdx === pIdx ? 'active' : ''}`}
+                                onClick={(e) => handleSetCoverDirect(e, proj.id, pIdx)}
+                                title={`Foto ${pIdx + 1} dari ${totalImgs}`}
+                                aria-label={`Switch to photo ${pIdx + 1}`}
+                              />
+                            ))}
+                          </div>
+
+                          <div className="card-photo-pill">
+                            {activeCoverIdx + 1}/{totalImgs}
+                          </div>
+                        </>
+                      )}
+                    </div>
+
+                    {/* Card Body */}
+                    <div className="card-body">
+                      <span className="card-index">SYSTEM {numStr}</span>
+                      <h3 className="card-title">{proj.title}</h3>
+                      <span className="card-role">{proj.role}</span>
+                      <p className="card-desc">{proj.desc}</p>
+
+                      {/* Tech Tags Cloud */}
+                      <div className="card-tech-cloud">
+                        {proj.tech.slice(0, 4).map((t, i) => (
+                          <span key={i} className="card-tech-pill">{t}</span>
+                        ))}
+                        {proj.tech.length > 4 && (
+                          <span className="card-tech-pill">+{proj.tech.length - 4}</span>
+                        )}
+                      </div>
+
+                      {/* Footer Actions */}
+                      <div className="card-footer-actions" onClick={(e) => e.stopPropagation()}>
+                        <button 
+                          type="button"
+                          className="card-explore-btn"
+                          onClick={() => {
+                            setSelectedProject(proj);
+                            setActiveModalImg(activeCoverIdx);
+                          }}
+                        >
+                          <Maximize2 size={14} />
+                          <span>Deep Dive Specs</span>
+                        </button>
+
+                        <div className="card-links-group">
+                          {proj.links && proj.links.map((link, lIdx) => {
+                            const isGit = link.url.includes('github.com');
+                            return (
+                              <a
+                                key={lIdx}
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="card-link-icon"
+                                title={link.label}
+                                aria-label={link.label}
+                              >
+                                {isGit ? <Github size={14} /> : <ExternalLink size={14} />}
+                              </a>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="container">
+            {/* Continuous Progress Bar */}
+            <div className="carousel-progress-track">
+              <div 
+                className="carousel-progress-bar"
+                style={{ width: `${progressPercent}%` }}
+              />
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* ==========================================================================
+          VIEW MODE 2: VERTICAL LEFT-RIGHT SPLIT SHOWCASE (VERTIKAL KIRI-KANAN / SAMPING)
+          ========================================================================== */}
+      {viewMode === 'vertical' && (
+        <div className="container">
+          <div className="projects-vertical-stack">
+            {filteredProjects.map((proj, idx) => {
+              const totalImgs = proj.images ? proj.images.length : 0;
+              const activeCoverIdx = cardCoverIndexes[proj.id] ?? 0;
+              const coverImg = (proj.images && proj.images[activeCoverIdx]) 
+                ? getImgSrc(proj.images[activeCoverIdx]) 
+                : (proj.images && proj.images[0] ? getImgSrc(proj.images[0]) : '');
+              const honor = getProjectHonor(proj.slug);
+              const numStr = String(idx + 1).padStart(2, '0');
+
+              return (
+                <article 
+                  key={proj.id} 
+                  className="vertical-project-card"
+                  onClick={() => {
+                    setSelectedProject(proj);
+                    setActiveModalImg(activeCoverIdx);
+                  }}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {/* Left Column (Kiri): Large Image with Photo Switcher */}
+                  <div className="card-img-wrap">
+                    {coverImg ? (
+                      <img 
+                        src={coverImg} 
+                        alt={proj.title}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div style={{ width: '100%', height: '100%', background: '#111622' }} />
+                    )}
+                    
+                    {/* Badges */}
+                    <div className="card-badge-row">
+                      <span className="card-cat-badge">{proj.categories[0] || 'Engineering'}</span>
+                      {honor && (
+                        <span className="card-honor-badge">{honor}</span>
+                      )}
+                    </div>
+
+                    {/* Photo Switcher on Card */}
+                    {totalImgs > 1 && (
+                      <>
+                        <button
+                          type="button"
+                          className="card-photo-switcher prev-photo"
+                          onClick={(e) => handleCardPhotoSwitch(e, proj, -1)}
+                          title="Foto Sebelumnya"
+                          aria-label="Previous photo"
+                        >
+                          <ChevronLeft size={16} />
+                        </button>
+
+                        <button
+                          type="button"
+                          className="card-photo-switcher next-photo"
+                          onClick={(e) => handleCardPhotoSwitch(e, proj, 1)}
+                          title="Foto Berikutnya"
+                          aria-label="Next photo"
+                        >
+                          <ChevronRight size={16} />
+                        </button>
+
+                        <div className="card-photo-dots" onClick={(e) => e.stopPropagation()}>
+                          {proj.images.map((_, pIdx) => (
+                            <button
+                              key={pIdx}
+                              type="button"
+                              className={`card-photo-dot ${activeCoverIdx === pIdx ? 'active' : ''}`}
+                              onClick={(e) => handleSetCoverDirect(e, proj.id, pIdx)}
+                              title={`Foto ${pIdx + 1} dari ${totalImgs}`}
+                              aria-label={`Switch to photo ${pIdx + 1}`}
+                            />
+                          ))}
+                        </div>
+
+                        <div className="card-photo-pill">
+                          {activeCoverIdx + 1}/{totalImgs}
+                        </div>
+                      </>
                     )}
                   </div>
 
-                  {/* Interactive Photo Switcher Controls (if project has multiple images) */}
-                  {totalImgs > 1 && (
-                    <>
-                      <button
-                        type="button"
-                        className="card-photo-switcher prev-photo"
-                        onClick={(e) => handleCardPhotoSwitch(e, proj, -1)}
-                        title="Foto Sebelumnya"
-                        aria-label="Previous photo"
-                      >
-                        <ChevronLeft size={16} />
-                      </button>
+                  {/* Right Column (Kanan / Samping): Full Details & Actions */}
+                  <div className="card-body">
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
+                        <span className="card-index">SYSTEM {numStr}</span>
+                        <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
+                          ID: #{proj.id}
+                        </span>
+                      </div>
 
-                      <button
-                        type="button"
-                        className="card-photo-switcher next-photo"
-                        onClick={(e) => handleCardPhotoSwitch(e, proj, 1)}
-                        title="Foto Berikutnya"
-                        aria-label="Next photo"
-                      >
-                        <ChevronRight size={16} />
-                      </button>
+                      <h3 className="card-title" style={{ fontSize: '1.45rem', marginBottom: '0.35rem' }}>
+                        {proj.title}
+                      </h3>
+                      
+                      <span className="card-role" style={{ fontSize: '0.88rem', marginBottom: '1rem', display: 'block' }}>
+                        {proj.role}
+                      </span>
 
-                      {/* Dot Indicators */}
-                      <div className="card-photo-dots" onClick={(e) => e.stopPropagation()}>
-                        {proj.images.map((_, pIdx) => (
-                          <button
-                            key={pIdx}
-                            type="button"
-                            className={`card-photo-dot ${activeCoverIdx === pIdx ? 'active' : ''}`}
-                            onClick={(e) => handleSetCoverDirect(e, proj.id, pIdx)}
-                            title={`Foto ${pIdx + 1} dari ${totalImgs}`}
-                            aria-label={`Switch to photo ${pIdx + 1}`}
-                          />
+                      <p className="card-desc">
+                        {proj.desc}
+                      </p>
+
+                      {/* Tech Tags Cloud */}
+                      <div className="card-tech-cloud" style={{ marginBottom: '1.75rem' }}>
+                        {proj.tech.map((t, i) => (
+                          <span key={i} className="card-tech-pill">{t}</span>
                         ))}
                       </div>
+                    </div>
 
-                      {/* Photo Index Counter Pill */}
-                      <div className="card-photo-pill">
-                        {activeCoverIdx + 1}/{totalImgs}
+                    {/* Footer Actions */}
+                    <div className="card-footer-actions" onClick={(e) => e.stopPropagation()} style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1.25rem', marginTop: '1rem' }}>
+                      <button 
+                        type="button"
+                        className="card-explore-btn"
+                        onClick={() => {
+                          setSelectedProject(proj);
+                          setActiveModalImg(activeCoverIdx);
+                        }}
+                      >
+                        <Maximize2 size={14} />
+                        <span>Buka Spesifikasi Lengkap</span>
+                      </button>
+
+                      <div className="card-links-group">
+                        {proj.links && proj.links.map((link, lIdx) => {
+                          const isGit = link.url.includes('github.com');
+                          return (
+                            <a
+                              key={lIdx}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="card-link-icon"
+                              title={link.label}
+                              aria-label={link.label}
+                            >
+                              {isGit ? <Github size={14} /> : <ExternalLink size={14} />}
+                            </a>
+                          );
+                        })}
                       </div>
-                    </>
-                  )}
-                </div>
-
-                {/* Card Body */}
-                <div className="card-body">
-                  <span className="card-index">SYSTEM {numStr}</span>
-                  <h3 className="card-title">{proj.title}</h3>
-                  <span className="card-role">{proj.role}</span>
-                  <p className="card-desc">{proj.desc}</p>
-
-                  {/* Tech Tags Cloud */}
-                  <div className="card-tech-cloud">
-                    {proj.tech.slice(0, 4).map((t, i) => (
-                      <span key={i} className="card-tech-pill">{t}</span>
-                    ))}
-                    {proj.tech.length > 4 && (
-                      <span className="card-tech-pill">+{proj.tech.length - 4}</span>
-                    )}
-                  </div>
-
-                  {/* Footer Actions */}
-                  <div className="card-footer-actions" onClick={(e) => e.stopPropagation()}>
-                    <button 
-                      type="button"
-                      className="card-explore-btn"
-                      onClick={() => {
-                        setSelectedProject(proj);
-                        setActiveModalImg(activeCoverIdx);
-                      }}
-                    >
-                      <Maximize2 size={14} />
-                      <span>Deep Dive Specs</span>
-                    </button>
-
-                    <div className="card-links-group">
-                      {proj.links && proj.links.map((link, lIdx) => {
-                        const isGit = link.url.includes('github.com');
-                        return (
-                          <a
-                            key={lIdx}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="card-link-icon"
-                            title={link.label}
-                            aria-label={link.label}
-                          >
-                            {isGit ? <Github size={14} /> : <ExternalLink size={14} />}
-                          </a>
-                        );
-                      })}
                     </div>
                   </div>
-                </div>
-              </article>
-            );
-          })}
+                </article>
+              );
+            })}
+          </div>
         </div>
-      </div>
-
-      <div className="container">
-        {/* Continuous Progress Bar */}
-        <div className="carousel-progress-track">
-          <div 
-            className="carousel-progress-bar"
-            style={{ width: `${progressPercent}%` }}
-          />
-        </div>
-      </div>
+      )}
 
       {/* ==========================================================================
           INTERACTIVE DEEP DIVE MODAL
