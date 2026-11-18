@@ -11,7 +11,7 @@ import imgDokumen2 from './assets/dokumen-riset-brin-2.png';
 export const simojangBrinWebgis = {
   id: 4,
   slug: "simojang-brin-webgis",
-  title: "Si Mojang Brantas (Riset BRIN x Polinema)",
+  title: "SIMOJANG Brantas (Riset BRIN x Polinema)",
   role: "IT & WebGIS Production Developer",
   desc: "Participatory WebGIS spatial information and early warning platform for flood monitoring in the Upper Brantas River Basin, developed under institutional research collaboration with BRIN.",
   tech: ["WebGIS", "Leaflet", "OpenStreetMap", "BMKG Telemetry", "BPBD Inundation Data", "Spatial DB"],
@@ -22,7 +22,7 @@ export const simojangBrinWebgis = {
   icon: Map,
   images: [imgLiveMap, imgWebProduction, imgDiskusiBrin, imgField1, imgField2, imgTelemetry, imgDokumen1, imgDokumen2],
   details: {
-    overview: "Developed as part of applied research (Riset Terapan Inovasi DIPA Polinema in collaboration with Badan Riset dan Inovasi Nasional / BRIN). Si Mojang Brantas establishes a collaborative, location-based early warning system consolidating hydrometeorological radar data and municipal emergency records.",
+    overview: "Developed as part of applied research (Riset Terapan Inovasi DIPA Polinema in collaboration with Badan Riset dan Inovasi Nasional / BRIN). SIMOJANG Brantas establishes a collaborative, location-based early warning system consolidating hydrometeorological radar data and municipal emergency records.",
     features: [
       "Production-deployed WebGIS platform accessible publicly at simojang.let.polinema.ac.id",
       "Real-time precipitation layer integration with BMKG radar reflectivity bands (very light to extreme rainfall)",

@@ -137,15 +137,23 @@ export default function TomDeKoningCarousel() {
 
   const handlePrev = useCallback(() => {
     if (viewMode === '3d') {
-      setCurrentIndex(prev => Math.max(0, prev - 1));
+      setCurrentIndex(prev => {
+        const total = filteredProjects.length;
+        if (total <= 1) return 0;
+        return (prev - 1 + total) % total;
+      });
     } else {
       scrollToCardIndex(currentIndex - 1);
     }
-  }, [viewMode, currentIndex, scrollToCardIndex]);
+  }, [viewMode, currentIndex, filteredProjects.length, scrollToCardIndex]);
 
   const handleNext = useCallback(() => {
     if (viewMode === '3d') {
-      setCurrentIndex(prev => Math.min(filteredProjects.length - 1, prev + 1));
+      setCurrentIndex(prev => {
+        const total = filteredProjects.length;
+        if (total <= 1) return 0;
+        return (prev + 1) % total;
+      });
     } else {
       scrollToCardIndex(currentIndex + 1);
     }
@@ -269,6 +277,45 @@ export default function TomDeKoningCarousel() {
     ? Math.min(100, Math.round(((currentIndex + 1) / filteredProjects.length) * 100))
     : 0;
 
+  // Short clean project name for 3D curved mode & cards
+  const getShortProjectTitle = (proj) => {
+    if (!proj) return '';
+    switch (proj.slug) {
+      case 'catfishcare-tfs2026':
+        return 'CatfishCare';
+      case 'simojang-brin-webgis':
+        return 'SIMOJANG Brantas';
+      case 'algasense':
+        return 'AlgaSense';
+      case 'pkm-gft-sais':
+        return 'SAIS Aquaculture';
+      case 'crowd-density-hology':
+        return 'Crowd Density';
+      case 'agroclimatology-intelecta':
+        return 'Agroclimatology';
+      case 'slb-spatial-disparity':
+        return 'SLB Spatial Disparity';
+      case 'ai-restaurant-advisory':
+        return 'AI Restaurant Advisory';
+      case 'fruit-classification':
+        return 'Fruit Classification';
+      case 'simpres':
+        return 'SIMPRES';
+      case 'tata-tertib-mahasiswa':
+        return 'SIM Tatib Mahasiswa';
+      case 'school-spatial-gis':
+        return 'School Spatial GIS';
+      case 'aquavion':
+        return 'Aquavion';
+      default:
+        return (proj.title || '')
+          .replace(/\s*\(.*?\)/g, '')
+          .split('—')[0]
+          .split(':')[0]
+          .trim();
+    }
+  };
+
   // Find honor label for key projects
   const getProjectHonor = (slug) => {
     switch (slug) {
@@ -276,6 +323,8 @@ export default function TomDeKoningCarousel() {
         return 'Juara Harapan 2 LKTI Techno Fair and Seminar (TFS) 2026';
       case 'pkm-gft-sais':
         return 'PKM-GFT 2026 Tahap 2 Insentif';
+      case 'simojang-brin-webgis':
+        return 'Kolaborasi Riset Terapan BRIN x Polinema';
       case 'algasense':
         return 'Finalis Nasional LKTI Techno Fair and Seminar (TFS) 2025';
       case 'agroclimatology-intelecta':
@@ -379,7 +428,7 @@ export default function TomDeKoningCarousel() {
               type="button"
               className="carousel-arrow-btn"
               onClick={handlePrev}
-              disabled={currentIndex === 0}
+              disabled={viewMode !== '3d' && currentIndex === 0}
               aria-label="Previous slide"
               title="Previous project"
             >
@@ -389,7 +438,7 @@ export default function TomDeKoningCarousel() {
               type="button"
               className="carousel-arrow-btn"
               onClick={handleNext}
-              disabled={currentIndex >= filteredProjects.length - 1}
+              disabled={viewMode !== '3d' && currentIndex >= filteredProjects.length - 1}
               aria-label="Next slide"
               title="Next project"
             >
@@ -409,11 +458,16 @@ export default function TomDeKoningCarousel() {
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerUp}
         >
+          {/* Ambient Lighting Layers behind the 3D Carousel */}
+          <div className="carousel-3d-ambient-backdrop" aria-hidden="true" />
+          <div className="carousel-3d-ambient-pedestal" aria-hidden="true" />
+          <div className="carousel-3d-center-ambient" aria-hidden="true" />
+
           {/* Floating Typography Watermark (VEBRIWORK Inspired) */}
           {activeProj && (
             <div className="carousel-3d-hero-meta">
               <div className="carousel-3d-watermark-title">
-                {activeProj.title}
+                {getShortProjectTitle(activeProj)}
               </div>
               <div className="carousel-3d-watermark-subtitle">
                 {activeProj.categories[0]} <span className="meta-sep">/</span> {activeProj.role}
@@ -424,7 +478,12 @@ export default function TomDeKoningCarousel() {
           {/* Cylindrical 3D Stage Viewport */}
           <div className="carousel-3d-viewport">
             {filteredProjects.map((proj, idx) => {
-              const diff = idx - currentIndex;
+              const total = filteredProjects.length;
+              let diff = idx - currentIndex;
+              if (total > 0) {
+                while (diff > total / 2) diff -= total;
+                while (diff < -total / 2) diff += total;
+              }
               if (Math.abs(diff) > 2) return null;
 
               const totalImgs = proj.images ? proj.images.length : 0;
@@ -436,12 +495,13 @@ export default function TomDeKoningCarousel() {
               const numStr = String(idx + 1).padStart(2, '0');
               const isCenter = diff === 0;
 
-              // Cylindrical 3D math:
-              const rotateY = diff * 26; // inward angle in deg
-              const translateX = diff * 330; // horizontal spacing in px
-              const translateZ = -Math.abs(diff) * 140; // depth into screen
+              // Cylindrical 3D Circular Math (Reversed/Flipped Curve Direction):
+              const angle = diff * 25; // angle in degrees
+              const rotateY = -angle; // flipped curve direction (-diff instead of +diff)
+              const translateX = diff * 325; // horizontal spacing in px along cylinder
+              const translateZ = -Math.abs(diff) * 135; // depth into screen
               const scale = isCenter ? 1 : Math.max(0.78, 1 - Math.abs(diff) * 0.12);
-              const opacity = isCenter ? 1 : (Math.abs(diff) === 1 ? 0.65 : 0.28);
+              const opacity = isCenter ? 1 : (Math.abs(diff) === 1 ? 0.72 : 0.35);
               const zIndex = 20 - Math.abs(diff);
 
               return (
@@ -463,22 +523,36 @@ export default function TomDeKoningCarousel() {
                   }}
                 >
                   <article className="carousel-project-card curved-card">
-                    {/* Image Cover */}
-                    <div className="card-img-wrap">
+                    {/* 1. Card Header: Title & Meta placed at the very top */}
+                    <div className="curved-card-header">
+                      <div className="card-index-row">
+                        <div className="card-index-left">
+                          <span className="card-index">SYSTEM {numStr}</span>
+                          <span className="curved-card-cat">{proj.categories[0] || 'Engineering'}</span>
+                        </div>
+                        {isCenter && (
+                          <span className="card-focus-indicator">● ACTIVE FOCUS</span>
+                        )}
+                      </div>
+                      <h3 className="card-title">{getShortProjectTitle(proj)}</h3>
+                      <span className="card-role">{proj.role}</span>
+                    </div>
+
+                    {/* 2. Image Cover */}
+                    <div className="card-img-wrap curved-img-wrap">
                       {coverImg ? (
                         <img src={coverImg} alt={proj.title} loading="lazy" />
                       ) : (
                         <div style={{ width: '100%', height: '100%', background: '#111622' }} />
                       )}
 
-                      <div className="card-badge-row">
-                        <span className="card-cat-badge">{proj.categories[0] || 'Engineering'}</span>
-                        {honor && (
+                      {honor && (
+                        <div className="card-badge-row">
                           <span className={`card-honor-badge ${getHonorBadgeClass(honor)}`} title={honor}>
                             {honor}
                           </span>
-                        )}
-                      </div>
+                        </div>
+                      )}
 
                       {/* Photo switcher (active on center card) */}
                       {isCenter && totalImgs > 1 && (
@@ -514,16 +588,8 @@ export default function TomDeKoningCarousel() {
                       )}
                     </div>
 
-                    {/* Card Body */}
-                    <div className="card-body">
-                      <div className="card-index-row">
-                        <span className="card-index">SYSTEM {numStr}</span>
-                        {isCenter && (
-                          <span className="card-focus-indicator">● ACTIVE FOCUS</span>
-                        )}
-                      </div>
-                      <h3 className="card-title">{proj.title}</h3>
-                      <span className="card-role">{proj.role}</span>
+                    {/* 3. Card Body: Description, Tech Tags & Action Buttons */}
+                    <div className="card-body curved-card-body">
                       <p className="card-desc">{proj.desc}</p>
 
                       <div className="card-tech-cloud">
@@ -580,7 +646,6 @@ export default function TomDeKoningCarousel() {
               type="button"
               className="carousel-3d-side-btn"
               onClick={handlePrev}
-              disabled={currentIndex === 0}
               title="Proyek Sebelumnya"
             >
               <ChevronLeft size={16} />
@@ -597,7 +662,6 @@ export default function TomDeKoningCarousel() {
               type="button"
               className="carousel-3d-side-btn"
               onClick={handleNext}
-              disabled={currentIndex >= filteredProjects.length - 1}
               title="Proyek Berikutnya"
             >
               <span>NEXT</span>
@@ -702,7 +766,7 @@ export default function TomDeKoningCarousel() {
                   {/* Card Body */}
                   <div className="card-body">
                     <span className="card-index">SYSTEM {numStr}</span>
-                    <h3 className="card-title">{proj.title}</h3>
+                    <h3 className="card-title">{getShortProjectTitle(proj)}</h3>
                     <span className="card-role">{proj.role}</span>
                     <p className="card-desc">{proj.desc}</p>
 
