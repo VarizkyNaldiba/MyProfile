@@ -156,19 +156,21 @@ export default function Home() {
                   src="/assets/image/saya.jpg" 
                   alt="Varizky Naldiba Rimra" 
                   className="profile-img"
-                  loading="eager"
+                  fetchpriority="high"
+                  width="400"
+                  height="400"
                 />
               </div>
 
               {/* Quick Highlight Stats */}
               <div className="profile-stats-grid">
                 <div className="stat-box">
-                  <span className="stat-number">10+</span>
+                  <span className="stat-number">13</span>
                   <span className="stat-label">Engineered Systems</span>
                 </div>
                 <div className="stat-box">
-                  <span className="stat-number">2x</span>
-                  <span className="stat-label">Competition Finalist</span>
+                  <span className="stat-number">Awarded</span>
+                  <span className="stat-label">TFS & Competition Honors</span>
                 </div>
                 <div className="stat-box">
                   <span className="stat-number">Polinema</span>

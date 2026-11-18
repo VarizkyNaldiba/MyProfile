@@ -17,6 +17,7 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    document.querySelector('meta[name="color-scheme"]')?.setAttribute('content', theme);
     localStorage.setItem('portfolio-theme', theme);
   }, [theme]);
 

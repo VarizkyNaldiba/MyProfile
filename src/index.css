@@ -3,6 +3,7 @@
    ========================================================================== */
 
 :root {
+  color-scheme: light;
   --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
@@ -36,6 +37,7 @@
 }
 
 [data-theme="dark"] {
+  color-scheme: dark;
   --bg-page: #090d16;
   --bg-surface: #111726;
   --bg-subtle: #182032;
@@ -1152,6 +1154,41 @@ a {
 /* ==========================================================================
    Case Study Modal Window
    ========================================================================== */
+
+dialog.modal-native-dialog {
+  border: none;
+  background: transparent;
+  padding: 0;
+  max-width: 100vw;
+  max-height: 100vh;
+  margin: auto;
+  overflow: visible;
+}
+
+dialog.modal-native-dialog:modal {
+  overscroll-behavior: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+dialog.modal-native-dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: rgba(9, 13, 22, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.clear-tag-btn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 6px;
+  font-weight: bold;
+}
 
 .modal-backdrop {
   position: fixed;
