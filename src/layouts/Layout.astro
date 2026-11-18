@@ -75,8 +75,8 @@ const {
         const animateSpotlight = () => {
           const dx = mouseX - currentX;
           const dy = mouseY - currentY;
-          currentX += dx * 0.12;
-          currentY += dy * 0.12;
+          currentX += dx * 0.1;
+          currentY += dy * 0.1;
 
           spotlight.style.setProperty('--spotlight-x', `${currentX.toFixed(1)}px`);
           spotlight.style.setProperty('--spotlight-y', `${currentY.toFixed(1)}px`);
@@ -161,9 +161,12 @@ const {
 
           resize();
 
+          let lastFrameTime = performance.now();
           let time = 0;
-          const render = () => {
-            time += 0.02;
+          const render = (now = performance.now()) => {
+            const dt = Math.min((now - lastFrameTime) / 16.667, 2.0);
+            lastFrameTime = now;
+            time += 0.016 * dt;
             ctx.clearRect(0, 0, width, height);
 
             const pLen = particles.length;
@@ -200,8 +203,8 @@ const {
                 ctx.lineTo(mouse.x, mouse.y);
                 ctx.stroke();
 
-                // Gentle mouse repulsion
-                const force = (1 - mDist / mouse.radius) * 0.6;
+                // Gentle mouse repulsion smoothed with delta time
+                const force = (1 - mDist / mouse.radius) * 0.45 * dt;
                 p1.x += ((p1.x - mouse.x) / mDist) * force;
                 p1.y += ((p1.y - mouse.y) / mDist) * force;
               }
@@ -210,8 +213,8 @@ const {
             // Update & draw particles
             for (let i = 0; i < pLen; i++) {
               const p = particles[i];
-              p.x += p.vx;
-              p.y += p.vy;
+              p.x += p.vx * dt;
+              p.y += p.vy * dt;
 
               if (p.x < 0) { p.x = 0; p.vx *= -1; }
               if (p.x > width) { p.x = width; p.vx *= -1; }

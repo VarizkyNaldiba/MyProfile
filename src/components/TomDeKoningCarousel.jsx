@@ -495,7 +495,7 @@ export default function TomDeKoningCarousel() {
                   key={proj.id}
                   className={`carousel-3d-card-frame ${isCenter ? 'is-center' : 'is-side'}`}
                   style={{
-                    transform: `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
+                    transform: `translate3d(${translateX}px, 0px, ${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
                     opacity,
                     zIndex
                   }}
@@ -626,7 +626,7 @@ export default function TomDeKoningCarousel() {
             })}
           </div>
 
-          {/* VEBRIWORK Minimalist Bottom Counter & Nav */}
+          {/* Minimalist Bottom Counter & Nav (Connected Track Reference Design) */}
           <div className="carousel-3d-bottom-bar">
             <button
               type="button"
@@ -634,23 +634,20 @@ export default function TomDeKoningCarousel() {
               onClick={handlePrev}
               title="Proyek Sebelumnya"
             >
-              <ChevronLeft size={16} />
+              <ChevronLeft size={15} />
               <span>PREV</span>
             </button>
 
-            <div className="carousel-3d-counter-pill">
+            <div 
+              className="carousel-3d-counter-pill"
+              onClick={() => setIsAutoPlay(prev => !prev)}
+              title={isAutoPlay ? 'Klik untuk jeda tayang otomatis (6s)' : 'Klik untuk mulai tayang otomatis'}
+              role="button"
+              tabIndex={0}
+            >
               <span className="current">{String(currentIndex + 1).padStart(2, '0')}</span>
               <span className="sep">/</span>
               <span className="total">{String(filteredProjects.length).padStart(2, '0')}</span>
-              <button
-                type="button"
-                className="carousel-3d-play-toggle"
-                onClick={() => setIsAutoPlay(prev => !prev)}
-                title={isAutoPlay ? 'Jeda Otomatis' : 'Putar Otomatis'}
-                aria-label={isAutoPlay ? 'Pause autoplay' : 'Start autoplay'}
-              >
-                {isAutoPlay ? '❚❚' : '▶'}
-              </button>
               <div 
                 key={currentIndex} 
                 className={`carousel-3d-reading-timer ${isAutoPlay && !isHovered ? 'running' : 'paused'}`} 
@@ -664,7 +661,7 @@ export default function TomDeKoningCarousel() {
               title="Proyek Berikutnya"
             >
               <span>NEXT</span>
-              <ChevronRight size={16} />
+              <ChevronRight size={15} />
             </button>
           </div>
         </div>
