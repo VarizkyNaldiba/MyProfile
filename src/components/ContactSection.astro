@@ -1,5 +1,5 @@
 ---
-import { Mail, FileText, ArrowUpRight, Copy, ExternalLink, QrCode } from 'lucide-react';
+import { Mail, FileText, ArrowUpRight, Copy, ExternalLink, MapPin, Clock, CheckCircle2, Sparkles } from 'lucide-react';
 import { Github, Linkedin, Instagram, TikTok, Facebook } from './BrandIcons';
 
 const emailAddress = "varizkynr@gmail.com";
@@ -143,36 +143,69 @@ const socialLinks = [
 
       </div>
 
-      {/* Right: Interactive QR Code & Verified Portal Card */}
-      <div class="qr-interactive-card">
-        <div class="qr-box">
-          <img 
-            src="/portfolio-qr.png" 
-            alt="Scan QR Portofolio Web"
-            width="146"
-            height="146"
-          />
-        </div>
-        
-        <span style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem;">
-          Pindai untuk Akses Cepat
-        </span>
-        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-cyan); margin-bottom: 1rem;">
-          myprofile-nine-sigma.vercel.app
-        </span>
-        <p style="font-size: 0.82rem; color: var(--text-secondary); max-width: 320px; line-height: 1.55; margin-bottom: 1.5rem;">
-          Pindai menggunakan kamera ponsel pintar Anda untuk membuka portofolio interaktif ini di perangkat seluler kapan saja.
-        </p>
+      {/* Right: Availability & Engineering Readiness Card */}
+      <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between; padding: 2rem;">
+        <div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+            <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); padding: 0.35rem 0.85rem; border-radius: 9999px;">
+              <span class="pulse-dot" style="background: #22c55e;"></span>
+              <span style="font-size: 0.76rem; font-weight: 700; color: #4ade80; text-transform: uppercase; letter-spacing: 0.05em;">
+                Available for Engineering Roles
+              </span>
+            </div>
+            <Sparkles size={18} color="var(--accent-cyan)" />
+          </div>
 
-        <a 
-          href="https://myprofile-nine-sigma.vercel.app/" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="btn btn-glass btn-sm"
-        >
-          <span>Kunjungi Versi Live Web</span>
-          <ExternalLink size={13} />
-        </a>
+          <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 0.75rem; line-height: 1.35;">
+            Siap Berkolaborasi Membangun Sistem Handal
+          </h3>
+          <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.75rem;">
+            Terbuka untuk posisi full-time, magang industri, maupun kolaborasi proyek rekayasa perangkat lunak, machine learning terapan, dan telemetri IoT edge-to-cloud.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(59, 130, 246, 0.1); display: flex; align-items: center; justify-content: center; color: var(--accent-blue);">
+                <Clock size={16} />
+              </div>
+              <div>
+                <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #fff;">Waktu Respon Cepat</span>
+                <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">&lt; 24 jam melalui email resmi</span>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(6, 182, 212, 0.1); display: flex; align-items: center; justify-content: center; color: var(--accent-cyan);">
+                <MapPin size={16} />
+              </div>
+              <div>
+                <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #fff;">Lokasi & Mobilitas</span>
+                <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">Malang, Jawa Timur (Onsite / Hybrid / Remote)</span>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(245, 158, 11, 0.1); display: flex; align-items: center; justify-content: center; color: #fbbf24;">
+                <CheckCircle2 size={16} />
+              </div>
+              <div>
+                <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #fff;">Fokus Keahlian Utama</span>
+                <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">Applied ML, Edge IoT Probes &amp; WebGIS Systems</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); display: flex; gap: 0.75rem;">
+          <a href="https://www.linkedin.com/in/varizkynaldiba/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="flex: 1; text-align: center;">
+            <span>Koneksi LinkedIn</span>
+            <ArrowUpRight size={13} />
+          </a>
+          <a href="https://github.com/VarizkyNaldiba" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm" style="flex: 1; text-align: center;">
+            <span>GitHub Profile</span>
+            <ExternalLink size={13} />
+          </a>
+        </div>
       </div>
 
     </div>

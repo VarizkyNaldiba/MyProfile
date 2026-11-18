@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { 
   ChevronLeft, ChevronRight, ArrowUpRight, ExternalLink, 
-  X, CheckCircle, Maximize2
+  X, CheckCircle, Maximize2, Check, Image as ImageIcon
 } from 'lucide-react';
 import { Github } from './BrandIcons';
 import { projectsData } from '../projects';
@@ -27,77 +27,165 @@ export default function TomDeKoningCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeModalImg, setActiveModalImg] = useState(0);
+  
+  // Custom cover image index per project (allows swapping the outer photo)
+  const [cardCoverIndexes, setCardCoverIndexes] = useState({});
+
+  // Drag & momentum physics states
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
 
+  // Floating cursor follower states (tomdekoning.work style)
+  const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
+  const [cursorVisible, setCursorVisible] = useState(false);
+  const [cursorMode, setCursorMode] = useState('drag'); // 'drag' | 'view' | 'grab'
+
   const trackRef = useRef(null);
+  const isProgrammaticScroll = useRef(false);
+  const scrollTimeoutRef = useRef(null);
+  const velocityRef = useRef(0);
+  const lastXRef = useRef(0);
+  const lastTimeRef = useRef(0);
+  const momentumRafRef = useRef(null);
 
   const filteredProjects = projectsData.filter((p) => {
     if (selectedCat === 'All') return true;
     return p.categories.some(c => c.toLowerCase().includes(selectedCat.toLowerCase()));
   });
 
-  // Calculate scroll position and active index
+  // Accurate scroll handler: syncs currentIndex based on which card center is closest to track center
   const handleScroll = () => {
-    if (!trackRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = trackRef.current;
-    const maxScroll = scrollWidth - clientWidth;
-    if (maxScroll <= 0) {
-      setCurrentIndex(0);
-      return;
-    }
-    const ratio = scrollLeft / maxScroll;
-    const idx = Math.min(
-      Math.round(ratio * (filteredProjects.length - 1)),
-      filteredProjects.length - 1
-    );
-    setCurrentIndex(Math.max(0, idx));
+    if (!trackRef.current || isProgrammaticScroll.current) return;
+    const track = trackRef.current;
+    const cards = track.querySelectorAll('.carousel-project-card');
+    if (!cards || cards.length === 0) return;
+
+    const trackCenter = track.scrollLeft + track.clientWidth / 2;
+    let closestIdx = 0;
+    let minDiff = Infinity;
+
+    cards.forEach((card, i) => {
+      const cardCenter = card.offsetLeft + card.clientWidth / 2;
+      const diff = Math.abs(cardCenter - trackCenter);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestIdx = i;
+      }
+    });
+
+    setCurrentIndex(closestIdx);
   };
 
-  const scrollToCard = (index) => {
+  // Programmatic smooth scroll to card index (solves arrow error & avoids scrollIntoView window jump)
+  const scrollToCardIndex = useCallback((targetIdx) => {
     if (!trackRef.current) return;
     const cards = trackRef.current.querySelectorAll('.carousel-project-card');
-    if (cards[index]) {
-      cards[index].scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'start'
-      });
-    }
-  };
+    if (!cards || cards.length === 0) return;
+
+    const boundedIdx = Math.max(0, Math.min(filteredProjects.length - 1, targetIdx));
+    const targetCard = cards[boundedIdx];
+    if (!targetCard) return;
+
+    isProgrammaticScroll.current = true;
+    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    if (momentumRafRef.current) cancelAnimationFrame(momentumRafRef.current);
+
+    const track = trackRef.current;
+    const paddingLeft = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+    const targetLeft = targetCard.offsetLeft - track.offsetLeft - paddingLeft;
+
+    track.scrollTo({
+      left: Math.max(0, targetLeft),
+      behavior: 'smooth'
+    });
+
+    setCurrentIndex(boundedIdx);
+
+    scrollTimeoutRef.current = setTimeout(() => {
+      isProgrammaticScroll.current = false;
+    }, 450);
+  }, [filteredProjects.length]);
 
   const handlePrev = useCallback(() => {
-    const nextIdx = Math.max(0, currentIndex - 1);
-    scrollToCard(nextIdx);
-  }, [currentIndex]);
+    scrollToCardIndex(currentIndex - 1);
+  }, [currentIndex, scrollToCardIndex]);
 
   const handleNext = useCallback(() => {
-    const nextIdx = Math.min(filteredProjects.length - 1, currentIndex + 1);
-    scrollToCard(nextIdx);
-  }, [currentIndex, filteredProjects.length]);
+    scrollToCardIndex(currentIndex + 1);
+  }, [currentIndex, scrollToCardIndex]);
 
-  // Drag-to-scroll implementation
+  // Horizontal mouse-wheel support (seamless horizontal glide like tomdekoning.work)
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const onWheel = (e) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && Math.abs(e.deltaY) > 5) {
+        e.preventDefault();
+        track.scrollLeft += e.deltaY * 1.25;
+      }
+    };
+
+    track.addEventListener('wheel', onWheel, { passive: false });
+    return () => track.removeEventListener('wheel', onWheel);
+  }, []);
+
+  // Drag-to-scroll with inertia momentum implementation
   const handleMouseDown = (e) => {
     if (!trackRef.current) return;
+    if (momentumRafRef.current) cancelAnimationFrame(momentumRafRef.current);
+
     setIsDragging(true);
-    setStartX(e.pageX - trackRef.current.offsetLeft);
+    setCursorMode('grab');
+    setStartX(e.pageX);
     setScrollLeft(trackRef.current.scrollLeft);
+    lastXRef.current = e.pageX;
+    lastTimeRef.current = performance.now();
+    velocityRef.current = 0;
   };
 
   const handleMouseLeave = () => {
     setIsDragging(false);
+    setCursorVisible(false);
   };
 
   const handleMouseUp = () => {
+    if (!isDragging) return;
     setIsDragging(false);
+    setCursorMode('drag');
+
+    // Apply inertia deceleration
+    let vel = velocityRef.current * 16;
+    const friction = 0.92;
+
+    const stepMomentum = () => {
+      if (Math.abs(vel) < 0.5 || !trackRef.current) return;
+      trackRef.current.scrollLeft -= vel;
+      vel *= friction;
+      momentumRafRef.current = requestAnimationFrame(stepMomentum);
+    };
+
+    momentumRafRef.current = requestAnimationFrame(stepMomentum);
   };
 
   const handleMouseMove = (e) => {
+    setCursorPos({ x: e.clientX, y: e.clientY });
+    if (!cursorVisible) setCursorVisible(true);
+
     if (!isDragging || !trackRef.current) return;
     e.preventDefault();
-    const x = e.pageX - trackRef.current.offsetLeft;
-    const walk = (x - startX) * 1.6;
+
+    const now = performance.now();
+    const dt = now - lastTimeRef.current;
+    if (dt > 0) {
+      const dx = e.pageX - lastXRef.current;
+      velocityRef.current = dx / dt;
+      lastXRef.current = e.pageX;
+      lastTimeRef.current = now;
+    }
+
+    const walk = (e.pageX - startX) * 1.35;
     trackRef.current.scrollLeft = scrollLeft - walk;
   };
 
@@ -115,6 +203,24 @@ export default function TomDeKoningCarousel() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedProject, handlePrev, handleNext]);
 
+  // Photo Switcher on Card: lets visitor/user flip outer photo right on the card
+  const handleCardPhotoSwitch = (e, proj, direction) => {
+    e.stopPropagation();
+    const total = proj.images ? proj.images.length : 1;
+    if (total <= 1) return;
+
+    setCardCoverIndexes(prev => {
+      const current = prev[proj.id] ?? 0;
+      const next = (current + direction + total) % total;
+      return { ...prev, [proj.id]: next };
+    });
+  };
+
+  const handleSetCoverDirect = (e, projId, idx) => {
+    e.stopPropagation();
+    setCardCoverIndexes(prev => ({ ...prev, [projId]: idx }));
+  };
+
   const progressPercent = filteredProjects.length > 0 
     ? Math.min(100, Math.round(((currentIndex + 1) / filteredProjects.length) * 100))
     : 0;
@@ -125,11 +231,11 @@ export default function TomDeKoningCarousel() {
       case 'catfishcare-tfs2026':
         return 'Juara Harapan 2 LKTI Techno Fair and Seminar (TFS) 2026';
       case 'pkm-gft-sais':
-        return 'PKM-GFT 2026 Tahap 2';
+        return 'PKM-GFT 2026 Tahap 2 Insentif';
       case 'algasense':
         return 'Finalis Nasional LKTI Techno Fair and Seminar (TFS) 2025';
       case 'agroclimatology-intelecta':
-        return 'Peringkat 18/82 Kaggle 94.310';
+        return 'Peringkat 18/82 Intelecta Cup';
       case 'slb-spatial-disparity':
         return 'Peserta Resmi Jatim Datathon 2025';
       case 'crowd-density-hology':
@@ -141,6 +247,19 @@ export default function TomDeKoningCarousel() {
 
   return (
     <section className="section-padding carousel-section" id="projects">
+      {/* Floating magnetic cursor (tomdekoning.work luxury follower) */}
+      {cursorVisible && !selectedProject && (
+        <div 
+          className={`tdk-cursor-pill ${cursorMode === 'view' ? 'view-mode' : ''} ${cursorMode === 'grab' ? 'grab-mode' : ''}`}
+          style={{
+            left: `${cursorPos.x}px`,
+            top: `${cursorPos.y}px`
+          }}
+        >
+          {cursorMode === 'grab' ? 'GRABBING' : (cursorMode === 'view' ? 'VIEW SPECS ↗' : '← DRAG →')}
+        </div>
+      )}
+
       <div className="container">
         
         {/* Section Head */}
@@ -187,6 +306,7 @@ export default function TomDeKoningCarousel() {
               onClick={handlePrev}
               disabled={currentIndex === 0}
               aria-label="Previous slide"
+              title="Previous project"
             >
               <ChevronLeft size={18} />
             </button>
@@ -196,6 +316,7 @@ export default function TomDeKoningCarousel() {
               onClick={handleNext}
               disabled={currentIndex >= filteredProjects.length - 1}
               aria-label="Next slide"
+              title="Next project"
             >
               <ChevronRight size={18} />
             </button>
@@ -213,10 +334,15 @@ export default function TomDeKoningCarousel() {
         onMouseLeave={handleMouseLeave}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
+        onMouseEnter={() => setCursorVisible(true)}
       >
         <div className="carousel-track-inner">
           {filteredProjects.map((proj, idx) => {
-            const coverImg = proj.images && proj.images[0] ? getImgSrc(proj.images[0]) : '';
+            const totalImgs = proj.images ? proj.images.length : 0;
+            const activeCoverIdx = cardCoverIndexes[proj.id] ?? 0;
+            const coverImg = (proj.images && proj.images[activeCoverIdx]) 
+              ? getImgSrc(proj.images[activeCoverIdx]) 
+              : (proj.images && proj.images[0] ? getImgSrc(proj.images[0]) : '');
             const honor = getProjectHonor(proj.slug);
             const numStr = String(idx + 1).padStart(2, '0');
 
@@ -224,12 +350,14 @@ export default function TomDeKoningCarousel() {
               <article 
                 key={proj.id} 
                 className="carousel-project-card"
+                onMouseEnter={() => setCursorMode('view')}
+                onMouseLeave={() => setCursorMode('drag')}
                 onClick={() => {
                   setSelectedProject(proj);
-                  setActiveModalImg(0);
+                  setActiveModalImg(activeCoverIdx);
                 }}
               >
-                {/* Image Cover */}
+                {/* Image Cover with Interactive Switcher */}
                 <div className="card-img-wrap">
                   {coverImg ? (
                     <img 
@@ -241,12 +369,57 @@ export default function TomDeKoningCarousel() {
                     <div style={{ width: '100%', height: '100%', background: '#111622' }} />
                   )}
                   
+                  {/* Category & Honor Badges */}
                   <div className="card-badge-row">
                     <span className="card-cat-badge">{proj.categories[0] || 'Engineering'}</span>
                     {honor && (
                       <span className="card-honor-badge">{honor}</span>
                     )}
                   </div>
+
+                  {/* Interactive Photo Switcher Controls (if project has multiple images) */}
+                  {totalImgs > 1 && (
+                    <>
+                      <button
+                        type="button"
+                        className="card-photo-switcher prev-photo"
+                        onClick={(e) => handleCardPhotoSwitch(e, proj, -1)}
+                        title="Foto Sebelumnya"
+                        aria-label="Previous photo"
+                      >
+                        <ChevronLeft size={16} />
+                      </button>
+
+                      <button
+                        type="button"
+                        className="card-photo-switcher next-photo"
+                        onClick={(e) => handleCardPhotoSwitch(e, proj, 1)}
+                        title="Foto Berikutnya"
+                        aria-label="Next photo"
+                      >
+                        <ChevronRight size={16} />
+                      </button>
+
+                      {/* Dot Indicators */}
+                      <div className="card-photo-dots" onClick={(e) => e.stopPropagation()}>
+                        {proj.images.map((_, pIdx) => (
+                          <button
+                            key={pIdx}
+                            type="button"
+                            className={`card-photo-dot ${activeCoverIdx === pIdx ? 'active' : ''}`}
+                            onClick={(e) => handleSetCoverDirect(e, proj.id, pIdx)}
+                            title={`Foto ${pIdx + 1} dari ${totalImgs}`}
+                            aria-label={`Switch to photo ${pIdx + 1}`}
+                          />
+                        ))}
+                      </div>
+
+                      {/* Photo Index Counter Pill */}
+                      <div className="card-photo-pill">
+                        {activeCoverIdx + 1}/{totalImgs}
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 {/* Card Body */}
@@ -273,7 +446,7 @@ export default function TomDeKoningCarousel() {
                       className="card-explore-btn"
                       onClick={() => {
                         setSelectedProject(proj);
-                        setActiveModalImg(0);
+                        setActiveModalImg(activeCoverIdx);
                       }}
                     >
                       <Maximize2 size={14} />
@@ -352,16 +525,59 @@ export default function TomDeKoningCarousel() {
             {/* Modal Content */}
             <div className="modal-content-body">
               
-              {/* Gallery of Assets */}
+              {/* Gallery of Assets with 'Set as Card Cover' Option */}
               {selectedProject.images && selectedProject.images.length > 0 && (
                 <div style={{ marginBottom: '2rem' }}>
-                  <div style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border-subtle)', marginBottom: '0.75rem', aspectRatio: '16/9', background: '#090b10' }}>
+                  <div style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border-subtle)', marginBottom: '0.75rem', aspectRatio: '16/9', background: '#090b10', position: 'relative' }}>
                     <img 
                       src={getImgSrc(selectedProject.images[activeModalImg])} 
                       alt={selectedProject.title}
                       style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />
+
+                    {/* Set As Card Cover Button inside Modal */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCardCoverIndexes(prev => ({
+                          ...prev,
+                          [selectedProject.id]: activeModalImg
+                        }));
+                      }}
+                      style={{
+                        position: 'absolute',
+                        bottom: '1rem',
+                        right: '1rem',
+                        padding: '0.45rem 0.9rem',
+                        borderRadius: '9999px',
+                        background: (cardCoverIndexes[selectedProject.id] ?? 0) === activeModalImg ? 'var(--accent-cyan)' : 'rgba(10, 14, 22, 0.85)',
+                        color: (cardCoverIndexes[selectedProject.id] ?? 0) === activeModalImg ? '#06080d' : '#ffffff',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.4rem',
+                        cursor: 'pointer',
+                        backdropFilter: 'blur(8px)',
+                        transition: 'all 0.2s ease'
+                      }}
+                    >
+                      {(cardCoverIndexes[selectedProject.id] ?? 0) === activeModalImg ? (
+                        <>
+                          <Check size={14} />
+                          <span>Foto Sampul Terpilih</span>
+                        </>
+                      ) : (
+                        <>
+                          <ImageIcon size={14} />
+                          <span>Jadikan Sampul Luar</span>
+                        </>
+                      )}
+                    </button>
                   </div>
+
+                  {/* Thumbnail Row */}
                   {selectedProject.images.length > 1 && (
                     <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', paddingBottom: '0.5rem' }}>
                       {selectedProject.images.map((img, iIdx) => (
@@ -377,7 +593,9 @@ export default function TomDeKoningCarousel() {
                             border: activeModalImg === iIdx ? '2px solid var(--accent-cyan)' : '1px solid var(--border-subtle)',
                             background: '#090b10',
                             padding: 0,
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            position: 'relative',
+                            flexShrink: 0
                           }}
                         >
                           <img 
@@ -385,6 +603,17 @@ export default function TomDeKoningCarousel() {
                             alt={`Preview ${iIdx + 1}`}
                             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                           />
+                          {(cardCoverIndexes[selectedProject.id] ?? 0) === iIdx && (
+                            <span style={{
+                              position: 'absolute',
+                              top: '2px',
+                              right: '2px',
+                              width: '8px',
+                              height: '8px',
+                              borderRadius: '50%',
+                              background: 'var(--accent-cyan)'
+                            }} />
+                          )}
                         </button>
                       ))}
                     </div>
