@@ -375,7 +375,7 @@ export default function TomDeKoningCarousel() {
           </p>
         </div>
 
-        {/* Controls Bar: Categories & Slide Navigation */}
+        {/* Controls Bar: Categories */}
         <div className="carousel-controls-bar">
           {/* Category Filter Pills */}
           <div className="carousel-filter-pills">
@@ -394,57 +394,6 @@ export default function TomDeKoningCarousel() {
               </button>
             ))}
           </div>
-
-          {/* Navigation Controls: Slide Counter & Arrow Buttons */}
-          <div className="carousel-nav-group">
-            {/* View Mode Toggle: 3D Curved vs Flat Track */}
-            <div className="carousel-view-mode-group">
-              <button
-                type="button"
-                className={`view-mode-btn ${viewMode === '3d' ? 'active' : ''}`}
-                onClick={() => setViewMode('3d')}
-                title="Tampilan Panorama 3D Lengkung"
-              >
-                <span>3D Curved</span>
-              </button>
-              <button
-                type="button"
-                className={`view-mode-btn ${viewMode === 'flat' ? 'active' : ''}`}
-                onClick={() => setViewMode('flat')}
-                title="Tampilan Flat Track Klasik"
-              >
-                <span>Flat Track</span>
-              </button>
-            </div>
-
-            <div className="carousel-counter">
-              <span className="active-num">
-                {String(currentIndex + 1).padStart(2, '0')}
-              </span>
-              {' '}/ {String(filteredProjects.length).padStart(2, '0')}
-            </div>
-            
-            <button
-              type="button"
-              className="carousel-arrow-btn"
-              onClick={handlePrev}
-              disabled={viewMode !== '3d' && currentIndex === 0}
-              aria-label="Previous slide"
-              title="Previous project"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              type="button"
-              className="carousel-arrow-btn"
-              onClick={handleNext}
-              disabled={viewMode !== '3d' && currentIndex >= filteredProjects.length - 1}
-              aria-label="Next slide"
-              title="Next project"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </div>
         </div>
 
       </div>
@@ -458,10 +407,25 @@ export default function TomDeKoningCarousel() {
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerUp}
         >
-          {/* Ambient Lighting Layers behind the 3D Carousel */}
-          <div className="carousel-3d-ambient-backdrop" aria-hidden="true" />
-          <div className="carousel-3d-ambient-pedestal" aria-hidden="true" />
-          <div className="carousel-3d-center-ambient" aria-hidden="true" />
+          {/* Dynamic Moving Background Elements */}
+          <div className="carousel-3d-bg-canvas" aria-hidden="true">
+            {/* Moving 3D Perspective Grid Floor */}
+            <div className="carousel-3d-moving-grid" />
+
+            {/* Kinetic Floating Aurora Light Orbs */}
+            <div className="carousel-3d-orb orb-cyan" />
+            <div className="carousel-3d-orb orb-indigo" />
+            <div className="carousel-3d-orb orb-violet" />
+
+            {/* Rotating 3D Circular Pedestal Platform */}
+            <div className="carousel-3d-pedestal-platform">
+              <div className="pedestal-ring-glow" />
+              <div className="pedestal-ring-radar" />
+            </div>
+
+            {/* Center Core Ambient Glow */}
+            <div className="carousel-3d-ambient-core" />
+          </div>
 
           {/* Floating Typography Watermark (VEBRIWORK Inspired) */}
           {activeProj && (
