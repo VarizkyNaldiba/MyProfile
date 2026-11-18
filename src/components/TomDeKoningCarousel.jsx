@@ -159,6 +159,26 @@ export default function TomDeKoningCarousel() {
     }
   }, [viewMode, currentIndex, filteredProjects.length, scrollToCardIndex]);
 
+  // Auto-advance slideshow with 6s reading pause (jeda agar bisa dibaca)
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const autoPlayTimerRef = useRef(null);
+
+  useEffect(() => {
+    if (viewMode !== '3d' || !isAutoPlay || isHovered || selectedProject) {
+      if (autoPlayTimerRef.current) clearInterval(autoPlayTimerRef.current);
+      return;
+    }
+
+    autoPlayTimerRef.current = setInterval(() => {
+      handleNext();
+    }, 6000); // 6 detik jeda baca per elemen proyek
+
+    return () => {
+      if (autoPlayTimerRef.current) clearInterval(autoPlayTimerRef.current);
+    };
+  }, [viewMode, isAutoPlay, isHovered, selectedProject, handleNext]);
+
   // 3D Viewport Interaction: Pointer Drag
   const dragStartX = useRef(0);
   const isPointerDown = useRef(false);
@@ -402,6 +422,8 @@ export default function TomDeKoningCarousel() {
       {viewMode === '3d' ? (
         <div 
           className="carousel-3d-stage-wrapper"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
           onWheel={handle3DWheel}
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
@@ -427,13 +449,13 @@ export default function TomDeKoningCarousel() {
             <div className="carousel-3d-ambient-core" />
           </div>
 
-          {/* Floating Typography Watermark (VEBRIWORK Inspired) */}
+          {/* Floating Typography Watermark (In-Out Animation on Project Switch) */}
           {activeProj && (
-            <div className="carousel-3d-hero-meta">
-              <div className="carousel-3d-watermark-title">
+            <div className="carousel-3d-hero-meta" key={activeProj.id}>
+              <div className="carousel-3d-watermark-title animate-in-out-title">
                 {getShortProjectTitle(activeProj)}
               </div>
-              <div className="carousel-3d-watermark-subtitle">
+              <div className="carousel-3d-watermark-subtitle animate-in-out-subtitle">
                 {activeProj.categories[0]} <span className="meta-sep">/</span> {activeProj.role}
               </div>
             </div>
@@ -620,6 +642,19 @@ export default function TomDeKoningCarousel() {
               <span className="current">{String(currentIndex + 1).padStart(2, '0')}</span>
               <span className="sep">/</span>
               <span className="total">{String(filteredProjects.length).padStart(2, '0')}</span>
+              <button
+                type="button"
+                className="carousel-3d-play-toggle"
+                onClick={() => setIsAutoPlay(prev => !prev)}
+                title={isAutoPlay ? 'Jeda Otomatis' : 'Putar Otomatis'}
+                aria-label={isAutoPlay ? 'Pause autoplay' : 'Start autoplay'}
+              >
+                {isAutoPlay ? '❚❚' : '▶'}
+              </button>
+              <div 
+                key={currentIndex} 
+                className={`carousel-3d-reading-timer ${isAutoPlay && !isHovered ? 'running' : 'paused'}`} 
+              />
             </div>
 
             <button

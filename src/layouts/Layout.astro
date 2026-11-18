@@ -232,6 +232,44 @@ const {
           requestAnimationFrame(render);
         }
       }
+
+      // 3. Scroll In-Out Reveal Animation with Sequential Reading Delay (Jeda Baca)
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in-view');
+            } else {
+              // Animasi Out saat meninggalkan viewport
+              entry.target.classList.remove('is-in-view');
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -30px 0px'
+        });
+
+        const selectors = [
+          '.section-head',
+          '.hero-content > *',
+          '.hero-visual',
+          '.about-card',
+          '.skill-card',
+          '.service-box',
+          '.methodology-card',
+          '.creative-card',
+          '.creative-portal-card',
+          '.contact-direct-card',
+          '.qr-interactive-card'
+        ];
+
+        document.querySelectorAll(selectors.join(', ')).forEach((el, idx) => {
+          el.classList.add('reveal-on-scroll');
+          // Jeda / stagger delay agar setiap elemen berurutan masuk dan nyaman dibaca
+          el.style.setProperty('--stagger-index', `${(idx % 4) * 0.12}s`);
+          revealObserver.observe(el);
+        });
+      }
     </script>
   </body>
 </html>

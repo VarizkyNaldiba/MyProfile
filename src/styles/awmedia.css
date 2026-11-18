@@ -2325,3 +2325,166 @@ body {
   flex-wrap: wrap;
   gap: 1.5rem;
 }
+
+/* ==========================================================================
+   IN-OUT ANIMATIONS WITH SEQUENTIAL READING DELAY (JEDA BACA)
+   ========================================================================== */
+
+/* Watermark Title In-Out Transition on 3D Carousel */
+.animate-in-out-title {
+  animation: watermarkIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes watermarkIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.97);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Watermark Subtitle In-Out */
+.animate-in-out-subtitle {
+  animation: watermarkSubIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+@keyframes watermarkSubIn {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Active 3D Card Internal Elements Staggered In-Out */
+.is-center .curved-card-header .card-index-row {
+  animation: elementSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+.is-center .curved-card-header .card-title {
+  animation: elementSlideIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+}
+
+.is-center .curved-card-header .card-role {
+  animation: elementSlideIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+}
+
+.is-center .curved-card-body .card-desc {
+  animation: elementSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+.is-center .curved-card-body .card-tech-cloud {
+  animation: elementSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
+}
+
+.is-center .curved-card-body .card-footer-actions {
+  animation: elementSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+@keyframes elementSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Play / Pause Toggle Button on Carousel Counter */
+.carousel-3d-play-toggle {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--accent-cyan);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  cursor: pointer;
+  margin-left: 0.35rem;
+  transition: all 0.2s ease;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.carousel-3d-play-toggle:hover {
+  background: rgba(6, 182, 212, 0.25);
+  color: #ffffff;
+  border-color: var(--accent-cyan);
+}
+
+/* Jeda Waktu Baca Indicator Bar (6 Detik Jeda) */
+.carousel-3d-counter-pill {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-3d-reading-timer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+  width: 0%;
+}
+
+.carousel-3d-reading-timer.running {
+  animation: readingJeda 6s linear infinite;
+}
+
+.carousel-3d-reading-timer.paused {
+  animation-play-state: paused;
+}
+
+@keyframes readingJeda {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   GLOBAL SCROLL IN-OUT REVEAL WITH STAGGERED JEDA
+   ========================================================================== */
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--stagger-index, 0s);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .animate-in-out-title,
+  .animate-in-out-subtitle,
+  .is-center .curved-card-header .card-title,
+  .is-center .curved-card-body .card-desc {
+    animation: none !important;
+  }
+}
