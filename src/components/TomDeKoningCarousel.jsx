@@ -30,10 +30,56 @@ export default function TomDeKoningCarousel() {
   const [activeModalImg, setActiveModalImg] = useState(0);
   
   // View Mode: 'horizontal' (Geser Samping) or 'vertical' (Vertikal Kiri-Kanan)
-  const [viewMode, setViewMode] = useState('horizontal');
+  const [viewMode, setViewModeState] = useState('horizontal');
 
   // Custom cover image index per project (allows swapping the outer photo)
   const [cardCoverIndexes, setCardCoverIndexes] = useState({});
+
+  // Toast notification for saved persistent preferences
+  const [toastMessage, setToastMessage] = useState(null);
+  const toastTimerRef = useRef(null);
+
+  // Load persisted viewMode and cardCoverIndexes from localStorage on mount
+  useEffect(() => {
+    try {
+      const savedMode = localStorage.getItem('vnr_projects_view_mode');
+      if (savedMode === 'horizontal' || savedMode === 'vertical') {
+        setViewModeState(savedMode);
+      }
+      const savedCovers = localStorage.getItem('vnr_card_cover_indexes');
+      if (savedCovers) {
+        setCardCoverIndexes(JSON.parse(savedCovers));
+      }
+    } catch (e) {
+      // LocalStorage access may fail in private browsing; fail silently
+    }
+  }, []);
+
+  const setViewMode = (mode) => {
+    setViewModeState(mode);
+    try {
+      localStorage.setItem('vnr_projects_view_mode', mode);
+    } catch (e) {}
+  };
+
+  const showToast = (msg) => {
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    setToastMessage(msg);
+    toastTimerRef.current = setTimeout(() => {
+      setToastMessage(null);
+    }, 2800);
+  };
+
+  const updateCardCover = (projId, newIdx, projTitle) => {
+    setCardCoverIndexes(prev => {
+      const updated = { ...prev, [projId]: newIdx };
+      try {
+        localStorage.setItem('vnr_card_cover_indexes', JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
+    showToast(`Foto sampul "${projTitle || 'proyek'}" tersimpan!`);
+  };
 
   // Drag & momentum physics states
   const [isDragging, setIsDragging] = useState(false);
@@ -209,22 +255,20 @@ export default function TomDeKoningCarousel() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedProject, viewMode, handlePrev, handleNext]);
 
-  // Photo Switcher on Card: lets visitor/user flip outer photo right on the card
+  // Photo Switcher on Card: lets visitor/user flip outer photo right on the card (persisted)
   const handleCardPhotoSwitch = (e, proj, direction) => {
     e.stopPropagation();
     const total = proj.images ? proj.images.length : 1;
     if (total <= 1) return;
 
-    setCardCoverIndexes(prev => {
-      const current = prev[proj.id] ?? 0;
-      const next = (current + direction + total) % total;
-      return { ...prev, [proj.id]: next };
-    });
+    const current = cardCoverIndexes[proj.id] ?? 0;
+    const next = (current + direction + total) % total;
+    updateCardCover(proj.id, next, proj.title);
   };
 
-  const handleSetCoverDirect = (e, projId, idx) => {
+  const handleSetCoverDirect = (e, projId, idx, projTitle) => {
     e.stopPropagation();
-    setCardCoverIndexes(prev => ({ ...prev, [projId]: idx }));
+    updateCardCover(projId, idx, projTitle);
   };
 
   const progressPercent = filteredProjects.length > 0 
@@ -449,7 +493,7 @@ export default function TomDeKoningCarousel() {
                                 key={pIdx}
                                 type="button"
                                 className={`card-photo-dot ${activeCoverIdx === pIdx ? 'active' : ''}`}
-                                onClick={(e) => handleSetCoverDirect(e, proj.id, pIdx)}
+                                onClick={(e) => handleSetCoverDirect(e, proj.id, pIdx, proj.title)}
                                 title={`Foto ${pIdx + 1} dari ${totalImgs}`}
                                 aria-label={`Switch to photo ${pIdx + 1}`}
                               />
@@ -606,7 +650,7 @@ export default function TomDeKoningCarousel() {
                               key={pIdx}
                               type="button"
                               className={`card-photo-dot ${activeCoverIdx === pIdx ? 'active' : ''}`}
-                              onClick={(e) => handleSetCoverDirect(e, proj.id, pIdx)}
+                              onClick={(e) => handleSetCoverDirect(e, proj.id, pIdx, proj.title)}
                               title={`Foto ${pIdx + 1} dari ${totalImgs}`}
                               aria-label={`Switch to photo ${pIdx + 1}`}
                             />
@@ -737,14 +781,11 @@ export default function TomDeKoningCarousel() {
                       style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />
 
-                    {/* Set As Card Cover Button inside Modal */}
+                    {/* Set As Card Cover Button inside Modal (persisted) */}
                     <button
                       type="button"
                       onClick={() => {
-                        setCardCoverIndexes(prev => ({
-                          ...prev,
-                          [selectedProject.id]: activeModalImg
-                        }));
+                        updateCardCover(selectedProject.id, activeModalImg, selectedProject.title);
                       }}
                       style={{
                         position: 'absolute',
@@ -919,6 +960,14 @@ export default function TomDeKoningCarousel() {
 
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Persistent Toast Notification */}
+      {toastMessage && (
+        <div className="save-toast-pill" role="status" aria-live="polite">
+          <CheckCircle size={16} style={{ color: '#4ade80' }} />
+          <span>{toastMessage}</span>
         </div>
       )}
 
