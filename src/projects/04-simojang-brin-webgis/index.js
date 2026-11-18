@@ -2,6 +2,11 @@ import { Map } from 'lucide-react';
 import imgLiveMap from './assets/simojang-live-map.png';
 import imgWebProduction from './assets/simojang-web-production.png';
 import imgDiskusiBrin from './assets/diskusi-riset-brin.jpg';
+import imgField1 from './assets/img-20260518-wa0020.jpg';
+import imgField2 from './assets/img-20260519-wa0055.jpg';
+import imgTelemetry from './assets/img-20260521-wa0027.jpg';
+import imgDokumen1 from './assets/dokumen-riset-brin-1.png';
+import imgDokumen2 from './assets/dokumen-riset-brin-2.png';
 
 export const simojangBrinWebgis = {
   id: 4,
@@ -15,7 +20,7 @@ export const simojangBrinWebgis = {
     { type: "web", label: "Live Production WebGIS", url: "https://simojang.let.polinema.ac.id/" }
   ],
   icon: Map,
-  images: [imgLiveMap, imgWebProduction, imgDiskusiBrin],
+  images: [imgLiveMap, imgWebProduction, imgDiskusiBrin, imgField1, imgField2, imgTelemetry, imgDokumen1, imgDokumen2],
   details: {
     overview: "Developed as part of applied research (Riset Terapan Inovasi DIPA Polinema in collaboration with Badan Riset dan Inovasi Nasional / BRIN). Si Mojang Brantas establishes a collaborative, location-based early warning system consolidating hydrometeorological radar data and municipal emergency records.",
     features: [

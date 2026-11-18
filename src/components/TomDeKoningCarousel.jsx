@@ -123,11 +123,11 @@ export default function TomDeKoningCarousel() {
   const getProjectHonor = (slug) => {
     switch (slug) {
       case 'catfishcare-tfs2026':
-        return 'Juara Harapan 2 LKTI TFS 2026';
+        return 'Juara Harapan 2 LKTI Techno Fair and Seminar (TFS) 2026';
       case 'pkm-gft-sais':
         return 'PKM-GFT 2026 Tahap 2';
       case 'algasense':
-        return 'Finalis Nasional TFS 2025';
+        return 'Finalis Nasional LKTI Techno Fair and Seminar (TFS) 2025';
       case 'agroclimatology-intelecta':
         return 'Peringkat 18/82 Kaggle 94.310';
       case 'slb-spatial-disparity':
@@ -145,7 +145,7 @@ export default function TomDeKoningCarousel() {
         
         {/* Section Head */}
         <div className="section-head">
-          <div className="kicker">Tom de Koning Interactive Showcase</div>
+          <div className="kicker">Featured Engineering Systems</div>
           <h2 className="section-title">13 Engineered Systems & Portfolios</h2>
           <p className="section-subtitle">
             Pilih kategori atau geser trek horisontal untuk mengeksplorasi arsitektur machine learning, telemetri IoT akuakultur, WebGIS hidrologi, dan platform enterprise.

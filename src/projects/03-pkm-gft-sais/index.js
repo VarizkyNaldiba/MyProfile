@@ -1,18 +1,20 @@
 import { FileText } from 'lucide-react';
+import imgProposal from './assets/proposal-sais-pkm-gft.png';
+import imgSkLolos from './assets/sk-lolos-tahap2-pkm.png';
 
 export const pkmGftSais = {
   id: 3,
   slug: "pkm-gft-sais",
-  title: "Smart Aquaculture Intelligence System (PKM-GFT)",
+  title: "Smart Aquaculture Intelligence System (SAIS)",
   role: "Principal Author & System Conceptor",
-  desc: "Nationally funded conceptual blueprint (Lolos Seleksi Internal PKM Polinema 2026) designing an AI-driven, distributed aquaculture management framework for freshwater fish food self-sufficiency.",
+  desc: "Nationally funded conceptual blueprint (Lolos Seleksi Internal PKM Polinema 2026 Tahap 2) designing an AI-driven, distributed aquaculture management framework for freshwater fish food self-sufficiency.",
   tech: ["AI Systems", "Digital Twin", "Autonomous Smart Farm", "IoT Telemetry", "National Policy Modeling"],
   categories: ["Research & AI", "IoT"],
   links: [
     { type: "doc", label: "SK Penetapan PKM Polinema 2026", url: "#" }
   ],
   icon: FileText,
-  images: [],
+  images: [imgProposal, imgSkLolos],
   details: {
     overview: "Written as an official PKM-GFT proposal at Politeknik Negeri Malang and successfully selected under Skema Insentif Tahap 2 (Surat Nomor: 40/WADIR.III/KM/2026). The paper outlines the SAIS 2045 blueprint to transform traditional fragmented aquaculture into a unified data-backed national infrastructure.",
     features: [

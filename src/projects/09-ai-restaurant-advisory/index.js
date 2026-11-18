@@ -1,5 +1,5 @@
 import { Bot } from 'lucide-react';
-import imgLiveApp from './assets/rmpadang-live-app.png';
+import imgFnbConsultant from './assets/fnb-consultant-live.png';
 import imgRmPadang from './assets/rmpadang.png';
 
 export const aiRestaurantAdvisory = {
@@ -15,7 +15,7 @@ export const aiRestaurantAdvisory = {
     { type: "repo", label: "Source Code", url: "https://github.com/VarizkyNaldiba/Project-of-LLM-Based-Tools-and-Gemini-API-Integration-for-Data-Scientists" }
   ],
   icon: Bot,
-  images: [imgLiveApp, imgRmPadang],
+  images: [imgFnbConsultant, imgRmPadang],
   details: {
     overview: "An AI business advisory tool designed for traditional and independent food service operators (such as RM Padang). Grounded in practical commercial culinary operations, the application analyzes menu item margins, seasonal ingredient price swings, and customer reviews to provide actionable culinary optimizations and portion cost controls.",
     features: [

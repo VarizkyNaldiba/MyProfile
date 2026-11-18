@@ -1,5 +1,5 @@
 import { Camera } from 'lucide-react';
-import imgLiveSpace from './assets/fruit-live-space.png';
+import imgFruitClassifier from './assets/fruit-classifier-live.jpg';
 import imgFruit from './assets/fruitdetection.png';
 
 export const fruitClassification = {
@@ -15,7 +15,7 @@ export const fruitClassification = {
     { type: "repo", label: "Source Code", url: "https://github.com/VarizkyNaldiba/PBL_SMT_5" }
   ],
   icon: Camera,
-  images: [imgLiveSpace, imgFruit],
+  images: [imgFruitClassifier, imgFruit],
   details: {
     overview: "A Project-Based Learning research system exploring feature engineering for multi-class visual recognition. By extracting spatial texture descriptors, wavelet frequency distributions, and gradient orientations, the system achieves robust 16-category fruit classification using Support Vector Machines without requiring massive compute budgets.",
     features: [

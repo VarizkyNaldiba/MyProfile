@@ -1,11 +1,13 @@
 import { Thermometer } from 'lucide-react';
 import imgRank18 from './assets/leaderboard-rank18.jpg';
+import imgSertifikat from './assets/sertifikat-peserta-intelecta.png';
 import imgLabSession from './assets/sesi-coding-lab.jpg';
+import imgLab4 from './assets/intelecta-team-lab4.jpg';
 
 export const agroclimatologyIntelecta = {
   id: 7,
   slug: "agroclimatology-intelecta",
-  title: "Intelecta Cup 2025 Data Mining (Rank 18/82)",
+  title: "Agroclimatology Weather Prediction (Intelecta Cup)",
   role: "ML Engineer & Data Scientist (Team P-1 ML)",
   desc: "Competitive time-series climate regression pipeline achieving Rank 18 out of 82 national teams with a Kaggle score of 94.310 at the INTELECTA CUP 2025 Data Mining Competition.",
   tech: ["Python", "CatBoost", "XGBoost", "Scikit-Learn", "Pandas", "Feature Engineering"],
@@ -14,7 +16,7 @@ export const agroclimatologyIntelecta = {
     { type: "repo", label: "Source Code", url: "https://github.com/VarizkyNaldiba/Intelecta_P-1ML" }
   ],
   icon: Thermometer,
-  images: [imgRank18, imgLabSession],
+  images: [imgRank18, imgSertifikat, imgLabSession, imgLab4],
   details: {
     overview: "Built for the INTELECTA CUP 2025 Data Mining Competition by team P-1 ML from Politeknik Negeri Malang. Serving as ML Engineer, handled end-to-end data preprocessing, model exploration across boosting algorithms, and final submission formulation—achieving 18th place among 82 national university teams.",
     features: [

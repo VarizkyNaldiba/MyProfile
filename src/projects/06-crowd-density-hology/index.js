@@ -1,5 +1,7 @@
 import { Users } from 'lucide-react';
 import imgDensityModel from './assets/hology-density-model.png';
+import imgTeamLab1 from './assets/hology-team-lab1.jpg';
+import imgTeamLab2 from './assets/hology-team-lab2.jpg';
 
 export const crowdDensityHology = {
   id: 6,
@@ -13,7 +15,7 @@ export const crowdDensityHology = {
     { type: "repo", label: "Source Code", url: "https://github.com/VarizkyNaldiba/PenyelamHandal_Hology" }
   ],
   icon: Users,
-  images: [imgDensityModel],
+  images: [imgDensityModel, imgTeamLab1, imgTeamLab2],
   details: {
     overview: "Developed for the Hology 8.0 Data Mining competition by team Penyelam Handal. The goal was to accurately predict the number of individuals in high-density scenes characterized by severe perspective distortion, partial body occlusions, and variable lighting.",
     features: [
