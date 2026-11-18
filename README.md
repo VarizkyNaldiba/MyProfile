@@ -1,4 +1,4 @@
-# Varizky Naldiba Rimra — Portfolio
+# Varizky Naldiba Rimra — Portfolios
 
 Personal engineering portfolio showcasing applied machine learning models, IoT telemetry systems, geospatial analytics, and full-stack software applications.
 
