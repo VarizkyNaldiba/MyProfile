@@ -109,7 +109,7 @@ export default function Socials() {
             <div className="resume-banner-content">
               <FileText size={22} className="resume-icon" />
               <div>
-                <h4 className="resume-title">Curriculum Vitae & Presentasi Portofolio</h4>
+                <h4 className="resume-title">Curriculum Vitae</h4>
                 <p className="resume-desc">Arsip komprehensif proyek rekayasa, penghargaan kompetisi nasional terverifikasi, riwayat akademik, dan sertifikasi resmi.</p>
               </div>
             </div>
@@ -122,16 +122,6 @@ export default function Socials() {
                 title="Download CV (PDF)"
               >
                 <span>Unduh CV</span>
-                <ArrowUpRight size={14} />
-              </a>
-              <a 
-                href="/Portofolio - Varizky Naldiba Rimra.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-download-resume"
-                title="Download Portfolio Presentation (PDF)"
-              >
-                <span>Unduh Porto Deck</span>
                 <ArrowUpRight size={14} />
               </a>
             </div>

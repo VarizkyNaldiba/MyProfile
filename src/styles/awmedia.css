@@ -82,6 +82,122 @@ body {
   z-index: 0;
 }
 
+/* ==========================================================================
+   Ambient Aurora Fluid Mesh Animation (Pure CSS GPU-Accelerated)
+   Minimalist, organic slow breathing movement with zero CPU overhead
+   ========================================================================== */
+.ambient-aurora-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  mix-blend-mode: screen;
+}
+
+.aurora-orb-1 {
+  width: clamp(380px, 45vw, 650px);
+  height: clamp(380px, 45vw, 650px);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.22) 0%, rgba(37, 99, 235, 0.08) 50%, transparent 75%);
+  filter: blur(110px);
+  top: -12%;
+  left: 15%;
+  animation: auroraDrift1 24s ease-in-out infinite alternate;
+}
+
+.aurora-orb-2 {
+  width: clamp(340px, 40vw, 580px);
+  height: clamp(340px, 40vw, 580px);
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.16) 0%, rgba(6, 182, 212, 0.05) 50%, transparent 75%);
+  filter: blur(120px);
+  top: 25%;
+  right: -8%;
+  animation: auroraDrift2 28s ease-in-out infinite alternate;
+}
+
+.aurora-orb-3 {
+  width: clamp(300px, 35vw, 520px);
+  height: clamp(300px, 35vw, 520px);
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, rgba(139, 92, 246, 0.04) 50%, transparent 75%);
+  filter: blur(130px);
+  bottom: 8%;
+  left: -5%;
+  animation: auroraDrift3 32s ease-in-out infinite alternate;
+}
+
+.aurora-orb-4 {
+  width: clamp(360px, 42vw, 600px);
+  height: clamp(360px, 42vw, 600px);
+  background: radial-gradient(circle, rgba(30, 64, 175, 0.18) 0%, rgba(6, 182, 212, 0.06) 45%, transparent 75%);
+  filter: blur(120px);
+  bottom: -15%;
+  right: 18%;
+  animation: auroraDrift4 26s ease-in-out infinite alternate;
+}
+
+@keyframes auroraDrift1 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(80px, 60px, 0) scale(1.1) rotate(20deg);
+  }
+  100% {
+    transform: translate3d(-50px, 110px, 0) scale(0.92) rotate(-15deg);
+  }
+}
+
+@keyframes auroraDrift2 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(-90px, 70px, 0) scale(1.14) rotate(-25deg);
+  }
+  100% {
+    transform: translate3d(40px, -60px, 0) scale(0.9) rotate(15deg);
+  }
+}
+
+@keyframes auroraDrift3 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.95) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(70px, -80px, 0) scale(1.12) rotate(30deg);
+  }
+  100% {
+    transform: translate3d(-40px, 50px, 0) scale(1.02) rotate(-10deg);
+  }
+}
+
+@keyframes auroraDrift4 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.05) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(-70px, -50px, 0) scale(0.92) rotate(-20deg);
+  }
+  100% {
+    transform: translate3d(60px, 70px, 0) scale(1.08) rotate(25deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-orb {
+    animation: none !important;
+  }
+}
+
 /* Dynamic Ambient Cursor Spotlight Background Animation */
 .cursor-glow-spotlight {
   position: fixed;
@@ -1020,14 +1136,69 @@ body {
 }
 
 .card-honor-badge {
-  padding: 0.3rem 0.75rem;
-  background: rgba(245, 158, 11, 0.2);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(245, 158, 11, 0.5);
+  padding: 0.32rem 0.8rem;
+  background: #080c14;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-full);
   font-size: 0.72rem;
   font-weight: 700;
-  color: #fbbf24;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  max-width: 65%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: auto;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+}
+
+.card-honor-badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+  flex-shrink: 0;
+}
+
+/* Badge Juara: Background Gelap, Font Kuning/Gold Terang */
+.card-honor-badge.honor-juara {
+  background: #080c14;
+  border: 1px solid rgba(250, 204, 21, 0.55);
+  color: #fde047;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8), 0 0 12px rgba(250, 204, 21, 0.25);
+}
+
+/* Badge Finalist: Background Gelap, Font Biru Cyan/Langit Terang */
+.card-honor-badge.honor-finalist {
+  background: #080c14;
+  border: 1px solid rgba(56, 189, 248, 0.55);
+  color: #7dd3fc;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8), 0 0 12px rgba(56, 189, 248, 0.25);
+}
+
+/* Badge Peserta: Background Gelap, Font Ungu/Lavender Terang */
+.card-honor-badge.honor-peserta {
+  background: #080c14;
+  border: 1px solid rgba(192, 132, 252, 0.55);
+  color: #e9d5ff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8), 0 0 12px rgba(192, 132, 252, 0.25);
+}
+
+/* Badge Umum (Insentif, Peringkat): Background Gelap, Font Mint/Emerald Terang */
+.card-honor-badge.honor-general {
+  background: #080c14;
+  border: 1px solid rgba(52, 211, 153, 0.55);
+  color: #6ee7b7;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8), 0 0 12px rgba(52, 211, 153, 0.25);
 }
 
 .card-body {
@@ -1160,6 +1331,250 @@ body {
   background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
   border-radius: var(--radius-full);
   transition: width 0.3s ease;
+}
+
+/* ==========================================================================
+   VEBRIWORK INSPIRED 3D CURVED PANORAMIC CAROUSEL
+   ========================================================================== */
+
+/* View Mode Switcher Pills (3D Curved vs Flat Track) */
+.carousel-view-mode-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background: rgba(14, 18, 26, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+}
+
+.view-mode-btn {
+  padding: 0.35rem 0.85rem;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.view-mode-btn:hover {
+  color: var(--text-main);
+}
+
+.view-mode-btn.active {
+  background: rgba(59, 130, 246, 0.2);
+  color: #ffffff;
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
+}
+
+/* 3D Curved Stage Wrapper */
+.carousel-3d-stage-wrapper {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  padding: 1.5rem 0 3.5rem;
+  overflow: hidden;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+/* Floating Typographic Watermark (VEBRIWORK Signature) */
+.carousel-3d-hero-meta {
+  text-align: center;
+  margin-bottom: 2rem;
+  pointer-events: none;
+}
+
+.carousel-3d-watermark-title {
+  font-size: clamp(2rem, 5.5vw, 4.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
+  text-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+  transition: all 0.4s ease;
+}
+
+.carousel-3d-watermark-subtitle {
+  font-family: var(--font-mono);
+  font-size: clamp(0.72rem, 1.2vw, 0.85rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+}
+
+.carousel-3d-watermark-subtitle .meta-sep {
+  color: var(--text-muted);
+  margin: 0 0.5rem;
+}
+
+/* 3D Viewport & Card Frames */
+.carousel-3d-viewport {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  height: 520px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+
+.carousel-3d-card-frame {
+  position: absolute;
+  width: clamp(340px, 46vw, 620px);
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+              filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+  cursor: pointer;
+}
+
+.carousel-3d-card-frame.is-side {
+  filter: brightness(0.7) blur(0.6px);
+}
+
+.carousel-3d-card-frame.is-side:hover {
+  filter: brightness(0.9) blur(0px);
+}
+
+.carousel-3d-card-frame.is-center {
+  filter: none;
+  cursor: default;
+}
+
+/* Curved Card Styling */
+.curved-card {
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(14, 18, 26, 0.82);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(59, 130, 246, 0.2);
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-3d-card-frame.is-center .curved-card {
+  border-color: rgba(59, 130, 246, 0.45);
+  box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.95), 0 0 45px rgba(59, 130, 246, 0.3);
+}
+
+.card-index-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.card-focus-indicator {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.12);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+/* Bottom Bar: Minimalist Counter & Navigation */
+.carousel-3d-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 25;
+}
+
+.carousel-3d-side-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  background: rgba(14, 18, 26, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.carousel-3d-side-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: var(--border-highlight);
+  transform: translateY(-2px);
+}
+
+.carousel-3d-side-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.carousel-3d-counter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.25rem;
+  background: rgba(14, 18, 26, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-3d-counter-pill .current {
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.carousel-3d-counter-pill .sep {
+  color: var(--text-muted);
+}
+
+.carousel-3d-counter-pill .total {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .carousel-3d-viewport {
+    height: 490px;
+  }
+  .carousel-3d-card-frame {
+    width: 86vw;
+  }
+  .carousel-3d-watermark-title {
+    font-size: 1.8rem;
+  }
 }
 
 /* ==========================================================================
@@ -1366,13 +1781,14 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(245, 158, 11, 0.15);
-  border: 1px solid rgba(245, 158, 11, 0.4);
+  background: #080c14;
+  border: 1px solid rgba(250, 204, 21, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fbbf24;
+  color: #fde047;
   flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 
 /* ==========================================================================

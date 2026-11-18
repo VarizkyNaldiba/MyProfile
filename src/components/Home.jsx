@@ -97,17 +97,6 @@ export default function Home() {
                 <span>Curriculum Vitae (PDF)</span>
               </a>
 
-              <a 
-                href="/Portofolio - Varizky Naldiba Rimra.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary"
-                title="Download Portfolio Presentation Deck (PDF)"
-              >
-                <FileText size={16} />
-                <span>Portfolio Deck (PDF)</span>
-              </a>
-
               <button 
                 onClick={() => scrollTo('contact')} 
                 className="btn-ghost"

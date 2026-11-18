@@ -25,6 +25,7 @@ const getImgSrc = (img) => {
 export default function TomDeKoningCarousel() {
   const [selectedCat, setSelectedCat] = useState('All');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [viewMode, setViewMode] = useState('3d'); // '3d' (Curved Panoramic) or 'flat' (Classic Track)
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeModalImg, setActiveModalImg] = useState(0);
 
@@ -135,12 +136,55 @@ export default function TomDeKoningCarousel() {
   }, [filteredProjects.length]);
 
   const handlePrev = useCallback(() => {
-    scrollToCardIndex(currentIndex - 1);
-  }, [currentIndex, scrollToCardIndex]);
+    if (viewMode === '3d') {
+      setCurrentIndex(prev => Math.max(0, prev - 1));
+    } else {
+      scrollToCardIndex(currentIndex - 1);
+    }
+  }, [viewMode, currentIndex, scrollToCardIndex]);
 
   const handleNext = useCallback(() => {
-    scrollToCardIndex(currentIndex + 1);
-  }, [currentIndex, scrollToCardIndex]);
+    if (viewMode === '3d') {
+      setCurrentIndex(prev => Math.min(filteredProjects.length - 1, prev + 1));
+    } else {
+      scrollToCardIndex(currentIndex + 1);
+    }
+  }, [viewMode, currentIndex, filteredProjects.length, scrollToCardIndex]);
+
+  // 3D Viewport Interaction: Pointer Drag
+  const dragStartX = useRef(0);
+  const isPointerDown = useRef(false);
+
+  const handlePointerDown = (e) => {
+    dragStartX.current = e.clientX;
+    isPointerDown.current = true;
+  };
+
+  const handlePointerUp = (e) => {
+    if (!isPointerDown.current) return;
+    isPointerDown.current = false;
+    const deltaX = e.clientX - dragStartX.current;
+    if (deltaX < -45) {
+      handleNext();
+    } else if (deltaX > 45) {
+      handlePrev();
+    }
+  };
+
+  // 3D Viewport Wheel Navigation (Throttled)
+  const last3DWheelTime = useRef(0);
+  const handle3DWheel = (e) => {
+    const now = Date.now();
+    if (now - last3DWheelTime.current < 260) return;
+    const delta = Math.abs(e.deltaX) >= Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if (delta > 20) {
+      handleNext();
+      last3DWheelTime.current = now;
+    } else if (delta < -20) {
+      handlePrev();
+      last3DWheelTime.current = now;
+    }
+  };
 
   // Horizontal mouse-wheel support via Shift + Scroll & horizontal gestures
   useEffect(() => {
@@ -245,6 +289,17 @@ export default function TomDeKoningCarousel() {
     }
   };
 
+  const getHonorBadgeClass = (text) => {
+    if (!text) return '';
+    const lower = text.toLowerCase();
+    if (lower.includes('juara')) return 'honor-juara';
+    if (lower.includes('finalis') || lower.includes('finalist')) return 'honor-finalist';
+    if (lower.includes('peserta')) return 'honor-peserta';
+    return 'honor-general';
+  };
+
+  const activeProj = filteredProjects[currentIndex] || filteredProjects[0];
+
   return (
     <section ref={sectionRef} className="section-padding carousel-section" id="projects">
       {/* Floating magnetic cursor (VIEW SPECS pill) */}
@@ -293,6 +348,26 @@ export default function TomDeKoningCarousel() {
 
           {/* Navigation Controls: Slide Counter & Arrow Buttons */}
           <div className="carousel-nav-group">
+            {/* View Mode Toggle: 3D Curved vs Flat Track */}
+            <div className="carousel-view-mode-group">
+              <button
+                type="button"
+                className={`view-mode-btn ${viewMode === '3d' ? 'active' : ''}`}
+                onClick={() => setViewMode('3d')}
+                title="Tampilan Panorama 3D Lengkung"
+              >
+                <span>3D Curved</span>
+              </button>
+              <button
+                type="button"
+                className={`view-mode-btn ${viewMode === 'flat' ? 'active' : ''}`}
+                onClick={() => setViewMode('flat')}
+                title="Tampilan Flat Track Klasik"
+              >
+                <span>Flat Track</span>
+              </button>
+            </div>
+
             <div className="carousel-counter">
               <span className="active-num">
                 {String(currentIndex + 1).padStart(2, '0')}
@@ -325,77 +400,105 @@ export default function TomDeKoningCarousel() {
 
       </div>
 
-      {/* Horizontal Carousel Track */}
-      <div 
-        className="carousel-track-outer"
-        ref={trackRef}
-        onScroll={handleScroll}
-        onMouseLeave={handleMouseLeave}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setCursorVisible(true)}
-      >
-            <div className="carousel-track-inner">
-              {filteredProjects.map((proj, idx) => {
-                const totalImgs = proj.images ? proj.images.length : 0;
-                const activeCoverIdx = cardCoverIndexes[proj.id] ?? 0;
-                const coverImg = (proj.images && proj.images[activeCoverIdx]) 
-                  ? getImgSrc(proj.images[activeCoverIdx]) 
-                  : (proj.images && proj.images[0] ? getImgSrc(proj.images[0]) : '');
-                const honor = getProjectHonor(proj.slug);
-                const numStr = String(idx + 1).padStart(2, '0');
+      {/* 3D Curved Cylindrical Carousel Stage vs Flat Track */}
+      {viewMode === '3d' ? (
+        <div 
+          className="carousel-3d-stage-wrapper"
+          onWheel={handle3DWheel}
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
+          onPointerLeave={handlePointerUp}
+        >
+          {/* Floating Typography Watermark (VEBRIWORK Inspired) */}
+          {activeProj && (
+            <div className="carousel-3d-hero-meta">
+              <div className="carousel-3d-watermark-title">
+                {activeProj.title}
+              </div>
+              <div className="carousel-3d-watermark-subtitle">
+                {activeProj.categories[0]} <span className="meta-sep">/</span> {activeProj.role}
+              </div>
+            </div>
+          )}
 
-                return (
-                  <article 
-                    key={proj.id} 
-                    className="carousel-project-card"
-                    onClick={() => {
+          {/* Cylindrical 3D Stage Viewport */}
+          <div className="carousel-3d-viewport">
+            {filteredProjects.map((proj, idx) => {
+              const diff = idx - currentIndex;
+              if (Math.abs(diff) > 2) return null;
+
+              const totalImgs = proj.images ? proj.images.length : 0;
+              const activeCoverIdx = cardCoverIndexes[proj.id] ?? 0;
+              const coverImg = (proj.images && proj.images[activeCoverIdx]) 
+                ? getImgSrc(proj.images[activeCoverIdx]) 
+                : (proj.images && proj.images[0] ? getImgSrc(proj.images[0]) : '');
+              const honor = getProjectHonor(proj.slug);
+              const numStr = String(idx + 1).padStart(2, '0');
+              const isCenter = diff === 0;
+
+              // Cylindrical 3D math:
+              const rotateY = diff * 26; // inward angle in deg
+              const translateX = diff * 330; // horizontal spacing in px
+              const translateZ = -Math.abs(diff) * 140; // depth into screen
+              const scale = isCenter ? 1 : Math.max(0.78, 1 - Math.abs(diff) * 0.12);
+              const opacity = isCenter ? 1 : (Math.abs(diff) === 1 ? 0.65 : 0.28);
+              const zIndex = 20 - Math.abs(diff);
+
+              return (
+                <div
+                  key={proj.id}
+                  className={`carousel-3d-card-frame ${isCenter ? 'is-center' : 'is-side'}`}
+                  style={{
+                    transform: `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
+                    opacity,
+                    zIndex
+                  }}
+                  onClick={() => {
+                    if (!isCenter) {
+                      setCurrentIndex(idx);
+                    } else {
                       setSelectedProject(proj);
                       setActiveModalImg(activeCoverIdx);
-                    }}
-                  >
-                    {/* Image Cover with Interactive Switcher */}
+                    }
+                  }}
+                >
+                  <article className="carousel-project-card curved-card">
+                    {/* Image Cover */}
                     <div className="card-img-wrap">
                       {coverImg ? (
-                        <img 
-                          src={coverImg} 
-                          alt={proj.title}
-                          loading="lazy"
-                        />
+                        <img src={coverImg} alt={proj.title} loading="lazy" />
                       ) : (
                         <div style={{ width: '100%', height: '100%', background: '#111622' }} />
                       )}
-                      
-                      {/* Category & Honor Badges */}
+
                       <div className="card-badge-row">
                         <span className="card-cat-badge">{proj.categories[0] || 'Engineering'}</span>
                         {honor && (
-                          <span className="card-honor-badge">{honor}</span>
+                          <span className={`card-honor-badge ${getHonorBadgeClass(honor)}`} title={honor}>
+                            {honor}
+                          </span>
                         )}
                       </div>
 
-                      {/* Interactive Photo Switcher Controls */}
-                      {totalImgs > 1 && (
+                      {/* Photo switcher (active on center card) */}
+                      {isCenter && totalImgs > 1 && (
                         <>
                           <button
                             type="button"
                             className="card-photo-switcher prev-photo"
                             onClick={(e) => handleCardPhotoSwitch(e, proj, -1)}
                             title="Foto Sebelumnya"
-                            aria-label="Previous photo"
                           >
                             <ChevronLeft size={16} />
                           </button>
-
                           <button
                             type="button"
                             className="card-photo-switcher next-photo"
                             onClick={(e) => handleCardPhotoSwitch(e, proj, 1)}
                             title="Foto Berikutnya"
-                            aria-label="Next photo"
                           >
                             <ChevronRight size={16} />
                           </button>
-
                           <div className="card-photo-dots" onClick={(e) => e.stopPropagation()}>
                             {proj.images.map((_, pIdx) => (
                               <button
@@ -403,27 +506,26 @@ export default function TomDeKoningCarousel() {
                                 type="button"
                                 className={`card-photo-dot ${activeCoverIdx === pIdx ? 'active' : ''}`}
                                 onClick={(e) => handleSetCoverDirect(e, proj.id, pIdx, proj.title)}
-                                title={`Foto ${pIdx + 1} dari ${totalImgs}`}
-                                aria-label={`Switch to photo ${pIdx + 1}`}
                               />
                             ))}
                           </div>
-
-                          <div className="card-photo-pill">
-                            {activeCoverIdx + 1}/{totalImgs}
-                          </div>
+                          <div className="card-photo-pill">{activeCoverIdx + 1}/{totalImgs}</div>
                         </>
                       )}
                     </div>
 
                     {/* Card Body */}
                     <div className="card-body">
-                      <span className="card-index">SYSTEM {numStr}</span>
+                      <div className="card-index-row">
+                        <span className="card-index">SYSTEM {numStr}</span>
+                        {isCenter && (
+                          <span className="card-focus-indicator">● ACTIVE FOCUS</span>
+                        )}
+                      </div>
                       <h3 className="card-title">{proj.title}</h3>
                       <span className="card-role">{proj.role}</span>
                       <p className="card-desc">{proj.desc}</p>
 
-                      {/* Tech Tags Cloud */}
                       <div className="card-tech-cloud">
                         {proj.tech.slice(0, 4).map((t, i) => (
                           <span key={i} className="card-tech-pill">{t}</span>
@@ -458,7 +560,6 @@ export default function TomDeKoningCarousel() {
                                 rel="noopener noreferrer"
                                 className="card-link-icon"
                                 title={link.label}
-                                aria-label={link.label}
                               >
                                 {isGit ? <Github size={14} /> : <ExternalLink size={14} />}
                               </a>
@@ -468,10 +569,193 @@ export default function TomDeKoningCarousel() {
                       </div>
                     </div>
                   </article>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
+
+          {/* VEBRIWORK Minimalist Bottom Counter & Nav */}
+          <div className="carousel-3d-bottom-bar">
+            <button
+              type="button"
+              className="carousel-3d-side-btn"
+              onClick={handlePrev}
+              disabled={currentIndex === 0}
+              title="Proyek Sebelumnya"
+            >
+              <ChevronLeft size={16} />
+              <span>PREV</span>
+            </button>
+
+            <div className="carousel-3d-counter-pill">
+              <span className="current">{String(currentIndex + 1).padStart(2, '0')}</span>
+              <span className="sep">/</span>
+              <span className="total">{String(filteredProjects.length).padStart(2, '0')}</span>
+            </div>
+
+            <button
+              type="button"
+              className="carousel-3d-side-btn"
+              onClick={handleNext}
+              disabled={currentIndex >= filteredProjects.length - 1}
+              title="Proyek Berikutnya"
+            >
+              <span>NEXT</span>
+              <ChevronRight size={16} />
+            </button>
+          </div>
+        </div>
+      ) : (
+        /* Horizontal Carousel Track */
+        <div 
+          className="carousel-track-outer"
+          ref={trackRef}
+          onScroll={handleScroll}
+          onMouseLeave={handleMouseLeave}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => setCursorVisible(true)}
+        >
+          <div className="carousel-track-inner">
+            {filteredProjects.map((proj, idx) => {
+              const totalImgs = proj.images ? proj.images.length : 0;
+              const activeCoverIdx = cardCoverIndexes[proj.id] ?? 0;
+              const coverImg = (proj.images && proj.images[activeCoverIdx]) 
+                ? getImgSrc(proj.images[activeCoverIdx]) 
+                : (proj.images && proj.images[0] ? getImgSrc(proj.images[0]) : '');
+              const honor = getProjectHonor(proj.slug);
+              const numStr = String(idx + 1).padStart(2, '0');
+
+              return (
+                <article 
+                  key={proj.id} 
+                  className="carousel-project-card"
+                  onClick={() => {
+                    setSelectedProject(proj);
+                    setActiveModalImg(activeCoverIdx);
+                  }}
+                >
+                  {/* Image Cover with Interactive Switcher */}
+                  <div className="card-img-wrap">
+                    {coverImg ? (
+                      <img 
+                        src={coverImg} 
+                        alt={proj.title}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div style={{ width: '100%', height: '100%', background: '#111622' }} />
+                    )}
+                    
+                    {/* Category & Honor Badges */}
+                    <div className="card-badge-row">
+                      <span className="card-cat-badge">{proj.categories[0] || 'Engineering'}</span>
+                      {honor && (
+                        <span className={`card-honor-badge ${getHonorBadgeClass(honor)}`} title={honor}>
+                          {honor}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Interactive Photo Switcher Controls */}
+                    {totalImgs > 1 && (
+                      <>
+                        <button
+                          type="button"
+                          className="card-photo-switcher prev-photo"
+                          onClick={(e) => handleCardPhotoSwitch(e, proj, -1)}
+                          title="Foto Sebelumnya"
+                          aria-label="Previous photo"
+                        >
+                          <ChevronLeft size={16} />
+                        </button>
+
+                        <button
+                          type="button"
+                          className="card-photo-switcher next-photo"
+                          onClick={(e) => handleCardPhotoSwitch(e, proj, 1)}
+                          title="Foto Berikutnya"
+                          aria-label="Next photo"
+                        >
+                          <ChevronRight size={16} />
+                        </button>
+
+                        <div className="card-photo-dots" onClick={(e) => e.stopPropagation()}>
+                          {proj.images.map((_, pIdx) => (
+                            <button
+                              key={pIdx}
+                              type="button"
+                              className={`card-photo-dot ${activeCoverIdx === pIdx ? 'active' : ''}`}
+                              onClick={(e) => handleSetCoverDirect(e, proj.id, pIdx, proj.title)}
+                              title={`Foto ${pIdx + 1} dari ${totalImgs}`}
+                              aria-label={`Switch to photo ${pIdx + 1}`}
+                            />
+                          ))}
+                        </div>
+
+                        <div className="card-photo-pill">
+                          {activeCoverIdx + 1}/{totalImgs}
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Card Body */}
+                  <div className="card-body">
+                    <span className="card-index">SYSTEM {numStr}</span>
+                    <h3 className="card-title">{proj.title}</h3>
+                    <span className="card-role">{proj.role}</span>
+                    <p className="card-desc">{proj.desc}</p>
+
+                    {/* Tech Tags Cloud */}
+                    <div className="card-tech-cloud">
+                      {proj.tech.slice(0, 4).map((t, i) => (
+                        <span key={i} className="card-tech-pill">{t}</span>
+                      ))}
+                      {proj.tech.length > 4 && (
+                        <span className="card-tech-pill">+{proj.tech.length - 4}</span>
+                      )}
+                    </div>
+
+                    {/* Footer Actions */}
+                    <div className="card-footer-actions" onClick={(e) => e.stopPropagation()}>
+                      <button 
+                        type="button"
+                        className="card-explore-btn"
+                        onClick={() => {
+                          setSelectedProject(proj);
+                          setActiveModalImg(activeCoverIdx);
+                        }}
+                      >
+                        <Maximize2 size={14} />
+                        <span>Deep Dive Specs</span>
+                      </button>
+
+                      <div className="card-links-group">
+                        {proj.links && proj.links.map((link, lIdx) => {
+                          const isGit = link.url.includes('github.com');
+                          return (
+                            <a
+                              key={lIdx}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="card-link-icon"
+                              title={link.label}
+                              aria-label={link.label}
+                            >
+                              {isGit ? <Github size={14} /> : <ExternalLink size={14} />}
+                            </a>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <div className="container">
         {/* Continuous Progress Bar */}
@@ -502,9 +786,14 @@ export default function TomDeKoningCarousel() {
                 <h2 className="modal-title" style={{ fontSize: '1.65rem', fontWeight: 800, color: '#fff' }}>
                   {selectedProject.title}
                 </h2>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '0.4rem' }}>
                   {selectedProject.role}
                 </span>
+                {getProjectHonor(selectedProject.slug) && (
+                  <span className={`card-honor-badge ${getHonorBadgeClass(getProjectHonor(selectedProject.slug))}`} style={{ maxWidth: '100%', marginTop: '0.25rem' }}>
+                    {getProjectHonor(selectedProject.slug)}
+                  </span>
+                )}
               </div>
               <button 
                 type="button"
