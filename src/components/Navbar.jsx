@@ -61,10 +61,9 @@ export default function Navbar({ theme, toggleTheme }) {
           className="navbar-brand" 
           onClick={(e) => handleNavClick(e, 'home')}
         >
-          <span className="brand-monogram">VR</span>
+          <span className="brand-monogram">VNR</span>
           <span className="brand-name">
-            Varizky Rimra
-            <span className="brand-badge">Polinema TI</span>
+            Varizky Naldiba Rimra
           </span>
         </a>
 
