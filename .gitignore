@@ -28,3 +28,7 @@ dist-ssr
 Portofolio-20261118T013239Z-1-001/
 *.aux
 *.out
+*.nav
+*.snm
+*.toc
+scratch/

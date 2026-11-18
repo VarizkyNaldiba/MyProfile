@@ -1,6 +1,9 @@
 \documentclass[letterpaper,10pt]{article}
 
-\usepackage[left=0.6in,top=0.6in,right=0.6in,bottom=0.6in]{geometry}
+\usepackage[left=0.65in,top=0.6in,right=0.65in,bottom=0.6in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{hyperref}
 \usepackage{enumitem}
 \usepackage{titlesec}
@@ -12,13 +15,12 @@
 \urlstyle{same}
 \raggedbottom
 \raggedright
-\setlength{\tabcolsep}{0in}
 
-% Colors
-\definecolor{primaryDark}{RGB}{15, 23, 42}
-\definecolor{accentBlue}{RGB}{37, 99, 235}
-\definecolor{textGray}{RGB}{71, 85, 105}
-\definecolor{ruleGray}{RGB}{203, 213, 225}
+% Colors (High Contrast WCAG AAA Compliant)
+\definecolor{primaryDark}{RGB}{15, 23, 42}       % #0f172a - Deep Charcoal / Navy
+\definecolor{accentBlue}{RGB}{29, 78, 216}       % #1d4ed8 - Royal Blue
+\definecolor{textMuted}{RGB}{71, 85, 105}        % #475569 - Slate Body Accent
+\definecolor{ruleGray}{RGB}{203, 213, 225}       % #cbd5e1 - Divider Rule
 
 % Hyperref setup
 \hypersetup{
@@ -31,8 +33,8 @@
 
 % Section formatting
 \titleformat{\section}{
-  \vspace{-4pt}\raggedright\large\bfseries\color{primaryDark}
-}{}{0em}{}[\color{ruleGray}\titlerule \vspace{-3pt}]
+  \vspace{-3pt}\raggedright\large\bfseries\color{primaryDark}
+}{}{0em}{}[\color{ruleGray}\titlerule \vspace{-2pt}]
 
 % Custom entry macros
 \newcommand{\resumeItem}[1]{
@@ -42,18 +44,21 @@
 }
 
 \newcommand{\resumeSubheading}[4]{
-  \vspace{-1pt}\item
-    \begin{tabularx}{\linewidth}[t]{@{}X r@{}}
-      \textbf{#1} & \textbf{#2} \\
-      \textit{\small#3} & \textit{\small #4} \\
-    \end{tabularx}\vspace{-4pt}
+  \vspace{-1.5pt}\item
+    \parbox[t]{0.70\linewidth}{\textbf{#1} \\ \textit{\small #3}}%
+    \hfill%
+    \parbox[t]{0.29\linewidth}{\raggedleft \textbf{#2} \\ \textit{\small #4}}\par
+    \vspace{-2pt}
 }
 
-\newcommand{\resumeProjectHeading}[2]{
-  \vspace{-1pt}\item
-    \begin{tabularx}{\linewidth}[t]{@{}X r@{}}
-      #1 & \textit{\small #2} \\
-    \end{tabularx}\vspace{-4pt}
+\newcommand{\resumeProjectHeading}[3]{
+  \vspace{-1.5pt}\item
+    \parbox[t]{0.70\linewidth}{\textbf{#1}}%
+    \hfill%
+    \parbox[t]{0.29\linewidth}{\raggedleft {\small #3}}\par
+    \vspace{1pt}
+    {\footnotesize \color{textMuted} \textit{Tech Stack: #2}}\par
+    \vspace{1.5pt}
 }
 
 \newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.05in, label={}]}
@@ -70,7 +75,8 @@
     \small Malang, East Java, Indonesia \ $|$ \ 
     \href{mailto:varizkynr@gmail.com}{varizkynr@gmail.com} \ $|$ \ 
     \href{https://linkedin.com/in/varizkynaldiba/}{linkedin.com/in/varizkynaldiba} \ $|$ \ 
-    \href{https://github.com/VarizkyNaldiba}{github.com/VarizkyNaldiba}
+    \href{https://github.com/VarizkyNaldiba}{github.com/VarizkyNaldiba} \ $|$ \ 
+    \href{https://myprofile-nine-sigma.vercel.app/}{myprofile-nine-sigma.vercel.app}
 \end{center}
 \vspace{-6pt}
 
@@ -78,7 +84,7 @@
 \section{Professional Summary}
 \begin{flushleft}
 \small
-Informatics Engineer from Politeknik Negeri Malang specializing in Applied Machine Learning, IoT Sensor Telemetry, Computer Vision pipelines, and Cloud-Connected Data Systems. Proven track record in designing resilient systems from edge hardware and sensor calibration curves (ESP32/Arduino) to deep-learning crowd density estimation models, regional educational accessibility analyses, and full-stack decision-support platforms.
+Informatics Engineer from Politeknik Negeri Malang specializing in Applied Machine Learning, IoT Sensor Telemetry, Computer Vision pipelines, and Cloud-Connected Data Systems. Proven track record in designing resilient systems from edge hardware and sensor calibration curves (ESP32/Arduino) to deep-learning crowd density estimation models, regional educational accessibility analyses, and full-stack decision-support platforms. Zero-tolerance to telemetry data loss with non-volatile failover architectures.
 \end{flushleft}
 \vspace{-6pt}
 
@@ -113,7 +119,9 @@ Informatics Engineer from Politeknik Negeri Malang specializing in Applied Machi
   \resumeSubHeadingListStart
 
     \resumeProjectHeading
-      {\textbf{Aquavion — IoT Aquaculture Telemetry Platform} $|$ \emph{Next.js, Firebase, ESP32, Arduino, C++}}{\href{https://aqua-vion.vercel.app/}{aqua-vion.vercel.app}}
+      {Aquavion -- IoT Aquaculture Telemetry Platform}
+      {Next.js, Firebase Realtime DB, ESP32, Arduino, C++}
+      {\href{https://aqua-vion.vercel.app/}{\color{accentBlue}\textbf{aqua-vion.vercel.app $\nearrow$}}}
       \resumeItemListStart
         \resumeItem{Architected an industrial IoT telemetry monitoring platform for freshwater catfish aquaculture, streaming real-time sensor parameters (pH, DS18B20 temperature, nephelometric turbidity) to prevent fish mortality.}
         \resumeItem{Engineered microcontroller firmware with non-linear polynomial calibration offset curves and automated temperature compensation for continuous submerged probe stability.}
@@ -121,84 +129,108 @@ Informatics Engineer from Politeknik Negeri Malang specializing in Applied Machi
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\textbf{CatfishCare — Automated Aquaculture Care System} $|$ \emph{ESP32, C++, IoT Aeration Control, Sensors}}{\textbf{Juara Harapan 2 TFS 2026}}
+      {CatfishCare -- Automated Aquaculture Care System}
+      {ESP32, C++, Closed-Loop Aeration, Relay Optocoupler, Sensors}
+      {\textbf{\color{accentBlue}Juara Harapan 2 TFS 2026}}
       \resumeItemListStart
         \resumeItem{Engineered an automated aquaculture ecosystem featuring closed-loop aeration and water circulation control triggered by real-time dissolved oxygen and chemical thresholds.}
-        \resumeItem{Awarded 2nd Runner Up (Juara Harapan 2) at the National Scientific Writing Competition TFS 2026 (SK Direktur Polinema No. 27881/PL2.3/KM/2026).}
+        \resumeItem{Awarded 2nd Runner Up (Juara Harapan 2) at the National Scientific Writing Competition Techno Fair and Seminar (TFS) 2026 (SK Direktur Polinema No. 27881/PL2.3/KM/2026).}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\textbf{Smart Aquaculture Intelligence System (SAIS)} $|$ \emph{AI Systems, Digital Twin, Autonomous IoT}}{\textbf{PKM-GFT 2026 Tahap 2}}
+      {Smart Aquaculture Intelligence System (SAIS)}
+      {AI Systems, Digital Twin Modeling, Autonomous IoT Network}
+      {\textbf{\color{accentBlue}PKM-GFT 2026 Tahap 2}}
       \resumeItemListStart
         \resumeItem{Designed a distributed AI aquaculture management blueprint and digital twin simulation framework to enhance freshwater fish productivity and national food security.}
         \resumeItem{Selected in Polinema Internal Selection for Phase 2 Incentive Scheme (SK No. 40/WADIR.III/KM/2026).}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\textbf{Si Mojang Brantas — Participatory Flood WebGIS} $|$ \emph{Leaflet, GeoJSON, OpenStreetMap, Spatial DB}}{\href{https://simojang.let.polinema.ac.id/}{simojang.let.polinema.ac.id}}
+      {Si Mojang Brantas -- Participatory Flood WebGIS}
+      {Leaflet, GeoJSON, OpenStreetMap, BMKG Radar, Spatial DB}
+      {\href{https://simojang.let.polinema.ac.id/}{\color{accentBlue}\textbf{simojang.let.polinema.ac.id $\nearrow$}}}
       \resumeItemListStart
         \resumeItem{Developed an active production participatory WebGIS for flood early warning and hydrological risk mapping across the Upper Brantas River Basin under research collaboration with BRIN.}
         \resumeItem{Integrated crowdsourced citizen reports with GPS geofencing verification and optimized GeoJSON spatial rendering layers for fast browser execution.}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\textbf{AlgaSense — Marine Seaweed Aquaculture IoT \& ML} $|$ \emph{Python, TensorFlow, Keras, LSTM, ESP32}}{\href{https://github.com/VarizkyNaldiba/Algasense}{GitHub Repository}}
+      {AlgaSense -- Marine Seaweed Aquaculture IoT \& ML}
+      {Python, TensorFlow, Keras, LSTM, ESP32, Water Probes}
+      {\href{https://github.com/VarizkyNaldiba/Algasense}{\color{accentBlue}\textbf{Finalis TFS 2025 $\nearrow$}}}
       \resumeItemListStart
         \resumeItem{Engineered subsea marine telemetry and LSTM neural network predictive harvest modeling for seaweed cultivators in Sumenep, Madura.}
-        \resumeItem{Trained recurrent neural networks on oceanic time-series (salinity, pH, temperature, dissolved oxygen) with moving-window filtering; awarded National Finalist at TFS 2025.}
+        \resumeItem{Trained recurrent neural networks on oceanic time-series (salinity, pH, temperature, dissolved oxygen) with moving-window filtering; awarded National Finalist at Techno Fair and Seminar (TFS) 2025.}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\textbf{Crowd Density Estimation Model} $|$ \emph{Python, PyTorch, TensorFlow, MCNN, CSRNet, OpenCV}}{\href{https://github.com/VarizkyNaldiba/PenyelamHandal_Hology}{GitHub Repository}}
+      {Crowd Density Estimation Model}
+      {Python, PyTorch, TensorFlow, MCNN, CSRNet, OpenCV}
+      {\href{https://github.com/VarizkyNaldiba/PenyelamHandal_Hology}{\color{accentBlue}\textbf{Hology 8.0 Participant $\nearrow$}}}
       \resumeItemListStart
-        \resumeItem{Designed a deep convolutional density map regression system for the Hology 8.0 Data Mining competition (Team Penyelam Handal) to estimate crowd counts in unconstrained surveillance imagery.}
-        \resumeItem{Implemented a Multi-Column Convolutional Neural Network (MCNN) with parallel kernel branches (3x3, 5x5, 7x7) to extract scale-invariant density features under heavy occlusions; validated with MAE and MSE.}
+        \resumeItem{Designed a deep convolutional crowd density regression pipeline for the Hology 8.0 Data Mining competition (Official Participant, Team Penyelam Handal).}
+        \resumeItem{Constructed Multi-Column CNNs (MCNN) with parallel multi-scale receptive filter branches (3x3, 5x5, 7x7) to address perspective distortions in dense surveillance scenes.}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\textbf{Agroclimatology Time-Series Weather Forecasting} $|$ \emph{Python, CatBoost, XGBoost, Scikit-Learn}}{\textbf{Intelecta Cup Rank 18/82}}
+      {Agroclimatology Time-Series Weather Forecasting}
+      {Python, CatBoost, XGBoost, Scikit-Learn, Pandas}
+      {\textbf{\color{accentBlue}Intelecta Cup Rank 18 / 82}}
       \resumeItemListStart
         \resumeItem{Developed a multivariate climatic regression pipeline predicting weather anomalies, securing Rank 18 out of 82 national teams with a Kaggle score of 94.310 (Team P-1 ML).}
         \resumeItem{Constructed multi-scale lag features, seasonal transformations, and gradient-boosted ensemble models with strict cross-validation.}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\textbf{SLB Spatial Disparity \& Accessibility Analysis} $|$ \emph{Python, Pandas, GeoJSON, Folium}}{\href{https://huggingface.co/spaces/Tim-Maju-Lancar-Datathon/Dashboard-Tim-Maju-Lancar-Datathon-Jatim-2025}{Interactive Dashboard}}
+      {SLB Spatial Disparity \& Accessibility Analysis}
+      {Python, Pandas, GeoJSON, Folium, Levenshtein Fuzzy}
+      {\href{https://huggingface.co/spaces/Tim-Maju-Lancar-Datathon/Dashboard-Tim-Maju-Lancar-Datathon-Jatim-2025}{\color{accentBlue}\textbf{Datathon 2025 Space $\nearrow$}}}
       \resumeItemListStart
         \resumeItem{Conducted geodemographic spatial analysis across 38 East Java regencies evaluating Special Education Schools (SLB) infrastructure equity for Datathon Jatim 2025 (Official Participant, Team Tim Maju Lancar).}
         \resumeItem{Engineered an automated ETL pipeline with Levenshtein fuzzy string matching to bind disparate registries directly to GeoJSON polygon boundaries.}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\textbf{AI Restaurant Advisory System} $|$ \emph{Python, Google Gemini API, Streamlit, Prompt Engineering}}{\href{https://varizkynaldiba-project-of-llm-based-tools-and-gem-fnb-rm-vjbmhr.streamlit.app/}{Live Web App}}
+      {AI Restaurant Advisory System}
+      {Python, Google Gemini API, Streamlit, Prompt Engineering}
+      {\href{https://varizkynaldiba-project-of-llm-based-tools-and-gem-fnb-rm-vjbmhr.streamlit.app/}{\color{accentBlue}\textbf{Live Streamlit App $\nearrow$}}}
       \resumeItemListStart
         \resumeItem{Developed an LLM-backed decision-support system for food service enterprises (RM Padang) synthesizing financial margins, seasonal ingredient cost swings, and menu item demand.}
         \resumeItem{Enforced deterministic calculations through structured prompt schemas with domain context injection; integrated an automated BCG menu matrix on Streamlit.}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\textbf{Fruit Classification Computer Vision Pipeline} $|$ \emph{Python, OpenCV, Scikit-Learn, GLCM, HOG, SVM}}{\href{https://huggingface.co/spaces/Zelectra/PBL.MachineLearningAndPCVK}{HuggingFace Space}}
+      {Fruit Classification Computer Vision Pipeline}
+      {Python, OpenCV, Scikit-Learn, GLCM, Wavelet 2D, HOG, SVM}
+      {\href{https://huggingface.co/spaces/Zelectra/PBL.MachineLearningAndPCVK}{\color{accentBlue}\textbf{HuggingFace Space $\nearrow$}}}
       \resumeItemListStart
         \resumeItem{Engineered a multi-class image recognition pipeline classifying 16 fruit varieties combining Gray-Level Co-occurrence Matrix (GLCM), Wavelet 2D, and HOG edge gradients with tuned SVMs.}
         \resumeItem{Applied CLAHE contrast normalization for illumination-invariant inference; deployed real-time space on HuggingFace.}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\textbf{SIMPRES — Student Achievement Management System} $|$ \emph{Laravel, PHP, MySQL, PROMETHEE DSS, RBAC}}{\href{https://github.com/VarizkyNaldiba/Prestasi-Mahasiswa-S4}{GitHub Repository}}
+      {SIMPRES -- Student Achievement Management System}
+      {Laravel, PHP, MySQL, PROMETHEE DSS, RBAC}
+      {\href{https://github.com/VarizkyNaldiba/Prestasi-Mahasiswa-S4}{\color{accentBlue}\textbf{GitHub Repository $\nearrow$}}}
       \resumeItemListStart
         \resumeItem{Developed an enterprise academic portal for the IT Department at Politeknik Negeri Malang to streamline student competition verification and mentorship tracking.}
         \resumeItem{Integrated PROMETHEE Decision Support System algorithms for student talent-to-contest matching alongside normalized relational schemas with transactional ACID guarantees.}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\textbf{Sistem Tata Tertib Mahasiswa} $|$ \emph{Laravel, PHP, MySQL, Bootstrap, Figma UI/UX}}{\href{https://github.com/VarizkyNaldiba/TataTertibMhs}{GitHub Repository}}
+      {Sistem Tata Tertib Mahasiswa}
+      {Laravel, PHP, MySQL, Bootstrap, Figma UI/UX}
+      {\href{https://github.com/VarizkyNaldiba/TataTertibMhs}{\color{accentBlue}\textbf{GitHub Repository $\nearrow$}}}
       \resumeItemListStart
         \resumeItem{Digitized campus code-of-conduct enforcement, transparent penalty logging, and student appeals workflows for Politeknik Negeri Malang.}
         \resumeItem{Designed standardized user-tested interfaces in Figma coupled with multi-level disciplinary audit logging.}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\textbf{School Spatial Distribution GIS} $|$ \emph{Python, Folium, GeoJSON, Pandas, K-Means Clustering}}{\href{https://github.com/VarizkyNaldiba/SchoolSpatial_on_EastJava}{GitHub Repository}}
+      {School Spatial Distribution GIS}
+      {Python, Folium, GeoJSON, Pandas, K-Means Clustering}
+      {\href{https://github.com/VarizkyNaldiba/SchoolSpatial_on_EastJava}{\color{accentBlue}\textbf{GitHub Repository $\nearrow$}}}
       \resumeItemListStart
         \resumeItem{Performed geospatial analytics on secondary school density, clustering patterns, and service radii across 38 regencies/cities in East Java.}
         \resumeItem{Utilized K-Means spatial clustering to pinpoint educational blank spots and rendered interactive choropleth maps.}
@@ -210,38 +242,38 @@ Informatics Engineer from Politeknik Negeri Malang specializing in Applied Machi
 \section{Honors \& Verified Competitions}
   \resumeSubHeadingListStart
     \resumeSubheading
-      {Techno Fair and Seminar (TFS) 2026 LKTI Nasional — Juara Harapan 2}{Malang, Indonesia}
-      {CatfishCare IoT Aquaculture Telemetry — SK No. 27881/PL2.3/KM/2026}{2026}
+      {Techno Fair and Seminar (TFS) 2026 LKTI Nasional -- Juara Harapan 2}{Malang, Indonesia}
+      {CatfishCare IoT Aquaculture Telemetry -- SK No. 27881/PL2.3/KM/2026}{2026}
       \resumeItemListStart
         \resumeItem{Awarded 2nd Runner Up (Harapan 2) at national scientific writing contest for resilient embedded IoT aquaculture system.}
       \resumeItemListEnd
     \resumeSubheading
-      {PKM POLINEMA 2026 — Lolos Seleksi Tahap 2 Insentif}{Malang, Indonesia}
-      {Smart Aquaculture Integration System (SAIS) — SK No. 40/WADIR.III/KM/2026}{2026}
+      {PKM POLINEMA 2026 -- Lolos Seleksi Tahap 2 Insentif}{Malang, Indonesia}
+      {Smart Aquaculture Integration System (SAIS) -- SK No. 40/WADIR.III/KM/2026}{2026}
       \resumeItemListStart
         \resumeItem{Selected for Phase 2 Incentive Scheme funding for agricultural IoT telemetry and failover architecture.}
       \resumeItemListEnd
     \resumeSubheading
-      {Intelecta Cup 2025 — Peringkat 18 dari 82 Tim Nasional}{Indonesia}
-      {Team P-1 ML — Agroclimatology Time-Series Weather Forecasting}{2025}
+      {Intelecta Cup 2025 -- Peringkat 18 dari 82 Tim Nasional}{Indonesia}
+      {Team P-1 ML -- Agroclimatology Time-Series Weather Forecasting (Kaggle: 94.310)}{2025}
       \resumeItemListStart
         \resumeItem{Achieved Kaggle competition score of 94.310, securing 18th position nationwide among 82 competing university teams.}
       \resumeItemListEnd
     \resumeSubheading
-      {Techno Fair and Seminar (TFS) 2025 LKTI Nasional — Finalis Nasional}{Malang, Indonesia}
-      {AlgaSense Marine Seaweed Aquaculture IoT \& LSTM — SK No. 16002/PL2.3/KM/2025}{2025}
+      {Techno Fair and Seminar (TFS) 2025 LKTI Nasional -- Finalis Nasional}{Malang, Indonesia}
+      {AlgaSense Marine Seaweed Aquaculture IoT \& LSTM -- SK No. 16002/PL2.3/KM/2025}{2025}
       \resumeItemListStart
         \resumeItem{Selected as national finalist for ocean telemetry and LSTM neural network predictive harvest modeling.}
       \resumeItemListEnd
     \resumeSubheading
-      {Hology 8.0 Data Mining Competition — Official Participant}{Malang, Indonesia}
-      {Team Penyelam Handal — Multi-Column CNN Crowd Density Estimation}{2025}
+      {Hology 8.0 Data Mining Competition -- Official Participant}{Malang, Indonesia}
+      {Team Penyelam Handal -- Multi-Column CNN Crowd Density Estimation}{2025}
       \resumeItemListStart
         \resumeItem{Engineered multi-column convolutional density regression models for unconstrained surveillance imagery at national data mining contest.}
       \resumeItemListEnd
     \resumeSubheading
-      {Jatim Datathon 2025 — Official Participant (Peserta Resmi)}{Surabaya, Indonesia}
-      {Team Tim Maju Lancar — Spatial Disparity Analysis (Diskominfo Jawa Timur)}{2025}
+      {Jatim Datathon 2025 -- Official Participant (Peserta Resmi)}{Surabaya, Indonesia}
+      {Team Tim Maju Lancar -- Spatial Disparity Analysis (Diskominfo Jawa Timur)}{2025}
       \resumeItemListStart
         \resumeItem{Conducted geodemographic accessibility analysis for Special Education Schools across 38 East Java regencies.}
       \resumeItemListEnd
@@ -251,7 +283,9 @@ Informatics Engineer from Politeknik Negeri Malang specializing in Applied Machi
 \section{Digital Media \& Production}
   \resumeSubHeadingListStart
     \resumeProjectHeading
-      {\textbf{Content Producer \& Video Editor} $|$ \emph{Motion Graphics, Video Pacing, Community Analytics}}{2022 -- Present}
+      {Content Producer \& Video Editor}
+      {Motion Graphics, Editorial Video Pacing, Community Analytics}
+      {2022 -- Present}
       \resumeItemListStart
         \resumeItem{Produce short-form and long-form video game analysis, competitive mechanics guides, and motion graphics reels across TikTok (\href{https://www.tiktok.com/@oryzasatirva}{@oryzasatirva}) and Bilibili (\href{https://www.bilibili.tv/id/space/1416802109}{Space 1416802109}).}
         \resumeItem{Analyze audience retention curves and distribution algorithms, optimizing editorial pacing and thumbnail engagement.}
