@@ -1,5 +1,7 @@
 import { GraduationCap } from 'lucide-react';
 import imgMap1 from './assets/datathon1.png';
+import imgLeaderboard from './assets/datathon-documentation-1.jpg';
+import imgTeamLab from './assets/datathon-documentation-2.jpg';
 import imgSertifikat from './assets/sertifikat-peserta-datathon.png';
 
 export const slbSpatialDisparity = {
@@ -15,11 +17,12 @@ export const slbSpatialDisparity = {
     { type: "repo", label: "Source Code", url: "https://github.com/FarrelAD/Tim-Maju-Lancar-Datathon-Jatim-2025" }
   ],
   icon: GraduationCap,
-  images: [imgMap1, imgSertifikat],
+  images: [imgMap1, imgLeaderboard, imgTeamLab, imgSertifikat],
   details: {
-    overview: "An analytical study developed for Datathon Jatim 2025 ('Shaping The Future with Open Data') by team Tim Maju Lancar. The project investigated the spatial distribution of special education facilities across East Java, producing a data-driven gap index to highlight underserved municipalities and assist public resource allocation.",
+    overview: "An analytical study developed for Datathon Jatim 2025 ('Shaping The Future with Open Data') by team Tim Maju Lancar (Politeknik Negeri Malang). The project investigated the spatial distribution of special education facilities across East Java, producing a data-driven gap index to highlight underserved municipalities and assist public resource allocation.",
     features: [
       "Official Participant in Jatim Datathon 2025 ('Shaping The Future with Open Data') by Diskominfo Provinsi Jawa Timur",
+      "Meraih Peringkat 22 Nasional dengan skor 83,85 pada Leaderboard resmi Jatim Datathon 2025",
       "Demographic and municipal data harmonization across 38 administrative regencies and cities in East Java",
       "Spatial Accessibility Index (SAI) formulation correlating special education capacity with regional youth disability statistics",
       "Interactive web GIS dashboard with choropleth heatmaps deployed to HuggingFace Spaces"
