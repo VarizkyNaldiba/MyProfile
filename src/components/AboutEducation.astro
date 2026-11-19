@@ -26,30 +26,39 @@ const pillars = [
 
 const experiences = [
   {
+    role: "Engineering / IoT Intern",
+    organization: "PT Naraya Telematika",
+    type: "Magang Industri",
+    period: "Juli 2026 – Sekarang",
+    desc: "Implementasi perangkat telematika industri, infrastruktur jaringan, serta integrasi sistem telemetri dan rekayasa perangkat lunak terapan di lingkungan produksi.",
+    skills: ["IoT Telemetry", "Networking", "Embedded Systems", "System Integration"],
+    icon: Building2
+  },
+  {
     role: "IT & WebGIS Production Developer",
     organization: "Badan Riset dan Inovasi Nasional (BRIN) × Polinema",
-    type: "Magang Riset & Terapan",
-    period: "2024",
+    type: "Magang Riset Terapan",
+    period: "Mei – Juli 2026",
     desc: "Mengembangkan platform WebGIS produksi SIMOJANG Brantas untuk peringatan dini banjir DAS Brantas Hulu. Mengintegrasikan telemetri radar BMKG, data spasial BPBD, dan optimasi rendering GeoJSON.",
     skills: ["WebGIS", "Leaflet", "GeoJSON", "Spatial DB", "BMKG Radar"],
     icon: Building2
   },
   {
-    role: "Commercial Kitchen Operations & Supply Specialist",
+    role: "Cook",
     organization: "Sektor F&B Komersial (Hospitality & Culinary Operations)",
-    type: "Operasional Lapangan",
-    period: "2021 – 2023",
-    desc: "Mengelola manajemen alur suplai bahan baku rotasi cepat (FIFO), pengendalian rasio margin food cost, serta penegakan standar kerja presisi dengan toleransi kesalahan nol.",
-    skills: ["Supply Chain", "FIFO", "Operational Rigor", "Cost Margin"],
+    type: "Operasional Komersial",
+    period: "2025",
+    desc: "Mengelola alur operasional dapur komersial berkecepatan tinggi, konsistensi mutu penyajian, manajemen bahan baku, serta penegakan standar kerja presisi dengan toleransi kesalahan nol.",
+    skills: ["Operational Rigor", "High-Pace Execution", "Quality Control", "Inventory Flow"],
     icon: Utensils
   },
   {
-    role: "Lead Content Producer & Visual Engineering",
+    role: "Content Creator",
     organization: "Kanal Multimedia Mandiri (@oryzasatirva & Bilibili)",
     type: "Produksi Media Digital",
-    period: "2022 – Sekarang",
-    desc: "Memproduksi video analisis mekanik sistem digital, panduan teknis komparatif, dan motion graphics. Menganalisis kurva retensi pemirsa dan optimasi algoritma distribusi konten multimedia.",
-    skills: ["Motion Graphics", "Video Production", "Retention Analytics"],
+    period: "2020 – Sekarang",
+    desc: "Memproduksi video analisis mekanik sistem digital, panduan teknis komparatif, dan motion graphics. Menganalisis kurva retensi pemirsa serta strategi optimasi algoritma distribusi konten multimedia.",
+    skills: ["Motion Graphics", "Video Production", "Retention Analytics", "Digital Media"],
     icon: Video
   }
 ];
@@ -187,6 +196,9 @@ const getBadgeClass = (badge: string) => {
                         {exp.type}
                       </span>
                       <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-cyan); display: inline-flex; align-items: center; gap: 0.35rem;">
+                        {exp.period.includes('Sekarang') && (
+                          <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 6px #4ade80;" title="Posisi Aktif"></span>
+                        )}
                         <Calendar size={12} />
                         {exp.period}
                       </span>
