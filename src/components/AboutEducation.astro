@@ -1,5 +1,5 @@
 ---
-import { BookOpen, Trophy, Award, CheckCircle, Cpu, Brain, Database, Utensils } from 'lucide-react';
+import { BookOpen, Trophy, Award, CheckCircle, Cpu, Brain, Database, Utensils, Briefcase, Calendar, Building2, Video } from 'lucide-react';
 
 const pillars = [
   {
@@ -23,6 +23,43 @@ const pillars = [
     desc: "Latar belakang operasional kuliner komersial menanamkan ketahanan kerja di bawah tekanan tinggi, manajemen alur suplai, dan standar eksekusi ketat tanpa kompromi."
   }
 ];
+
+const experiences = [
+  {
+    role: "IT & WebGIS Production Developer",
+    organization: "Badan Riset dan Inovasi Nasional (BRIN) × Polinema",
+    type: "Magang Riset & Terapan",
+    period: "2024",
+    desc: "Mengembangkan platform WebGIS produksi SIMOJANG Brantas untuk peringatan dini banjir DAS Brantas Hulu. Mengintegrasikan telemetri radar BMKG, data spasial BPBD, dan optimasi rendering GeoJSON.",
+    skills: ["WebGIS", "Leaflet", "GeoJSON", "Spatial DB", "BMKG Radar"],
+    icon: Building2
+  },
+  {
+    role: "Commercial Kitchen Operations & Supply Specialist",
+    organization: "Sektor F&B Komersial (Hospitality & Culinary Operations)",
+    type: "Operasional Lapangan",
+    period: "2021 – 2023",
+    desc: "Mengelola manajemen alur suplai bahan baku rotasi cepat (FIFO), pengendalian rasio margin food cost, serta penegakan standar kerja presisi dengan toleransi kesalahan nol.",
+    skills: ["Supply Chain", "FIFO", "Operational Rigor", "Cost Margin"],
+    icon: Utensils
+  },
+  {
+    role: "Lead Content Producer & Visual Engineering",
+    organization: "Kanal Multimedia Mandiri (@oryzasatirva & Bilibili)",
+    type: "Produksi Media Digital",
+    period: "2022 – Sekarang",
+    desc: "Memproduksi video analisis mekanik sistem digital, panduan teknis komparatif, dan motion graphics. Menganalisis kurva retensi pemirsa dan optimasi algoritma distribusi konten multimedia.",
+    skills: ["Motion Graphics", "Video Production", "Retention Analytics"],
+    icon: Video
+  }
+];
+
+const getExpBadgeClass = (type: string) => {
+  const lower = type.toLowerCase();
+  if (lower.includes('riset') || lower.includes('magang') || lower.includes('intern')) return 'card-honor-badge honor-finalist';
+  if (lower.includes('operasional')) return 'card-honor-badge honor-juara';
+  return 'card-honor-badge honor-peserta';
+};
 
 const honors = [
   {
@@ -124,24 +161,57 @@ const getBadgeClass = (badge: string) => {
           </div>
         </div>
 
-        {/* 4 Core Pillars */}
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
-          {pillars.map((p, idx) => {
-            const Icon = p.icon;
-            return (
-              <div key={idx} class="glass-card" style="padding: 1.5rem;">
-                <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.85rem;">
-                  <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.25); display: flex; align-items: center; justify-content: center; color: var(--accent-blue);">
-                    <Icon size={16} />
+        {/* Work & Intern Experience */}
+        <div class="glass-card">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); display: flex; align-items: center; justify-content: center; color: var(--accent-blue);">
+              <Briefcase size={18} />
+            </div>
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff;">Pengalaman Kerja & Magang</h3>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Work, Internship & Applied Engineering Roles</span>
+            </div>
+          </div>
+
+          <div class="experience-list">
+            {experiences.map((exp, idx) => {
+              const ExpIcon = exp.icon;
+              return (
+                <div key={idx} class="experience-item">
+                  <div class="exp-icon-wrap">
+                    <ExpIcon size={16} />
                   </div>
-                  <h4 style="font-size: 0.95rem; font-weight: 700; color: #fff;">{p.title}</h4>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.35rem;">
+                      <span class={getExpBadgeClass(exp.type)}>
+                        {exp.type}
+                      </span>
+                      <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-cyan); display: inline-flex; align-items: center; gap: 0.35rem;">
+                        <Calendar size={12} />
+                        {exp.period}
+                      </span>
+                    </div>
+                    <h4 style="font-size: 0.92rem; font-weight: 700; color: #fff; margin-bottom: 0.15rem;">
+                      {exp.role}
+                    </h4>
+                    <div style="font-size: 0.8rem; font-weight: 600; color: #94a3b8; margin-bottom: 0.4rem;">
+                      {exp.organization}
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 0.6rem;">
+                      {exp.desc}
+                    </p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+                      {exp.skills.map((skill, sIdx) => (
+                        <span key={sIdx} class="exp-skill-pill">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
-                  {p.desc}
-                </p>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -187,6 +257,40 @@ const getBadgeClass = (badge: string) => {
         </div>
       </div>
 
+    </div>
+
+    {/* 4 Core Competency Pillars (Horizontal across full width, directly above Featured Engineering Systems) */}
+    <div class="pillars-horizontal-section">
+      <div class="pillars-horizontal-header">
+        <div>
+          <div class="kicker">Core Engineering Disciplines</div>
+          <h3 class="pillars-section-title">
+            4 Pilar Fondasi Rekayasa & Keahlian Teknis
+          </h3>
+        </div>
+        <p class="pillars-section-subtitle">
+          Arsitektur terintegrasi hulu-ke-hilir: dari sensor edge, visi komputer cerdas, geospasial analitik, hingga keandalan operasional.
+        </p>
+      </div>
+
+      <div class="pillars-horizontal-grid">
+        {pillars.map((p, idx) => {
+          const Icon = p.icon;
+          return (
+            <div key={idx} class="glass-card pillar-horizontal-card">
+              <div class="pillar-card-top">
+                <div class="pillar-icon-box">
+                  <Icon size={18} />
+                </div>
+                <h4 class="pillar-card-title">{p.title}</h4>
+              </div>
+              <p class="pillar-card-desc">
+                {p.desc}
+              </p>
+            </div>
+          );
+        })}
+      </div>
     </div>
 
   </div>
