@@ -76,10 +76,10 @@ const getExpBadgeClass = (type: string) => {
 ---
 
 <section class="section-padding" id="about" aria-labelledby="about-title" data-chapter="about">
-  <div class="container" data-in>
+  <div class="container">
     
     {/* Section Head */}
-    <div class="section-head" style="margin-bottom: 3.5rem;">
+    <div class="section-head" data-in style="margin-bottom: 3.5rem;">
       <div class="kicker">About Me // Engineering Background</div>
       <h2 class="section-title" id="about-title" style="letter-spacing: -0.035em;">
         About Me &amp; Applied Engineering
@@ -89,10 +89,10 @@ const getExpBadgeClass = (type: string) => {
       </p>
     </div>
 
-    {/* About Layout Grid: Left Portrait Centerpiece + Right Detailed Credentials */}
+    {/* About Layout Grid: Left Portrait Centerpiece (Sticky until Jatim Datathon) + Right Detailed Credentials */}
     <div class="dossier-layout-grid">
       
-      {/* Left Column: Authentic Portrait Card */}
+      {/* Left Column: Authentic Portrait Card (Sticky Desktop) */}
       <aside class="dossier-portrait-card">
         {/* Crosshair Coordinates */}
         <span class="hero-card-crosshair tl">+</span>
@@ -101,11 +101,11 @@ const getExpBadgeClass = (type: string) => {
         <span class="hero-card-crosshair br">+</span>
 
         {/* Technical Header */}
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 0.65rem; border-bottom: 1px solid rgba(61, 139, 255, 0.25);">
-          <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--blue-300); font-weight: 700; letter-spacing: 0.08em;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 0.65rem; border-bottom: 1px solid rgba(61, 139, 255, 0.25); gap: 0.5rem;">
+          <span style="font-family: var(--font-mono); font-size: 0.66rem; color: var(--blue-300); font-weight: 700; letter-spacing: 0.06em; white-space: nowrap;">
             SYS // ABOUT · PROFILE
           </span>
-          <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">
+          <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); white-space: nowrap;">
             MALANG · 112.61° E, 7.94° S
           </span>
         </div>
@@ -190,7 +190,7 @@ const getExpBadgeClass = (type: string) => {
       </aside>
 
       {/* Right Column: Narrative, Experience, and Verified Honors */}
-      <div class="dossier-content-col">
+      <div class="dossier-content-col" data-in>
         
         {/* Engineering Philosophy Manifesto */}
         <div class="glass-card" style="margin-bottom: 2rem;">
@@ -323,3 +323,22 @@ const getExpBadgeClass = (type: string) => {
 
   </div>
 </section>
+
+<style>
+  @media (min-width: 992px) {
+    .dossier-layout-grid {
+      display: grid !important;
+      grid-template-columns: 360px 1fr !important;
+      gap: 3.5rem !important;
+      align-items: start !important;
+    }
+
+    .dossier-portrait-card {
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 5.5rem !important;
+      align-self: start !important;
+      z-index: 25 !important;
+    }
+  }
+</style>

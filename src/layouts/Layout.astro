@@ -173,6 +173,22 @@ const {
 
         attachCursorListeners();
 
+        // 3D Tech Card Raycaster Event Integration
+        window.addEventListener('techcard-hover', (e: any) => {
+          if (labelText && cursorLabel && cursorDot) {
+            labelText.textContent = e.detail?.title || 'TECH STACK';
+            cursorLabel.style.opacity = '1';
+            cursorDot.classList.add('is-hovering');
+          }
+        });
+
+        window.addEventListener('techcard-leave', () => {
+          if (cursorLabel && cursorDot) {
+            cursorLabel.style.opacity = '0';
+            cursorDot.classList.remove('is-hovering');
+          }
+        });
+
         const renderCursor = () => {
           dotX += (mouseX - dotX) * 0.35;
           dotY += (mouseY - dotY) * 0.35;

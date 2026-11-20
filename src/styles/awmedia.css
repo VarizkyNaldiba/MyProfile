@@ -120,7 +120,6 @@ html {
 body {
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
   background-color: var(--bg-base);
   background-image: 
     radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.14) 0%, transparent 50%),
@@ -3493,6 +3492,16 @@ html.lenis, html.lenis body {
   margin-bottom: 0.5rem;
 }
 
+.puture-hero-center {
+  max-width: 100%;
+}
+
+@media (min-width: 992px) {
+  .puture-hero-center {
+    max-width: 600px;
+  }
+}
+
 .puture-massive-title {
   font-size: clamp(2.8rem, 7.8vw, 6.8rem);
   font-weight: 800;
@@ -3545,13 +3554,6 @@ html.lenis, html.lenis body {
   align-items: start;
 }
 
-@media (min-width: 992px) {
-  .dossier-layout-grid {
-    grid-template-columns: 380px 1fr;
-    gap: 3.5rem;
-  }
-}
-
 .dossier-portrait-card {
   position: relative;
   background: rgba(10, 13, 22, 0.92);
@@ -3565,6 +3567,22 @@ html.lenis, html.lenis body {
     linear-gradient(rgba(61, 139, 255, 0.08) 1px, transparent 1px),
     linear-gradient(90deg, rgba(61, 139, 255, 0.08) 1px, transparent 1px);
   background-size: 20px 20px;
+}
+
+@media (min-width: 992px) {
+  .dossier-layout-grid {
+    grid-template-columns: 360px 1fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .dossier-portrait-card {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 5.5rem !important;
+    align-self: start !important;
+    z-index: 25 !important;
+  }
 }
 
 .dossier-img-box {

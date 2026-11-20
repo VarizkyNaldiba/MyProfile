@@ -1,5 +1,12 @@
 ---
-// ThreeSpaceCanvas.astro — Outer Space (Antariksa) 3D Starfield & Nebula Animation
+// ThreeSpaceCanvas.astro — Puture Multi-Trajectory Interactive 3D Canvas
+// Flow:
+// 1. Initial State (p = 0): 12 Squarish Glossy Blue Tiles neatly arranged in 4x3 Grid (all text legible)
+// 2. Scroll State (p > 0):
+//    - Revolve around Saturn's tilted planetary ring for 1 full revolution (muter 1 kali)
+//    - Next, smoothly morph into a 3D Infinity Loop (∞ / figure-8 Lemniscate)
+//    - Looping continuously between Saturn's ring and the Infinity loop as you scroll!
+// + Raycaster 3D Hover, Magnetic Cursor Integration, Physics Click Impulse & 3D Perspective Crosshair Grid
 ---
 
 <div class="three-space-container" id="three-space-container" aria-hidden="true">
@@ -8,17 +15,18 @@
 
 <script>
   import * as THREE from 'three';
+  import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 
   const canvas = document.getElementById('three-space-canvas') as HTMLCanvasElement;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (canvas && !prefersReducedMotion) {
-    // 1. Scene & Camera Setup (Deep Cosmic View)
+    // 1. Scene & Perspective Camera Setup
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x000000, 0.0018);
+    scene.fog = new THREE.FogExp2(0x060a12, 0.0016);
 
-    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1200);
-    camera.position.set(0, 0, 15);
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 0, 9.4);
 
     // 2. High-Performance WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -29,182 +37,809 @@
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.25;
 
-    // 3. Multi-Tier 3D Cosmic Starfield (Deep Antariksa)
-    const starCount = 3200;
-    const starPositions = new Float32Array(starCount * 3);
-    const starColors = new Float32Array(starCount * 3);
+    // 3. Directional Key & Specular Lighting
+    const keyLight = new THREE.DirectionalLight(0xffffff, 4.2);
+    keyLight.position.set(12, 16, 14);
+    scene.add(keyLight);
 
-    // Palette: Stellar Cyan, Cobalt Blue, Pure Diamond White, Warm Gold, Soft Violet
-    const palette = [
-      new THREE.Color(0x38bdf8), // Ice Cyan
-      new THREE.Color(0x3b82f6), // Cobalt Blue
-      new THREE.Color(0xffffff), // Pure White
-      new THREE.Color(0x93c5fd), // Sky Blue
-      new THREE.Color(0xc084fc), // Soft Nebula Violet
-      new THREE.Color(0xfef08a)  // Solar Gold
-    ];
+    const fillLight = new THREE.DirectionalLight(0x60a5fa, 2.6);
+    fillLight.position.set(-8, -4, 6);
+    scene.add(fillLight);
 
-    for (let i = 0; i < starCount; i++) {
-      const i3 = i * 3;
-      // Spread stars widely across 3D cylindrical volume
-      starPositions[i3] = (Math.random() - 0.5) * 220;
-      starPositions[i3 + 1] = (Math.random() - 0.5) * 160;
-      starPositions[i3 + 2] = (Math.random() - 0.5) * 450 - 50;
+    const rimLight = new THREE.DirectionalLight(0x38bdf8, 2.4);
+    rimLight.position.set(4, -8, -6);
+    scene.add(rimLight);
 
-      const color = palette[Math.floor(Math.random() * palette.length)];
-      starColors[i3] = color.r;
-      starColors[i3 + 1] = color.g;
-      starColors[i3 + 2] = color.b;
-    }
+    const ambientLight = new THREE.AmbientLight(0x091224, 1.4);
+    scene.add(ambientLight);
 
-    const starGeo = new THREE.BufferGeometry();
-    starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-    starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+    // 4. Coordinates for 4x3 Grid (Clean Puture Layout)
+    const gridStepX = 1.62;
+    const gridStepY = 1.62;
+    const gridStartX = 1.55;
+    const gridStartY = 1.62;
 
-    // Custom circular soft glow texture for stars
-    const createStarTexture = () => {
+    // Soft Blue Glow Sprite Behind Cards
+    const createGlowTexture = () => {
       const c = document.createElement('canvas');
-      c.width = 32;
-      c.height = 32;
+      c.width = 256;
+      c.height = 256;
       const ctx = c.getContext('2d');
       if (ctx) {
-        const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-        gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-        gradient.addColorStop(0.35, 'rgba(147, 197, 253, 0.85)');
-        gradient.addColorStop(0.8, 'rgba(59, 130, 246, 0.25)');
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, 32, 32);
+        const g = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+        g.addColorStop(0, 'rgba(59, 130, 246, 0.45)');
+        g.addColorStop(0.35, 'rgba(37, 99, 235, 0.22)');
+        g.addColorStop(0.75, 'rgba(14, 165, 233, 0.06)');
+        g.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, 256, 256);
       }
       return new THREE.CanvasTexture(c);
     };
 
-    const starTexture = createStarTexture();
+    const backGlow = new THREE.Sprite(
+      new THREE.SpriteMaterial({
+        map: createGlowTexture(),
+        transparent: true,
+        opacity: 0.85,
+        blending: THREE.AdditiveBlending
+      })
+    );
+    backGlow.position.set(2.0, 0.0, -3.5);
+    backGlow.scale.set(18, 18, 1);
+    scene.add(backGlow);
 
-    const starMat = new THREE.PointsMaterial({
-      size: 1.85,
-      map: starTexture,
+    // 5. Track A: Saturn Right Orbital System (Saturnus Sebelah Kanan)
+    const saturnRightPivot = new THREE.Group();
+    saturnRightPivot.position.set(3.9, 0.0, -0.6);
+    saturnRightPivot.rotation.x = Math.PI * 0.32;
+    saturnRightPivot.rotation.z = -Math.PI * 0.20;
+    saturnRightPivot.rotation.y = Math.PI * 0.10;
+    saturnRightPivot.updateMatrixWorld(true);
+    scene.add(saturnRightPivot);
+
+    const createSaturnRingLine = (r: number, segments = 80) => {
+      const verts: number[] = [];
+      for (let i = 0; i <= segments; i++) {
+        const theta = (i / segments) * Math.PI * 2;
+        verts.push(Math.cos(theta) * r, 0, Math.sin(theta) * r);
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+      return geo;
+    };
+
+    const saturnRightRingMat = new THREE.LineBasicMaterial({
+      color: 0x38bdf8,
       transparent: true,
-      vertexColors: true,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false
+      opacity: 0.0,
+      blending: THREE.AdditiveBlending
+    });
+    saturnRightPivot.add(new THREE.Line(createSaturnRingLine(3.4), saturnRightRingMat));
+    saturnRightPivot.add(new THREE.Line(createSaturnRingLine(4.0), saturnRightRingMat));
+    saturnRightPivot.add(new THREE.Line(createSaturnRingLine(4.6), saturnRightRingMat));
+
+    // Track B: Saturn Left Orbital System (Saturnus Sebelah Kiri)
+    const saturnLeftPivot = new THREE.Group();
+    saturnLeftPivot.position.set(-3.9, 0.0, -0.6);
+    saturnLeftPivot.rotation.x = Math.PI * 0.32;
+    saturnLeftPivot.rotation.z = Math.PI * 0.20;
+    saturnLeftPivot.rotation.y = -Math.PI * 0.10;
+    saturnLeftPivot.updateMatrixWorld(true);
+    scene.add(saturnLeftPivot);
+
+    const saturnLeftRingMat = new THREE.LineBasicMaterial({
+      color: 0x38bdf8,
+      transparent: true,
+      opacity: 0.0,
+      blending: THREE.AdditiveBlending
+    });
+    saturnLeftPivot.add(new THREE.Line(createSaturnRingLine(3.4), saturnLeftRingMat));
+    saturnLeftPivot.add(new THREE.Line(createSaturnRingLine(4.0), saturnLeftRingMat));
+    saturnLeftPivot.add(new THREE.Line(createSaturnRingLine(4.6), saturnLeftRingMat));
+
+    // 6. Track C: 3D Infinity Loop Track (∞ / Figure-8 Lemniscate - Centered & Wide)
+    let currentInfWidth = 7.4;
+    let currentInfHeight = 2.6;
+    let currentInfDepth = 2.2;
+
+    const infPivot = new THREE.Group();
+    infPivot.position.set(0.0, 0.0, -0.4);
+    infPivot.rotation.x = 0.12;
+    infPivot.rotation.y = 0.0;
+    infPivot.rotation.z = -0.04;
+    infPivot.updateMatrixWorld(true);
+    scene.add(infPivot);
+
+    const createInfinityLine = (segments = 160) => {
+      const verts: number[] = [];
+      for (let i = 0; i <= segments; i++) {
+        const t = (i / segments) * Math.PI * 2;
+        const lx = Math.sin(t);
+        const ly = Math.sin(2 * t);
+        const lz = Math.cos(t);
+        verts.push(lx, ly, lz);
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+      return geo;
+    };
+
+    const infRingMat = new THREE.LineBasicMaterial({
+      color: 0x38bdf8,
+      transparent: true,
+      opacity: 0.0,
+      blending: THREE.AdditiveBlending
+    });
+    const infLineMesh = new THREE.Line(createInfinityLine(160), infRingMat);
+    infLineMesh.scale.set(currentInfWidth, currentInfHeight, currentInfDepth);
+    infPivot.add(infLineMesh);
+
+    // 7. High-Contrast 2D Canvas Texture Generator: Icon + Clearly Visible Writing
+    const createCardTexture = (title: string, sub: string, iconType: string, numIndex: string) => {
+      const c = document.createElement('canvas');
+      c.width = 512;
+      c.height = 512;
+      const ctx = c.getContext('2d');
+      if (!ctx) return new THREE.Texture();
+
+      // Subtle blueprint hairline border
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.16)';
+      ctx.lineWidth = 3;
+      if (ctx.strokeRoundRect) {
+        ctx.strokeRoundRect(16, 16, 480, 480, 26);
+      } else {
+        ctx.strokeRect(16, 16, 480, 480);
+      }
+
+
+      // Top system category tag & index
+      ctx.font = '700 16px "JetBrains Mono", monospace';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
+      ctx.textAlign = 'center';
+      ctx.fillText(`SYS // ${numIndex}`, 256, 52);
+
+      // Center Vector Icon (Exact match to the 12 icons in user's image)
+      ctx.save();
+      ctx.translate(256, 195);
+      ctx.strokeStyle = '#ffffff';
+      ctx.fillStyle = '#ffffff';
+      ctx.lineWidth = 14;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      if (iconType === 'cube') {
+        // 1. Isometric 3D Cube (Row 1, Col 0)
+        const r = 78;
+        const h = 70;
+        ctx.beginPath();
+        ctx.moveTo(0, -r); ctx.lineTo(r * 0.866, -r * 0.5); ctx.lineTo(0, 0); ctx.lineTo(-r * 0.866, -r * 0.5);
+        ctx.closePath(); ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(-r * 0.866, -r * 0.5); ctx.lineTo(0, 0); ctx.lineTo(0, h); ctx.lineTo(-r * 0.866, h - r * 0.5);
+        ctx.closePath(); ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(0, 0); ctx.lineTo(r * 0.866, -r * 0.5); ctx.lineTo(r * 0.866, h - r * 0.5); ctx.lineTo(0, h);
+        ctx.closePath(); ctx.stroke();
+        ctx.beginPath(); ctx.arc(0, h * 0.22, 9, 0, Math.PI * 2); ctx.fill();
+      } else if (iconType === 'sparkle') {
+        // 2. 4-Point Radiant Sparkle Star (Row 1, Col 1)
+        ctx.beginPath();
+        ctx.moveTo(0, -68);
+        ctx.quadraticCurveTo(0, 0, 68, 0);
+        ctx.quadraticCurveTo(0, 0, 0, 68);
+        ctx.quadraticCurveTo(0, 0, -68, 0);
+        ctx.quadraticCurveTo(0, 0, 0, -68);
+        ctx.fill();
+      } else if (iconType === 'cursor') {
+        // 3. Arrow Pointer Cursor (Row 1, Col 2)
+        ctx.lineWidth = 12;
+        ctx.beginPath();
+        ctx.moveTo(-42, -56);
+        ctx.lineTo(-42, 42);
+        ctx.lineTo(-18, 18);
+        ctx.lineTo(24, 60);
+        ctx.lineTo(46, 44);
+        ctx.lineTo(6, 2);
+        ctx.lineTo(42, -6);
+        ctx.closePath();
+        ctx.stroke();
+      } else if (iconType === 'soundwave') {
+        // 4. Audio / Data Waveform Bars (Row 1, Col 3)
+        ctx.lineWidth = 12;
+        const heights = [32, 64, 88, 64, 32];
+        const xs = [-52, -26, 0, 26, 52];
+        for (let i = 0; i < 5; i++) {
+          ctx.beginPath();
+          ctx.moveTo(xs[i], -heights[i] / 2);
+          ctx.lineTo(xs[i], heights[i] / 2);
+          ctx.stroke();
+        }
+      } else if (iconType === 'code') {
+        // 5. Code Brackets </> (Row 2, Col 0)
+        ctx.lineWidth = 13;
+        ctx.beginPath(); ctx.moveTo(-28, -44); ctx.lineTo(-64, 0); ctx.lineTo(-28, 44); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(12, -54); ctx.lineTo(-12, 54); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(28, -44); ctx.lineTo(64, 0); ctx.lineTo(28, 44); ctx.stroke();
+      } else if (iconType === 'layers') {
+        // 6. 3D Layers Stack (Row 2, Col 1)
+        ctx.lineWidth = 11;
+        const drawLayer = (cy: number) => {
+          ctx.beginPath();
+          ctx.moveTo(0, cy - 24);
+          ctx.lineTo(62, cy);
+          ctx.lineTo(0, cy + 24);
+          ctx.lineTo(-62, cy);
+          ctx.closePath();
+          ctx.stroke();
+        };
+        drawLayer(-32);
+        drawLayer(0);
+        drawLayer(32);
+      } else if (iconType === 'barchart') {
+        // 7. Ascending Bar Chart (Row 2, Col 2)
+        ctx.lineWidth = 11;
+        ctx.beginPath(); ctx.moveTo(-60, 48); ctx.lineTo(60, 48); ctx.stroke();
+        const bHeights = [28, 48, 70, 92];
+        const bXs = [-40, -14, 14, 40];
+        for (let i = 0; i < 4; i++) {
+          ctx.beginPath();
+          ctx.moveTo(bXs[i], 48);
+          ctx.lineTo(bXs[i], 48 - bHeights[i]);
+          ctx.stroke();
+        }
+      } else if (iconType === 'arrowup') {
+        // 8. Arrow Up-Right (Row 2, Col 3)
+        ctx.lineWidth = 14;
+        ctx.beginPath();
+        ctx.moveTo(-44, 44);
+        ctx.lineTo(44, -44);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(44, 12);
+        ctx.lineTo(44, -44);
+        ctx.lineTo(-12, -44);
+        ctx.stroke();
+      } else if (iconType === 'chat') {
+        // 9. Message Chat Bubble (Row 3, Col 0)
+        ctx.lineWidth = 12;
+        ctx.beginPath();
+        ctx.moveTo(-54, -42);
+        ctx.lineTo(54, -42);
+        ctx.lineTo(54, 26);
+        ctx.lineTo(14, 26);
+        ctx.lineTo(-14, 52);
+        ctx.lineTo(-14, 26);
+        ctx.lineTo(-54, 26);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        [-24, 0, 24].forEach(px => {
+          ctx.beginPath(); ctx.arc(px, -8, 6, 0, Math.PI * 2); ctx.fill();
+        });
+      } else if (iconType === 'eye') {
+        // 10. Stylized Eye / Vision (Row 3, Col 1)
+        ctx.lineWidth = 13;
+        ctx.beginPath();
+        ctx.arc(0, 18, 56, Math.PI * 1.15, Math.PI * 1.85);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(0, 18, 26, Math.PI * 1.15, Math.PI * 1.85);
+        ctx.stroke();
+        ctx.beginPath(); ctx.arc(0, 2, 10, 0, Math.PI * 2); ctx.fill();
+      } else if (iconType === 'modular') {
+        // 11. 4 Squares with Plus (Row 3, Col 2)
+        const drawTile = (x: number, y: number, sz: number) => {
+          ctx.lineWidth = 11;
+          ctx.strokeStyle = '#ffffff';
+          if (ctx.strokeRoundRect) ctx.strokeRoundRect(x - sz/2, y - sz/2, sz, sz, 10);
+          else ctx.strokeRect(x - sz/2, y - sz/2, sz, sz);
+        };
+        const s = 48;
+        drawTile(-38, -38, s);
+        drawTile(38, -38, s);
+        drawTile(-38, 38, s);
+        ctx.lineWidth = 13;
+        ctx.beginPath();
+        ctx.moveTo(38 - 18, 38); ctx.lineTo(38 + 18, 38);
+        ctx.moveTo(38, 38 - 18); ctx.lineTo(38, 38 + 18);
+        ctx.stroke();
+      } else if (iconType === 'network') {
+        // 12. Connected Nodes Triangle (Row 3, Col 3)
+        const n1 = { x: 0, y: -58 };
+        const n2 = { x: -58, y: 44 };
+        const n3 = { x: 58, y: 44 };
+        ctx.lineWidth = 13;
+        ctx.beginPath();
+        ctx.moveTo(n1.x, n1.y); ctx.lineTo(n2.x, n2.y);
+        ctx.moveTo(n2.x, n2.y); ctx.lineTo(n3.x, n3.y);
+        ctx.moveTo(n3.x, n3.y); ctx.lineTo(n1.x, n1.y);
+        ctx.stroke();
+        [n1, n2, n3].forEach(pt => {
+          ctx.fillStyle = '#2563eb';
+          ctx.beginPath(); ctx.arc(pt.x, pt.y, 22, 0, Math.PI * 2); ctx.fill();
+          ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 8; ctx.stroke();
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath(); ctx.arc(pt.x, pt.y, 7, 0, Math.PI * 2); ctx.fill();
+        });
+      }
+      ctx.restore();
+
+      // Clear & High-Contrast Typography: "semua card keliatan tulisannya"
+      ctx.textAlign = 'center';
+      
+      // Subtle background badge for text readability
+      ctx.fillStyle = 'rgba(5, 12, 28, 0.45)';
+      if (ctx.roundRect) ctx.roundRect(40, 345, 432, 115, 12);
+      else ctx.fillRect(40, 345, 432, 115);
+      ctx.fill();
+
+      // Bold Title
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '800 27px "Inter", -apple-system, sans-serif';
+      ctx.fillText(title, 256, 392);
+
+      // Monospace Subtitle
+      ctx.fillStyle = 'rgba(186, 230, 253, 0.95)';
+      ctx.font = '700 15px "JetBrains Mono", monospace';
+      ctx.fillText(sub, 256, 428);
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.anisotropy = 4;
+      return tex;
+    };
+
+    // 8. 12 Tech-Stack Card Definitions (1:1 with user's screenshot layout)
+    interface CardDef {
+      title: string;
+      sub: string;
+      icon: string;
+      tag: string;
+    }
+
+    const cardDefs: CardDef[] = [
+      // Row 1 (Top)
+      { title: 'TENSORFLOW', sub: 'KERAS · DEEP LEARNING', icon: 'cube', tag: '01' },
+      { title: 'GENERATIVE AI', sub: 'COMFYUI · DIFFUSION', icon: 'sparkle', tag: '02' },
+      { title: 'FRONTEND UX', sub: 'INTERACTIVE · WEB', icon: 'cursor', tag: '03' },
+      { title: 'TIME-SERIES ML', sub: 'LSTM · FORECASTING', icon: 'soundwave', tag: '04' },
+
+      // Row 2 (Middle)
+      { title: 'SOFTWARE ENG', sub: 'FULL-STACK · CODE', icon: 'code', tag: '05' },
+      { title: 'SYSTEM ARCH', sub: 'DISTRIBUTED · SCALE', icon: 'layers', tag: '06' },
+      { title: 'DATA SCIENCE', sub: 'ANALYTICS · STATS', icon: 'barchart', tag: '07' },
+      { title: 'API GATEWAY', sub: 'REST · FASTAPI · META', icon: 'arrowup', tag: '08' },
+
+      // Row 3 (Bottom)
+      { title: 'NLP & AGENTS', sub: 'DIFY · PROMPT · LLM', icon: 'chat', tag: '09' },
+      { title: 'COMPUTER VISION', sub: 'YOLO · OPENCV · DETECT', icon: 'eye', tag: '10' },
+      { title: 'MODULAR IOT', sub: 'ESP32 · SENSORS · ADC', icon: 'modular', tag: '11' },
+      { title: 'GRAPH & NETWORK', sub: 'MQTT · NODES · BMKG', icon: 'network', tag: '12' }
+    ];
+
+    const cardSize = 1.35;
+    const cardDepth = 0.22;
+    const cardGeo = new RoundedBoxGeometry(cardSize, cardSize, cardDepth, 5, 0.16);
+    const labelGeo = new THREE.PlaneGeometry(cardSize, cardSize);
+
+    const cardsGroup = new THREE.Group();
+    scene.add(cardsGroup);
+
+    interface CardItem {
+      group: THREE.Group;
+      boxMesh: THREE.Mesh;
+      def: CardDef;
+      index: number;
+      neatPos: THREE.Vector3;
+      neatRot: THREE.Euler;
+      hoverFactor: number;
+      impulseVel: THREE.Vector3;
+      impulseRot: THREE.Vector3;
+      springOffset: THREE.Vector3;
+    }
+
+    const cardItems: CardItem[] = [];
+    const interactiveMeshes: THREE.Mesh[] = [];
+    const meshToCardMap = new Map<THREE.Mesh, CardItem>();
+
+    cardDefs.forEach((def, i) => {
+      const cardContainer = new THREE.Group();
+
+      // "Awalnya Tersusun Rapi": 4 columns x 3 rows matrix matching the uploaded image
+      const col = i % 4; // 0, 1, 2, 3
+      const row = Math.floor(i / 4); // 0, 1, 2
+      const neatX = gridStartX + col * gridStepX;
+      const neatY = gridStartY - row * gridStepY;
+      const neatZ = 0.2 - col * 0.18 - row * 0.08;
+      const neatPos = new THREE.Vector3(neatX, neatY, neatZ);
+      const neatRot = new THREE.Euler(0.0, -0.28, 0.0);
+
+      cardContainer.position.copy(neatPos);
+      cardContainer.rotation.copy(neatRot);
+
+      const boxMat = new THREE.MeshPhysicalMaterial({
+        color: 0x226ee6,
+        roughness: 0.12,
+        metalness: 0.08,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.08,
+        reflectivity: 0.95,
+        emissive: new THREE.Color(0x1d4ed8),
+        emissiveIntensity: 0.0
+      });
+
+      const boxMesh = new THREE.Mesh(cardGeo, boxMat);
+      boxMesh.userData = { title: def.title };
+      cardContainer.add(boxMesh);
+      interactiveMeshes.push(boxMesh);
+
+      // Front Vector Label Plane (Icon + High-Contrast Writing)
+      const labelMat = new THREE.MeshBasicMaterial({
+        map: createCardTexture(def.title, def.sub, def.icon, def.tag),
+        transparent: true,
+        opacity: 0.98,
+        depthWrite: false
+      });
+      const labelMesh = new THREE.Mesh(labelGeo, labelMat);
+      labelMesh.position.z = cardDepth / 2 + 0.003;
+      cardContainer.add(labelMesh);
+
+      cardsGroup.add(cardContainer);
+
+      const item: CardItem = {
+        group: cardContainer,
+        boxMesh,
+        def,
+        index: i,
+        neatPos,
+        neatRot,
+        hoverFactor: 0,
+        impulseVel: new THREE.Vector3(),
+        impulseRot: new THREE.Vector3(),
+        springOffset: new THREE.Vector3()
+      };
+
+      cardItems.push(item);
+      meshToCardMap.set(boxMesh, item);
     });
 
-    const starField = new THREE.Points(starGeo, starMat);
-    scene.add(starField);
+    // 9. Raycaster Interaction & Pointer Tracking
+    const raycaster = new THREE.Raycaster();
+    const mouseCoord = new THREE.Vector2(-999, -999);
+    let hoveredItem: CardItem | null = null;
 
-    // 4. Distant Swirling Nebula Clouds (Cosmic Gas)
-    const nebulaGroup = new THREE.Group();
-    const nebulaCount = 6;
-    const nebulaColors = [0x1d4ed8, 0x0284c7, 0x7c3aed, 0x2563eb];
-
-    for (let n = 0; n < nebulaCount; n++) {
-      const nebulaGeo = new THREE.SphereGeometry(14 + Math.random() * 10, 16, 16);
-      const nebulaMat = new THREE.MeshBasicMaterial({
-        color: nebulaColors[n % nebulaColors.length],
-        transparent: true,
-        opacity: 0.05 + Math.random() * 0.04,
-        wireframe: true,
-        blending: THREE.AdditiveBlending
-      });
-      const nebulaMesh = new THREE.Mesh(nebulaGeo, nebulaMat);
-      nebulaMesh.position.set(
-        (Math.random() - 0.5) * 120,
-        (Math.random() - 0.5) * 80,
-        -100 - Math.random() * 180
-      );
-      nebulaMesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
-      nebulaGroup.add(nebulaMesh);
-    }
-    scene.add(nebulaGroup);
-
-    // 5. Scroll Interaction & Dynamic Space Warp Flight Physics
-    let lastScrollY = window.scrollY;
-    let scrollVelocity = 0;
-    let targetCameraZ = 15;
-    let mouseX = 0;
-    let mouseY = 0;
+    let targetMouseX = 0;
+    let targetMouseY = 0;
     let curMouseX = 0;
     let curMouseY = 0;
+    let targetScrollProgress = 0;
+    let currentScrollProgress = 0;
 
-    const onScroll = () => {
-      const currentScroll = window.scrollY;
-      const delta = currentScroll - lastScrollY;
-      lastScrollY = currentScroll;
+    window.addEventListener('pointermove', (e: MouseEvent) => {
+      mouseCoord.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseCoord.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
-      // Add scroll velocity impulse to warp travel
-      scrollVelocity += Math.abs(delta) * 0.08;
+      targetMouseX = mouseCoord.x;
+      targetMouseY = mouseCoord.y;
+    }, { passive: true });
 
+    // Interactive Click Impulse Spin
+    window.addEventListener('pointerdown', () => {
+      if (hoveredItem) {
+        hoveredItem.impulseRot.x += (Math.random() - 0.5) * 0.45;
+        hoveredItem.impulseRot.y += (Math.random() - 0.5) * 0.75;
+        hoveredItem.impulseRot.z += (Math.random() - 0.5) * 0.35;
+        hoveredItem.impulseVel.z += 0.85;
+      }
+    }, { passive: true });
+
+    const updateScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
       const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      const progress = currentScroll / maxScroll;
-      // Camera travels through deep space coordinates as user scrolls
-      targetCameraZ = 15 - progress * 90;
+      targetScrollProgress = Math.min(1, Math.max(0, scrollY / maxScroll));
     };
+    window.addEventListener('scroll', updateScroll, { passive: true });
+    updateScroll();
 
-    const onPointerMove = (e: PointerEvent) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('pointermove', onPointerMove, { passive: true });
-
-    // 6. Responsive Viewport Resize
     const onResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      camera.aspect = w / h;
+
+      if (w < 768) {
+        camera.position.z = 12.8;
+        cardsGroup.scale.setScalar(0.68);
+        cardsGroup.position.x = -0.8;
+        saturnRightPivot.position.set(1.8, 0.0, -0.6);
+        saturnLeftPivot.position.set(-1.8, 0.0, -0.6);
+        infPivot.position.set(0.0, 0.0, -0.4);
+        currentInfWidth = 4.2;
+        currentInfHeight = 1.8;
+        currentInfDepth = 1.5;
+      } else if (w < 1024) {
+        camera.position.z = 10.6;
+        cardsGroup.scale.setScalar(0.84);
+        cardsGroup.position.x = 0;
+        saturnRightPivot.position.set(3.4, 0.0, -0.6);
+        saturnLeftPivot.position.set(-3.4, 0.0, -0.6);
+        infPivot.position.set(0.0, 0.0, -0.4);
+        currentInfWidth = 6.2;
+        currentInfHeight = 2.2;
+        currentInfDepth = 1.8;
+      } else {
+        camera.position.z = 9.4;
+        cardsGroup.scale.setScalar(1.0);
+        cardsGroup.position.x = 0;
+        saturnRightPivot.position.set(3.9, 0.0, -0.6);
+        saturnLeftPivot.position.set(-3.9, 0.0, -0.6);
+        infPivot.position.set(0.0, 0.0, -0.4);
+        currentInfWidth = 7.6;
+        currentInfHeight = 2.6;
+        currentInfDepth = 2.2;
+      }
+
+      infLineMesh.scale.set(currentInfWidth, currentInfHeight, currentInfDepth);
+      saturnRightPivot.updateMatrixWorld(true);
+      saturnLeftPivot.updateMatrixWorld(true);
+      infPivot.updateMatrixWorld(true);
+
       camera.updateProjectionMatrix();
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(w, h);
     };
-    window.addEventListener('resize', onResize, { passive: true });
+    window.addEventListener('resize', onResize);
+    onResize();
 
-    // 7. 60fps Deep Space Journey Loop
-    const posAttr = starGeo.attributes.position as THREE.BufferAttribute;
-    const posArr = posAttr.array as Float32Array;
+    // Reusable math transformation containers
+    const posA = new THREE.Vector3();
+    const posB = new THREE.Vector3();
+    const rotA = new THREE.Euler();
+    const rotB = new THREE.Euler();
+    const tempLocalPos = new THREE.Vector3();
 
-    let time = 0;
+    const ringRadius = 4.0;
+    type ChoreographyState = 'grid' | 'saturnR' | 'saturnL' | 'inf';
+
+    // State Evaluator: returns exact 3D world pos and Euler rotation for each mode
+    const evalCardState = (
+      stateType: ChoreographyState,
+      item: CardItem,
+      angle: number,
+      outPos: THREE.Vector3,
+      outRot: THREE.Euler
+    ) => {
+      if (stateType === 'grid') {
+        outPos.copy(item.neatPos);
+        outRot.copy(item.neatRot);
+      } else if (stateType === 'saturnR') {
+        tempLocalPos.set(
+          Math.cos(angle) * ringRadius,
+          Math.sin(angle * 2) * 0.08,
+          Math.sin(angle) * ringRadius
+        );
+        outPos.copy(tempLocalPos).applyMatrix4(saturnRightPivot.matrixWorld);
+        const tangent = angle + Math.PI / 2;
+        outRot.set(
+          saturnRightPivot.rotation.x * 0.65,
+          saturnRightPivot.rotation.y - tangent * 0.45,
+          saturnRightPivot.rotation.z
+        );
+      } else if (stateType === 'saturnL') {
+        tempLocalPos.set(
+          Math.cos(angle) * ringRadius,
+          Math.sin(angle * 2) * 0.08,
+          Math.sin(angle) * ringRadius
+        );
+        outPos.copy(tempLocalPos).applyMatrix4(saturnLeftPivot.matrixWorld);
+        const tangent = angle + Math.PI / 2;
+        outRot.set(
+          saturnLeftPivot.rotation.x * 0.65,
+          saturnLeftPivot.rotation.y - tangent * 0.45,
+          saturnLeftPivot.rotation.z
+        );
+      } else { // 'inf'
+        tempLocalPos.set(
+          currentInfWidth * Math.sin(angle),
+          currentInfHeight * Math.sin(angle * 2),
+          currentInfDepth * Math.cos(angle)
+        );
+        outPos.copy(tempLocalPos).applyMatrix4(infPivot.matrixWorld);
+        const dx = currentInfWidth * Math.cos(angle);
+        const dy = 2.0 * currentInfHeight * Math.cos(angle * 2);
+        const infTangentXY = Math.atan2(dy, dx);
+        outRot.set(
+          infPivot.rotation.x + infTangentXY * 0.18,
+          infPivot.rotation.y,
+          infPivot.rotation.z + infTangentXY * 0.28
+        );
+      }
+    };
+
+    // 10. Dynamic Kinetic Render Loop:
+    // User Specified Choreography Sequence:
+    // rapi -> saturnus kanan -> infinity tengah -> saturnus kiri -> infinity tengah -> rapi (di akhir page sudah rapi)
+    // Motion constraint: "card hanya bergerak ketika di scroll ketika tidak discroll ga gerak"
     const animate = () => {
       requestAnimationFrame(animate);
 
-      time += 0.005;
+      // Damped mouse movement for subtle reactive parallax
+      curMouseX += (targetMouseX - curMouseX) * 0.055;
+      curMouseY += (targetMouseY - curMouseY) * 0.055;
 
-      // Damp scroll impulse smoothly
-      scrollVelocity *= 0.92;
-      const effectiveSpeed = 0.25 + scrollVelocity * 1.8;
+      // Smooth scroll progress
+      currentScrollProgress += (targetScrollProgress - currentScrollProgress) * 0.075;
+      const p = currentScrollProgress;
 
-      // Smooth camera interpolation
-      camera.position.z += (targetCameraZ - camera.position.z) * 0.06;
+      // Raycasting for interactive hover
+      raycaster.setFromCamera(mouseCoord, camera);
+      const intersects = raycaster.intersectObjects(interactiveMeshes, false);
 
-      // Smooth mouse parallax rotation (looking out into outer space)
-      curMouseX += (mouseX - curMouseX) * 0.05;
-      curMouseY += (mouseY - curMouseY) * 0.05;
-
-      camera.rotation.y = -curMouseX * 0.12;
-      camera.rotation.x = -curMouseY * 0.08;
-
-      // Infinite flight: Stars stream towards and past the camera!
-      for (let i = 0; i < starCount; i++) {
-        const i3 = i * 3;
-        // Move stars forward along Z
-        posArr[i3 + 2] += effectiveSpeed;
-
-        // If a star flies behind the camera, respawn it far into deep space
-        if (posArr[i3 + 2] > camera.position.z + 15) {
-          posArr[i3 + 2] = camera.position.z - 380;
-          posArr[i3] = (Math.random() - 0.5) * 220;
-          posArr[i3 + 1] = (Math.random() - 0.5) * 160;
-        }
+      let currentHit: CardItem | null = null;
+      if (intersects.length > 0) {
+        const hitMesh = intersects[0].object as THREE.Mesh;
+        const item = meshToCardMap.get(hitMesh);
+        if (item) currentHit = item;
       }
-      posAttr.needsUpdate = true;
 
-      // Slowly rotate nebula clouds
-      nebulaGroup.rotation.y = time * 0.04;
-      nebulaGroup.rotation.z = time * 0.02;
+      if (currentHit !== hoveredItem) {
+        if (currentHit) {
+          window.dispatchEvent(new CustomEvent('techcard-hover', { detail: { title: currentHit.def.title } }));
+        } else {
+          window.dispatchEvent(new CustomEvent('techcard-leave'));
+        }
+        hoveredItem = currentHit;
+      }
+
+      // Smooth C^2 Continuous Hermite function (zero acceleration jerk)
+      const smootherstep = (edge0: number, edge1: number, x: number) => {
+        const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+        return t * t * t * (t * (t * 6 - 15) + 10);
+      };
+
+      // Card orbit angle is STRICTLY driven by scroll progress:
+      // When scroll stops, p is stationary -> orbitalSpeed is constant -> cards are completely motionless!
+      const orbitalSpeed = p * (Math.PI * 10.0);
+
+      // Exact Sequence as requested by user:
+      // rapi -> saturnus kanan -> infinity tengah -> saturnus kiri -> infinity tengah -> rapi (di akhir page sudah rapi)
+      let stateA: ChoreographyState = 'grid';
+      let stateB: ChoreographyState = 'grid';
+      let t = 0;
+
+      if (p <= 0.06) {
+        stateA = 'grid'; stateB = 'grid'; t = 0;
+      } else if (p < 0.15) {
+        stateA = 'grid'; stateB = 'saturnR'; t = smootherstep(0.06, 0.15, p);
+      } else if (p <= 0.28) {
+        stateA = 'saturnR'; stateB = 'saturnR'; t = 0;
+      } else if (p < 0.38) {
+        stateA = 'saturnR'; stateB = 'inf'; t = smootherstep(0.28, 0.38, p);
+      } else if (p <= 0.50) {
+        stateA = 'inf'; stateB = 'inf'; t = 0;
+      } else if (p < 0.60) {
+        stateA = 'inf'; stateB = 'saturnL'; t = smootherstep(0.50, 0.60, p);
+      } else if (p <= 0.72) {
+        stateA = 'saturnL'; stateB = 'saturnL'; t = 0;
+      } else if (p < 0.82) {
+        stateA = 'saturnL'; stateB = 'inf'; t = smootherstep(0.72, 0.82, p);
+      } else if (p <= 0.90) {
+        stateA = 'inf'; stateB = 'inf'; t = 0;
+      } else if (p < 0.96) {
+        stateA = 'inf'; stateB = 'grid'; t = smootherstep(0.90, 0.96, p);
+      } else {
+        // p >= 0.96: "ketika diakhir page sudah harus rapi"
+        stateA = 'grid'; stateB = 'grid'; t = 0;
+      }
+
+      // Dynamic track line glow opacities
+      let wSaturnR = 0;
+      let wSaturnL = 0;
+      let wInf = 0;
+
+      if (stateA === 'saturnR') wSaturnR += (1 - t);
+      if (stateB === 'saturnR') wSaturnR += t;
+
+      if (stateA === 'saturnL') wSaturnL += (1 - t);
+      if (stateB === 'saturnL') wSaturnL += t;
+
+      if (stateA === 'inf') wInf += (1 - t);
+      if (stateB === 'inf') wInf += t;
+
+      saturnRightRingMat.opacity = Math.min(0.38, wSaturnR * 0.38);
+      saturnLeftRingMat.opacity = Math.min(0.38, wSaturnL * 0.38);
+      infRingMat.opacity = Math.min(0.38, wInf * 0.38);
+
+      // Update 12 Cards
+      cardItems.forEach((item) => {
+        const i = item.index;
+        const grp = item.group;
+
+        // Hover interpolation
+        const isHovered = (item === hoveredItem);
+        const targetHover = isHovered ? 1.0 : 0.0;
+        item.hoverFactor += (targetHover - item.hoverFactor) * (isHovered ? 0.14 : 0.08);
+
+        // Physics impulse damping
+        item.impulseVel.multiplyScalar(0.91);
+        item.impulseRot.multiplyScalar(0.91);
+        item.springOffset.add(item.impulseVel);
+        item.springOffset.multiplyScalar(0.87);
+
+        // Material glow on hover
+        const mat = item.boxMesh.material as THREE.MeshPhysicalMaterial;
+        mat.emissiveIntensity = 0.5 * item.hoverFactor;
+
+        // Strictly stationary when not scrolling (no autonomous floating)
+        const cardAngle = (i / 12) * Math.PI * 2 + orbitalSpeed;
+
+        evalCardState(stateA, item, cardAngle, posA, rotA);
+
+        let finalPosX = posA.x;
+        let finalPosY = posA.y;
+        let finalPosZ = posA.z;
+
+        let finalRotX = rotA.x;
+        let finalRotY = rotA.y;
+        let finalRotZ = rotA.z;
+
+        if (t > 0 && stateA !== stateB) {
+          evalCardState(stateB, item, cardAngle, posB, rotB);
+          finalPosX = THREE.MathUtils.lerp(posA.x, posB.x, t);
+          finalPosY = THREE.MathUtils.lerp(posA.y, posB.y, t);
+          finalPosZ = THREE.MathUtils.lerp(posA.z, posB.z, t);
+
+          // Shortest-arc Euler rotation interpolation
+          const diffX = Math.atan2(Math.sin(rotB.x - rotA.x), Math.cos(rotB.x - rotA.x));
+          const diffY = Math.atan2(Math.sin(rotB.y - rotA.y), Math.cos(rotB.y - rotA.y));
+          const diffZ = Math.atan2(Math.sin(rotB.z - rotA.z), Math.cos(rotB.z - rotA.z));
+
+          finalRotX = rotA.x + diffX * t;
+          finalRotY = rotA.y + diffY * t;
+          finalRotZ = rotA.z + diffZ * t;
+        }
+
+        // Apply interactive mouse parallax & click impulse
+        const px = finalPosX + curMouseX * 0.22 + item.springOffset.x;
+        const py = finalPosY + curMouseY * 0.16 + item.springOffset.y;
+        const pz = finalPosZ + item.hoverFactor * 0.75 + item.springOffset.z;
+
+        const rx = finalRotX + (curMouseY * 0.10) + (mouseCoord.y * 0.14) * item.hoverFactor + item.impulseRot.x;
+        const ry = finalRotY - (curMouseX * 0.14) + (-mouseCoord.x * 0.18) * item.hoverFactor + item.impulseRot.y;
+        const rz = finalRotZ + item.impulseRot.z;
+
+        grp.position.set(px, py, pz);
+        grp.rotation.set(rx, ry, rz);
+        grp.scale.setScalar(1.0 + item.hoverFactor * 0.14);
+      });
+
+      // Subtle camera tilt following mouse
+      camera.position.x = curMouseX * 0.35;
+      camera.position.y = curMouseY * 0.20;
 
       renderer.render(scene, camera);
     };
 
-    requestAnimationFrame(animate);
+    animate();
   }
 </script>
+
+<style>
+  .three-space-container {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  #three-space-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+</style>
