@@ -1,124 +1,64 @@
 ---
-import { ArrowRight, FileText, Mail, MapPin, Award, Layers, GraduationCap } from 'lucide-react';
-import { Github, Linkedin, Instagram } from './BrandIcons';
+import { ArrowRight, FileText, Mail } from 'lucide-react';
 ---
 
-<section class="hero-section" id="home">
-  <div class="container">
-    <div class="hero-grid">
-      
-      {/* Left Column: Hero Narrative & CTA */}
-      <div class="hero-content">
-        
-        {/* Pulsing Status Pill */}
-        <div class="hero-status-pill">
-          <span class="pulse-dot"></span>
-          <span>Open to Software & ML Engineering Opportunities</span>
+<section class="hero-section puture-hero" id="home" aria-labelledby="hero-title" data-chapter="about">
+  <div class="container puture-hero-container">
+    
+    {/* Puture Live Pulse Status Pill */}
+    <div class="hero-status-pill puture-pill">
+      <span class="pulse-dot" style="background: #22c55e;" aria-hidden="true"></span>
+      <span class="pill-text" style="font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.05em; color: var(--text-secondary);">
+        Varizky Naldiba Rimra · Available for Software &amp; ML Engineering Roles
+      </span>
+    </div>
+
+    {/* Puture Massive Spatial Title with Letter Emerge Animation */}
+    <div class="puture-hero-center">
+      <h1 class="puture-massive-title" id="hero-title">
+        <div class="emerge-line">
+          <span class="shell__word"><span class="shell__char" style="animation-delay: 0.08s;">We</span></span>
+          <span class="shell__word"><span class="shell__char" style="animation-delay: 0.18s;">engineer</span></span>
         </div>
-
-        {/* Executive Headline */}
-        <h1 class="hero-title">Varizky Naldiba Rimra</h1>
-
-        <div class="hero-role">
-          <span>Applied Machine Learning</span>
-          <span class="sep">/</span>
-          <span>IoT Systems Engineer</span>
+        <div class="emerge-line">
+          <span class="shell__word"><span class="shell__char" style="animation-delay: 0.28s;">intelligent</span></span>
+          <span class="shell__word"><span class="shell__char" style="animation-delay: 0.38s;">systems</span></span>
         </div>
-
-        {/* Location & Academic Tag */}
-        <div class="hero-meta-row" style="margin-bottom: 1.5rem; border: none; padding: 0;">
-          <div class="meta-item">
-            <MapPin size={15} color="var(--accent-cyan)" />
-            <span>Malang, Jawa Timur, Indonesia</span>
-          </div>
-          <span style="color: var(--text-muted)">•</span>
-          <div class="meta-item">
-            <GraduationCap size={15} color="var(--accent-blue)" />
-            <span>Politeknik Negeri Malang (Polinema)</span>
-          </div>
+        <div class="emerge-line">
+          <span class="shell__word"><span class="shell__char highlight-blue" style="animation-delay: 0.52s;">with</span></span>
+          <span class="shell__word"><span class="shell__char highlight-blue" style="animation-delay: 0.62s;">AI.</span></span>
         </div>
+      </h1>
+    </div>
 
-        {/* Bio Copy */}
-        <p class="hero-bio">
-          Informatics Engineer (D4 Teknik Informatika Polinema) dengan spesialisasi rekayasa hulu-ke-hilir: 
-          dari kalibrasi sensor telemetri mikrokontroler (ESP32) dan komputasi edge, 
-          hingga pemodelan deep learning (Computer Vision / MCNN / LSTM) dan pengembangan platform enterprise.
+    {/* Bottom Narrative & Puture Action Buttons */}
+    <div class="puture-hero-bottom">
+      <div class="puture-hero-lede-col">
+        <p class="puture-hero-lede">
+          Informatics Engineer (Politeknik Negeri Malang). Merancang pipa rekayasa hulu-ke-hilir: 
+          telemetri sensor mikrokontroler edge (ESP32), pemodelan deep learning terapan (Computer Vision &amp; LSTM), 
+          hingga arsitektur platform web spasial produksi.
         </p>
+      </div>
 
-        {/* Action Buttons Row */}
-        <div class="hero-actions">
-          <a href="#projects" class="btn btn-primary">
-            <span>Explore 13 Projects</span>
-            <ArrowRight size={16} />
+      <div class="puture-hero-actions-col">
+        <div class="hero-actions" style="display: flex; flex-wrap: wrap; gap: 0.85rem; align-items: center;">
+          <a href="#projects" class="btn--puture-primary" data-cursor="PROJECTS">
+            <span>Explore Projects</span>
+            <ArrowRight size={16} aria-hidden="true" />
           </a>
 
-          <a 
-            href="/CV - Varizky Naldiba Rimra.pdf" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="btn btn-glass"
-            title="Download Curriculum Vitae (PDF)"
-          >
-            <FileText size={16} />
-            <span>CV Dossier (PDF)</span>
+          <a href="#about" class="btn btn-glass" data-cursor="ABOUT" style="border-radius: 9999px; padding: 0.72rem 1.4rem; border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(14, 18, 30, 0.8);">
+            <span>About Me</span>
           </a>
 
-          <a href="#contact" class="btn btn-ghost">
-            <Mail size={16} />
+          <a href="#contact" class="btn btn-ghost" data-cursor="CONTACT" style="border-radius: 9999px;">
+            <Mail size={15} aria-hidden="true" />
             <span>Contact</span>
           </a>
         </div>
-
-        {/* Social Network Quick Row */}
-        <div class="hero-meta-row">
-          <span style="font-weight: 600; color: var(--text-secondary)">Verified Channels:</span>
-          <a href="https://github.com/VarizkyNaldiba" target="_blank" rel="noopener noreferrer" class="btn-ghost btn-sm" style="padding: 0.3rem 0.6rem;">
-            <Github size={16} />
-            <span>GitHub</span>
-          </a>
-          <a href="https://www.linkedin.com/in/varizkynaldiba/" target="_blank" rel="noopener noreferrer" class="btn-ghost btn-sm" style="padding: 0.3rem 0.6rem;">
-            <Linkedin size={16} />
-            <span>LinkedIn</span>
-          </a>
-          <a href="mailto:varizkynr@gmail.com" class="btn-ghost btn-sm" style="padding: 0.3rem 0.6rem;">
-            <Mail size={16} />
-            <span>varizkynr@gmail.com</span>
-          </a>
-        </div>
-
       </div>
-
-      {/* Right Column: AW Media Framed Portrait Card */}
-      <div class="hero-portrait-col">
-        <div class="hero-portrait-card">
-          <div class="portrait-img-box">
-            <img 
-              src="/assets/image/saya.jpg" 
-              alt="Varizky Naldiba Rimra"
-              width="450"
-              height="450"
-              loading="eager"
-            />
-          </div>
-
-          {/* 3 Metric Chips */}
-          <div class="portrait-chips-grid">
-            <div class="stat-chip">
-              <span class="stat-chip-val">13</span>
-              <span class="stat-chip-lbl">Systems Built</span>
-            </div>
-            <div class="stat-chip">
-              <span class="stat-chip-val" style="color: #fbbf24;">Harapan 2</span>
-              <span class="stat-chip-lbl">TFS 2026 LKTI</span>
-            </div>
-            <div class="stat-chip">
-              <span class="stat-chip-val" style="color: var(--accent-cyan);">Polinema</span>
-              <span class="stat-chip-lbl">D4 TI Engineer</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
+
   </div>
 </section>

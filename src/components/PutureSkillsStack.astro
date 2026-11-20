@@ -1,0 +1,154 @@
+---
+import { Brain, Cpu, Database, Globe, Wrench, Sparkles, Layers } from 'lucide-react';
+
+const capabilities = [
+  {
+    title: "Machine Learning & Computer Vision",
+    badge: "Applied Intelligence",
+    icon: Brain,
+    desc: "Merancang arsitektur density map regression (MCNN/CSRNet) untuk crowd counting, model sekuensial LSTM untuk oseanografi, serta klasifikasi visual hybrid (GLCM & Wavelet 2D + SVM) dan workflow integrasi AI generatif.",
+    tags: ["TensorFlow", "Keras", "OpenCV", "Scikit-Learn", "MCNN / CSRNet", "LSTM Networks", "SVM", "ComfyUI & Dify", "Gemini API"],
+    specialty: "Vision Pipelines & Neural Modeling"
+  },
+  {
+    title: "IoT Firmware & Embedded Telemetry",
+    badge: "Edge Hardware",
+    icon: Cpu,
+    desc: "Rekayasa telemetri perangkat keras mikrokontroler (ESP32 / Arduino), kalibrasi kurva sensor analog multi-parameter (pH, kekeruhan, suhu), failover buffer sirkular pada flash memory lokal, dan sinkronisasi data awan.",
+    tags: ["ESP32", "Arduino C/C++", "Circular Flash Buffer", "Polynomial Calibration", "Telemetry Protocol", "Real-Time Sync"],
+    specialty: "Hardware-to-Cloud Edge Pipelines"
+  },
+  {
+    title: "Data Science & Geospatial Intelligence",
+    badge: "Spatial Analytics",
+    icon: Database,
+    desc: "Pengolahan dataset spasial kewilayahan, pemetaan interaktif WebGIS, analisis disparitas aksesibilitas infrastruktur pendidikan dan kebencanaan, serta komputasi regresi statistik spasial.",
+    tags: ["Python", "Pandas", "NumPy", "GeoJSON", "Leaflet", "Folium GIS", "Spatial Disparity", "Statistical Modeling"],
+    specialty: "Geospatial & Spatial Intelligence"
+  },
+  {
+    title: "Web & Enterprise Systems",
+    badge: "Production Systems",
+    icon: Globe,
+    desc: "Pengembangan sistem web produksi performa tinggi, sistem pendukung keputusan (PROMETHEE DSS), integrasi API enterprise (Meta Ads API & Google Ads API), dan database relasional & realtime.",
+    tags: ["React", "Astro", "Next.js", "Laravel (PHP)", "REST APIs", "Meta Ads API", "Google Ads API", "MySQL & Firebase"],
+    specialty: "Scalable Enterprise Web Architecture"
+  },
+  {
+    title: "Workflow, Prototyping & Cloud Infrastructure",
+    badge: "DevOps & Tooling",
+    icon: Wrench,
+    desc: "Standar versioning Git, perancangan antarmuka pengguna presisi di Figma, deployment cloud produksi di Vercel, serta eksekusi komputasi pada lingkungan Linux dan Google Colab.",
+    tags: ["Git & GitHub", "Figma UI/UX", "Linux Environment", "Vercel", "HuggingFace Spaces", "Google Colab", "Vite"],
+    specialty: "Rapid Prototyping & Deployment Flow"
+  }
+];
+---
+
+<section class="skills-stack-section" id="skills" aria-labelledby="skills-heading" data-chapter="skills">
+  <div class="container">
+    
+    {/* Section Header */}
+    <div class="section-head center" data-in style="margin-bottom: 3.5rem;">
+      <div class="kicker">Core Technical Pillars</div>
+      <h2 class="section-title" id="skills-heading" style="letter-spacing: -0.035em;">
+        Engineering Capabilities &amp; Stack
+      </h2>
+      <p class="section-subtitle">
+        Pilar kompetensi teknis teruji: instrumen hulu mikrokontroler, pemodelan cerdas machine learning, hingga platform data spasial terdistribusi.
+      </p>
+    </div>
+
+    {/* Puture-Style Vertical Stacking Cards Deck (No Numbers) */}
+    <div class="skills-stack-wrapper">
+      <div class="skills-stack-deck">
+        {capabilities.map((cap, idx) => {
+          const Icon = cap.icon;
+          return (
+            <article 
+              class="stack-card" 
+              style={`--stack-offset: ${idx * 16}px;`}
+              aria-label={cap.title}
+            >
+              <div class="stack-card__inner">
+                
+                {/* 16:10 Technical Blueprint Visual Header */}
+                <div class="stack-card__visual">
+                  <span class="stack-card__visual-tag">{cap.badge}</span>
+                  <div class="stack-card__icon-tile">
+                    <Icon size={32} strokeWidth={1.75} />
+                  </div>
+                </div>
+
+                {/* Card Content & Details */}
+                <div class="stack-card__content">
+                  <h3 class="stack-card__title">{cap.title}</h3>
+                  <p class="stack-card__desc">{cap.desc}</p>
+                  
+                  {/* Tech Tags Cloud */}
+                  <div class="stack-card__tags">
+                    {cap.tags.map((tag) => (
+                      <span class="stack-card__tag">{tag}</span>
+                    ))}
+                  </div>
+
+                  {/* Card Bottom Meta */}
+                  <div class="stack-card__footer">
+                    <div class="stack-card__status">
+                      <span class="stack-card__status-dot"></span>
+                      <span>{cap.specialty}</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Progressive Stacking Physics: Card below scales down and dims as next card enters viewport
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stackCards = document.querySelectorAll<HTMLElement>('.stack-card');
+
+  if (!prefersReducedMotion && stackCards.length > 0 && window.matchMedia('(min-width: 768px)').matches) {
+    let isUpdating = false;
+
+    const updateStackDimming = () => {
+      const total = stackCards.length;
+
+      stackCards.forEach((card, index) => {
+        if (index < total - 1) {
+          const nextCard = stackCards[index + 1];
+          const nextRect = nextCard.getBoundingClientRect();
+          const cardRect = card.getBoundingClientRect();
+          
+          // Measure overlap between current pinned card and incoming next card
+          const overlap = Math.max(0, cardRect.bottom - nextRect.top);
+          const progress = Math.min(1, Math.max(0, overlap / (cardRect.height || 1)));
+
+          const scale = 1 - progress * 0.045;
+          const dim = progress * 0.42;
+
+          card.style.setProperty('--dim', dim.toFixed(3));
+          card.style.transform = `scale(${scale.toFixed(3)})`;
+        }
+      });
+      isUpdating = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!isUpdating) {
+        isUpdating = true;
+        requestAnimationFrame(updateStackDimming);
+      }
+    }, { passive: true });
+
+    updateStackDimming();
+  }
+</script>

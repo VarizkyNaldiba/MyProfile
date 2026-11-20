@@ -43,14 +43,16 @@ const socialLinks = [
 ];
 ---
 
-<section class="section-padding" id="contact">
-  <div class="container">
+<section class="section-padding" id="contact" aria-labelledby="contact-heading" data-chapter="contact">
+  <div class="container" data-in>
     
     <div class="section-head center">
       <div class="kicker">Official Communication</div>
-      <h2 class="section-title">Hubungi & Unduh Dokumen Resmi</h2>
+      <h2 class="section-title" id="contact-heading" style="letter-spacing: -0.035em;">
+        Your next engineering milestone, with Varizky.
+      </h2>
       <p class="section-subtitle">
-        Terbuka untuk kesempatan rekayasa perangkat lunak, kolaborasi riset kecerdasan buatan, dan implementasi telemetri IoT.
+        Dari kecerdasan buatan terapan hingga telemetri mikrokontroler. Terbuka untuk kesempatan rekayasa perangkat lunak, kolaborasi riset, dan implementasi sistem skala produksi.
       </p>
     </div>
 
@@ -76,16 +78,17 @@ const socialLinks = [
 
         {/* Action Buttons for Email */}
         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem;">
-          <a href={`mailto:${emailAddress}`} class="btn btn-primary btn-sm">
+          <a href={`mailto:${emailAddress}`} class="btn btn-primary btn-sm" aria-label="Kirim Pesan Surel ke Varizky">
             <span>Kirim Pesan Email</span>
-            <ArrowUpRight size={14} />
+            <ArrowUpRight size={14} aria-hidden="true" />
           </a>
           <button 
             type="button" 
             class="btn btn-glass btn-sm"
             onclick={`navigator.clipboard.writeText('${emailAddress}'); alert('Alamat email ${emailAddress} berhasil disalin!');`}
+            aria-label="Salin alamat surel ke papan klip (clipboard)"
           >
-            <Copy size={14} />
+            <Copy size={14} aria-hidden="true" />
             <span>Salin Alamat</span>
           </button>
         </div>
@@ -100,8 +103,8 @@ const socialLinks = [
             {/* CV Download Card */}
             <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
               <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.5rem;">
-                <FileText size={18} color="var(--accent-blue)" />
-                <h4 style="font-size: 0.92rem; font-weight: 700; color: #fff;">Curriculum Vitae</h4>
+                <FileText size={18} color="var(--accent-blue)" aria-hidden="true" />
+                <h3 style="font-size: 0.92rem; font-weight: 700; color: #fff;">Curriculum Vitae</h3>
               </div>
               <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.5;">
                 Dossier lengkap 2 halaman A4 monokrom memuat seluruh 13 proyek & prestasi.
@@ -112,9 +115,10 @@ const socialLinks = [
                 rel="noopener noreferrer" 
                 class="btn btn-primary btn-sm"
                 style="width: 100%; text-decoration: none;"
+                aria-label="Unduh berkas Curriculum Vitae (PDF)"
               >
                 <span>Unduh CV (PDF)</span>
-                <ArrowUpRight size={13} />
+                <ArrowUpRight size={13} aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -176,13 +180,13 @@ const socialLinks = [
         </div>
 
         <div style="padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); display: flex; gap: 0.75rem;">
-          <a href="https://www.linkedin.com/in/varizkynaldiba/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="flex: 1; text-align: center;">
+          <a href="https://www.linkedin.com/in/varizkynaldiba/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="flex: 1; text-align: center;" aria-label="Kunjungi profil LinkedIn Varizky Naldiba">
             <span>Koneksi LinkedIn</span>
-            <ArrowUpRight size={13} />
+            <ArrowUpRight size={13} aria-hidden="true" />
           </a>
-          <a href="https://github.com/VarizkyNaldiba" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm" style="flex: 1; text-align: center;">
+          <a href="https://github.com/VarizkyNaldiba" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm" style="flex: 1; text-align: center;" aria-label="Kunjungi profil GitHub Varizky Naldiba">
             <span>GitHub Profile</span>
-            <ExternalLink size={13} />
+            <ExternalLink size={13} aria-hidden="true" />
           </a>
         </div>
       </div>
@@ -201,14 +205,15 @@ const socialLinks = [
             rel="noopener noreferrer" 
             class="glass-card" 
             style="padding: 1.25rem; text-decoration: none; display: flex; align-items: flex-start; gap: 0.85rem; transition: transform 0.2s ease;"
+            aria-label={`Kunjungi profil ${item.name} (${item.handle}) di tab baru`}
           >
-            <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0;">
+            <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0;" aria-hidden="true">
               <Icon size={16} />
             </div>
             <div>
               <div style="display: flex; align-items: center; gap: 0.4rem;">
                 <span style="font-size: 0.88rem; font-weight: 700; color: #fff;">{item.name}</span>
-                <ArrowUpRight size={12} color="var(--text-muted)" />
+                <ArrowUpRight size={12} color="var(--text-muted)" aria-hidden="true" />
               </div>
               <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent-cyan); display: block; margin-top: 0.1rem;">
                 {item.handle}

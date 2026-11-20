@@ -4,22 +4,21 @@ import { ArrowUpRight, FileText } from 'lucide-react';
 
 <header class="nav-wrapper">
   <div class="container">
-    <nav class="nav-container" aria-label="Main Navigation">
+    <nav class="nav-container" aria-label="Navigasi Utama">
       
-      {/* Brand Monogram */}
-      <a href="#home" class="nav-brand">
-        <span class="brand-badge">VR</span>
-        <span class="brand-text">Varizky</span>
+      {/* Brand Wordmark */}
+      <a href="#home" class="nav-brand" aria-label="Varizky Naldiba Rimra - Beranda">
+        <span class="brand-text" style="font-weight: 800; letter-spacing: -0.03em; font-size: 1.15rem; color: #fff;">Varizky Naldiba</span>
       </a>
 
-      {/* Concise Nav Links */}
+      {/* Concise Nav Links (Puture Style) */}
       <ul class="nav-links">
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#skills" class="nav-link">Skills</a></li>
-        <li><a href="#methodology" class="nav-link">Pipeline</a></li>
-        <li><a href="#creative" class="nav-link">Media</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li><a href="#about" class="nav-link" data-cursor="ABOUT">About</a></li>
+        <li><a href="#projects" class="nav-link" data-cursor="PROJECTS">Projects</a></li>
+        <li><a href="#skills" class="nav-link" data-cursor="CAPABILITIES">Capabilities</a></li>
+        <li><a href="#methodology" class="nav-link" data-cursor="PROCESS">Process</a></li>
+        <li><a href="#creative" class="nav-link" data-cursor="MEDIA">Media</a></li>
+        <li><a href="#contact" class="nav-link" data-cursor="CONTACT">Contact</a></li>
       </ul>
 
       {/* Header CTA & Quick Links */}
@@ -29,11 +28,14 @@ import { ArrowUpRight, FileText } from 'lucide-react';
           target="_blank" 
           rel="noopener noreferrer" 
           class="btn btn-primary btn-sm desktop-only"
+          style="background: #2271e3; border: 1px solid #3d8bff; box-shadow: 0 4px 14px rgba(34, 113, 227, 0.35);"
           title="Download Curriculum Vitae (PDF)"
+          aria-label="Unduh berkas Curriculum Vitae (PDF)"
+          data-cursor="CV PDF"
         >
-          <FileText size={13} />
-          <span>CV / Resume</span>
-          <ArrowUpRight size={13} />
+          <FileText size={13} aria-hidden="true" />
+          <span>CV (PDF)</span>
+          <ArrowUpRight size={13} aria-hidden="true" />
         </a>
       </div>
 

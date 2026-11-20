@@ -24,12 +24,12 @@ const channels = [
 ];
 ---
 
-<section class="section-padding" id="creative">
-  <div class="container">
+<section class="section-padding" id="creative" aria-labelledby="creative-title" data-chapter="creative">
+  <div class="container" data-in>
     
     <div class="section-head center">
       <div class="kicker">Digital Media & Visual Engineering</div>
-      <h2 class="section-title">Media Production & Distribution</h2>
+      <h2 class="section-title" id="creative-title">Media Production & Distribution</h2>
       <p class="section-subtitle">
         Penerapan teknik visual motion, penyusunan narasi terstruktur, dan analisis analitik retensi audiens di kanal multimedia digital.
       </p>
@@ -56,8 +56,9 @@ const channels = [
                 rel="noopener noreferrer"
                 class="btn-ghost btn-sm"
                 title={`Kunjungi ${ch.platform}`}
+                aria-label={`Kunjungi saluran ${ch.platform} (${ch.handle}) di tab baru`}
               >
-                <ArrowUpRight size={16} />
+                <ArrowUpRight size={16} aria-hidden="true" />
               </a>
             </div>
 
@@ -82,9 +83,10 @@ const channels = [
               rel="noopener noreferrer" 
               class="btn btn-glass"
               style="width: 100%; text-decoration: none;"
+              aria-label={`Buka saluran ${ch.platform} (${ch.handle}) di tab baru`}
             >
               <span>Buka Saluran {ch.platform}</span>
-              <ArrowUpRight size={14} />
+              <ArrowUpRight size={14} aria-hidden="true" />
             </a>
           </div>
         );

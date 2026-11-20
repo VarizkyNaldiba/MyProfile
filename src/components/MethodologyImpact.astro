@@ -1,21 +1,21 @@
 ---
-import { Activity, ShieldCheck, Zap, GitBranch, Cpu, Database, Server } from 'lucide-react';
+import { Cpu, Database, Server } from 'lucide-react';
 
 const pipelineSteps = [
   {
-    step: "01",
+    stage: "Edge Hardware",
     title: "Sensing & Hardware Calibration",
     icon: Cpu,
     desc: "Akuisisi sinyal analog dari sensor bawah air, kompensasi temperatur suhu seketika, dan pembuatan kurva kalibrasi polinomial untuk probe pH/kekeruhan."
   },
   {
-    step: "02",
+    stage: "Intelligence",
     title: "Data Preprocessing & Deep Learning",
     icon: Database,
     desc: "Ekstraksi fitur multi-skala (MCNN, GLCM, Wavelet), pembersihan derau deret waktu, dan pelatihan jaringan syaraf tiruan rekuren (LSTM) untuk peramalan panen."
   },
   {
-    step: "03",
+    stage: "Infrastructure",
     title: "Cloud Sync, WebGIS & Decision Support",
     icon: Server,
     desc: "Integrasi failover ring buffer pada memori flash ESP32, sinkronisasi datastore noSQL, perenderan layer spasial GeoJSON, dan algoritma PROMETHEE DSS."
@@ -23,40 +23,45 @@ const pipelineSteps = [
 ];
 
 const metrics = [
-  { val: "13", label: "Engineered Systems", sub: "ML, IoT, WebGIS & Enterprise" },
+  { val: "Production", label: "Engineered Systems", sub: "ML, IoT, WebGIS & Enterprise" },
   { val: "Harapan 2", label: "Juara Nasional LKTI", sub: "TFS 2026 (SK Direktur Polinema)" },
-  { val: "6", label: "Prestasi & Rekognisi", sub: "Kompetisi Nasional & Riset BRIN" },
+  { val: "Rekognisi", label: "Prestasi & Riset", sub: "Kompetisi Nasional & Riset BRIN" },
   { val: "Tahap 2", label: "Lolos Insentif Riset", sub: "PKM-GFT Polinema 2026" }
 ];
 ---
 
-<section class="section-padding" id="methodology">
-  <div class="container">
+<section class="section-padding" id="methodology" aria-labelledby="methodology-title" data-chapter="methodology">
+  <div class="container" data-in>
     
     <div class="section-head center">
-      <div class="kicker">Engineering Workflow & Impact</div>
-      <h2 class="section-title">Alur Rekayasa Sistem & Dampak Terukur</h2>
+      <div class="kicker">Engineering Workflow &amp; Impact</div>
+      <h2 class="section-title" id="methodology-title" style="letter-spacing: -0.035em;">
+        From concept to hardware that works in the field.
+      </h2>
       <p class="section-subtitle">
         Pola metodologi hulu-ke-hilir yang diterapkan untuk menjamin keandalan instrumen di lapangan dan akurasi model prediktif.
       </p>
     </div>
 
-    {/* 3 Pipeline Steps */}
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3.5rem;">
+    {/* Pipeline Steps (Puture Process Style - No Numbers) */}
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem; margin-bottom: 3.5rem;">
       {pipelineSteps.map((step, idx) => {
         const Icon = step.icon;
         return (
-          <div key={idx} class="glass-card" style="position: relative; overflow: hidden;">
-            <span style="position: absolute; top: 1rem; right: 1.25rem; font-family: var(--font-mono); font-size: 2.25rem; font-weight: 800; color: rgba(255, 255, 255, 0.05); pointer-events: none;">
-              {step.step}
-            </span>
-            <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.25); display: flex; align-items: center; justify-content: center; color: var(--accent-cyan); margin-bottom: 1.25rem;">
-              <Icon size={18} />
+          <div key={idx} class="feature-card" style="padding: 1.5rem; justify-content: flex-start;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #92c3ff; background: rgba(61, 139, 255, 0.12); border: 1px solid rgba(61, 139, 255, 0.25); padding: 0.2rem 0.6rem; border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase;">
+                STAGE // {step.stage}
+              </span>
+              <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(61, 139, 255, 0.15); border: 1px solid rgba(61, 139, 255, 0.4); display: flex; align-items: center; justify-content: center; color: #3d8bff;" aria-hidden="true">
+                <Icon size={18} />
+              </div>
             </div>
-            <h3 style="font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">
+
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 0.65rem; line-height: 1.35; letter-spacing: -0.02em;">
               {step.title}
             </h3>
-            <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6;">
+            <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65;">
               {step.desc}
             </p>
           </div>

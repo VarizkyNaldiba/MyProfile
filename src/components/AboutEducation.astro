@@ -1,28 +1,6 @@
 ---
-import { BookOpen, Trophy, Award, CheckCircle, Cpu, Brain, Database, Utensils, Briefcase, Calendar, Building2, Video } from 'lucide-react';
-
-const pillars = [
-  {
-    icon: Cpu,
-    title: "Edge-to-Cloud Telemetry",
-    desc: "Merancang pipa telemetri dari mikrokontroler (ESP32/Arduino) dengan kalibrasi sensor non-linear, failover buffer sirkular pada flash memory, hingga sinkronisasi data real-time."
-  },
-  {
-    icon: Brain,
-    title: "Applied Computer Vision & ML",
-    desc: "Membangun arsitektur density map regression (MCNN/CSRNet) untuk crowd counting, model sekuensial LSTM untuk oseanografi, serta klasifikasi fitur visual hibrida (GLCM/HOG + SVM)."
-  },
-  {
-    icon: Database,
-    title: "Geospatial & Spatial Intelligence",
-    desc: "Mengolah dataset spasial kewilayahan ke dalam peta interaktif (WebGIS Leaflet & Folium) dan mengidentifikasi disparitas aksesibilitas infrastruktur pendidikan/bencana."
-  },
-  {
-    icon: Utensils,
-    title: "Operational Rigor & Discipline",
-    desc: "Latar belakang operasional kuliner komersial menanamkan ketahanan kerja di bawah tekanan tinggi, manajemen alur suplai, dan standar eksekusi ketat tanpa kompromi."
-  }
-];
+import { BookOpen, Trophy, Award, Briefcase, Calendar, Building2, MapPin, GraduationCap, FileText, Mail, ArrowUpRight } from 'lucide-react';
+import { Github, Linkedin } from './BrandIcons';
 
 const experiences = [
   {
@@ -31,7 +9,7 @@ const experiences = [
     type: "Magang Industri",
     period: "Juli 2026 – Sekarang",
     desc: "Mengembangkan pipeline produksi animasi AI generatif berbasis integrasi workflow ComfyUI dan Dify, serta merancang dan mengimplementasikan platform website Ads Manager yang terintegrasi langsung dengan Meta Ads API dan Google Ads API.",
-    skills: ["ComfyUI", "Dify", "Generative AI", "Meta Ads API", "Google Ads API", "Full-Stack Web", "System Integration"],
+    skills: ["ComfyUI", "Dify", "Generative AI", "Meta Ads API", "Google Ads API", "Full-Stack Web"],
     icon: Building2
   },
   {
@@ -44,117 +22,197 @@ const experiences = [
     icon: Building2
   },
   {
-    role: "Cook",
+    role: "Cook & Operations",
     organization: "Sektor F&B Komersial (Hospitality & Culinary Operations)",
     type: "Operasional Komersial",
     period: "2025",
     desc: "Mengelola alur operasional dapur komersial berkecepatan tinggi, konsistensi mutu penyajian, manajemen bahan baku, serta penegakan standar kerja presisi dengan toleransi kesalahan nol.",
     skills: ["Operational Rigor", "High-Pace Execution", "Quality Control", "Inventory Flow"],
-    icon: Utensils
+    icon: Briefcase
+  }
+];
+
+const honors = [
+  {
+    badge: "Harapan 2 Nasional",
+    title: "Techno Fair and Seminar (TFS) 2026 — CatfishCare",
+    sk: "SK Direktur Polinema No. 27881/PL2.3/KM/2026",
+    category: "Lomba Karya Tulis Ilmiah Nasional"
   },
   {
-    role: "Content Creator",
-    organization: "Kanal Multimedia Mandiri (@oryzasatirva & Bilibili)",
-    type: "Produksi Media Digital",
-    period: "2020 – Sekarang",
-    desc: "Memproduksi video analisis mekanik sistem digital, panduan teknis komparatif, dan motion graphics. Menganalisis kurva retensi pemirsa serta strategi optimasi algoritma distribusi konten multimedia.",
-    skills: ["Motion Graphics", "Video Production", "Retention Analytics", "Digital Media"],
-    icon: Video
+    badge: "Tahap 2 Lolos Insentif",
+    title: "PKM-GFT POLINEMA 2026 — Smart Aquaculture Intelligence System (SAIS)",
+    sk: "SK No. 40/WADIR.III/KM/2026",
+    category: "Program Kreativitas Mahasiswa"
+  },
+  {
+    badge: "Finalis",
+    title: "Intelecta Cup 2025 — Agroclimatology Time-Series Weather Forecasting",
+    category: "Kompetisi Sains Data Nasional"
+  },
+  {
+    badge: "Finalis",
+    title: "Techno Fair and Seminar (TFS) 2025 — AlgaSense",
+    sk: "SK Direktur Polinema No. 16002/PL2.3/KM/2025",
+    category: "LKTI Nasional"
+  },
+  {
+    badge: "Peserta Terpilih",
+    title: "Hology 8.0 (2025) Data Mining — Crowd Density Estimation",
+    category: "Kompetisi Nasional Data Mining"
+  },
+  {
+    badge: "Peserta Terpilih",
+    title: "Jatim Datathon 2025 — SLB Spatial Disparity Analysis",
+    category: "Kompetisi Analisis Data Jawa Timur"
   }
 ];
 
 const getExpBadgeClass = (type: string) => {
-  const lower = type.toLowerCase();
-  if (lower.includes('riset') || lower.includes('magang') || lower.includes('intern')) return 'card-honor-badge honor-finalist';
-  if (lower.includes('operasional')) return 'card-honor-badge honor-juara';
-  return 'card-honor-badge honor-peserta';
-};
-
-const honors = [
-  {
-    badge: "Juara Harapan 2 LKTI Nasional",
-    title: "Techno Fair and Seminar (TFS) 2026 — CatfishCare",
-    sk: "SK Direktur Polinema No. 27881/PL2.3/KM/2026",
-    desc: "Otomasi aerasi dan sirkulasi kolam budidaya lele berbasis pemantauan parameter kimia air real-time."
-  },
-  {
-    badge: "Lolos Seleksi Tahap 2 Insentif",
-    title: "PKM-GFT POLINEMA 2026 — Smart Aquaculture Intelligence System (SAIS)",
-    sk: "SK No. 40/WADIR.III/KM/2026",
-    desc: "Konsep tata kelola akuakultur presisi berbasis digital twin dan simulasi prediktif multi-kolam."
-  },
-  {
-    badge: "Peringkat 18 / 82 (Skor 94.310)",
-    title: "Intelecta Cup 2025 — Agroclimatology Time-Series Weather Forecasting",
-    sk: "Leaderboard Kompetisi Nasional",
-    desc: "Prediksi curah hujan dan anomali cuaca ekstrem pertanian menggunakan regresi ensemble multi-variat."
-  },
-  {
-    badge: "Finalis Nasional LKTI",
-    title: "Techno Fair and Seminar (TFS) 2025 — AlgaSense",
-    sk: "SK Direktur Polinema No. 16002/PL2.3/KM/2025",
-    desc: "Telemetri oseanografi bawah laut dan peramalan panen rumput laut menggunakan jaringan syaraf LSTM di Sumenep."
-  },
-  {
-    badge: "Peserta Resmi",
-    title: "Hology 8.0 (2025) Data Mining — Crowd Density Estimation",
-    sk: "Kompetisi Nasional Universitas Brawijaya",
-    desc: "Pengembangan regresi estimasi kerumunan manusia skala variabel berbasis Multi-Column CNN (MCNN)."
-  },
-  {
-    badge: "Peserta Resmi",
-    title: "Jatim Datathon 2025 — SLB Spatial Disparity Analysis",
-    sk: "Kompetisi Sains Data Jawa Timur",
-    desc: "Analisis disparitas spasial dan rasio aksesibilitas sekolah luar biasa di seluruh Jawa Timur."
-  }
-];
-
-const getBadgeClass = (badge: string) => {
-  const lower = badge.toLowerCase();
-  if (lower.includes('juara')) return 'card-honor-badge honor-juara';
-  if (lower.includes('finalis') || lower.includes('finalist')) return 'card-honor-badge honor-finalist';
-  if (lower.includes('peserta')) return 'card-honor-badge honor-peserta';
-  return 'card-honor-badge honor-general';
+  if (type.includes('Industri')) return 'exp-badge exp-badge-industry';
+  if (type.includes('Riset')) return 'exp-badge exp-badge-research';
+  return 'exp-badge exp-badge-commercial';
 };
 ---
 
-<section class="section-padding" id="about">
-  <div class="container">
+<section class="section-padding" id="about" aria-labelledby="about-title" data-chapter="about">
+  <div class="container" data-in>
     
     {/* Section Head */}
-    <div class="section-head">
-      <div class="kicker">Professional Background</div>
-      <h2 class="section-title">Engineering with Purpose & Rigor</h2>
+    <div class="section-head" style="margin-bottom: 3.5rem;">
+      <div class="kicker">About Me // Engineering Background</div>
+      <h2 class="section-title" id="about-title" style="letter-spacing: -0.035em;">
+        About Me &amp; Applied Engineering
+      </h2>
       <p class="section-subtitle">
-        Fondasi akademik D4 Teknik Informatika Politeknik Negeri Malang dipadukan dengan disiplin operasional lapangan untuk membangun sistem yang handal.
+        Kombinasi disiplin akademik D4 Teknik Informatika Polinema, riset terapan institusional, dan eksekusi sistem di lapangan.
       </p>
     </div>
 
-    {/* Main Grid: Left Narrative + Right Verified Honors */}
-    <div class="about-grid">
+    {/* About Layout Grid: Left Portrait Centerpiece + Right Detailed Credentials */}
+    <div class="dossier-layout-grid">
       
-      {/* Left Column: Narrative & Pillars */}
-      <div>
+      {/* Left Column: Authentic Portrait Card */}
+      <aside class="dossier-portrait-card">
+        {/* Crosshair Coordinates */}
+        <span class="hero-card-crosshair tl">+</span>
+        <span class="hero-card-crosshair tr">+</span>
+        <span class="hero-card-crosshair bl">+</span>
+        <span class="hero-card-crosshair br">+</span>
+
+        {/* Technical Header */}
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 0.65rem; border-bottom: 1px solid rgba(61, 139, 255, 0.25);">
+          <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--blue-300); font-weight: 700; letter-spacing: 0.08em;">
+            SYS // ABOUT · PROFILE
+          </span>
+          <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">
+            MALANG · 112.61° E, 7.94° S
+          </span>
+        </div>
+
+        {/* High-Resolution Professional Portrait */}
+        <div class="dossier-img-box">
+          <img 
+            src="/assets/image/saya.jpg" 
+            alt="Foto profil resmi Varizky Naldiba Rimra"
+            width="450"
+            height="450"
+            loading="lazy"
+          />
+        </div>
+
+        {/* Identity Details */}
+        <div style="margin-top: 1.25rem;">
+          <h3 style="font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem;">
+            Varizky Naldiba Rimra
+          </h3>
+          <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--blue-300); display: block; margin-bottom: 0.75rem;">
+            Applied ML &amp; IoT Systems Engineer
+          </span>
+
+          <div style="display: flex; flex-direction: column; gap: 0.4rem; padding-top: 0.75rem; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.82rem; color: var(--text-secondary);">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <GraduationCap size={15} color="#3d8bff" />
+              <span>Politeknik Negeri Malang (Polinema)</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <MapPin size={15} color="#38bdf8" />
+              <span>Malang, Jawa Timur, Indonesia</span>
+            </div>
+          </div>
+
+          {/* Direct Channels */}
+          <div style="display: flex; gap: 0.6rem; margin-top: 1.25rem; flex-wrap: wrap;">
+            <a 
+              href="/CV - Varizky Naldiba Rimra.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="btn btn-primary btn-sm"
+              style="background: #2271e3; border: 1px solid #3d8bff; padding: 0.45rem 0.9rem;"
+              data-cursor="CV PDF"
+            >
+              <FileText size={14} />
+              <span>CV (PDF)</span>
+            </a>
+            <a 
+              href="https://github.com/VarizkyNaldiba" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="btn-ghost btn-sm"
+              style="padding: 0.45rem 0.7rem;"
+              aria-label="GitHub Profile"
+              data-cursor="GITHUB"
+            >
+              <Github size={15} />
+            </a>
+            <a 
+              href="https://www.linkedin.com/in/varizkynaldiba/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="btn-ghost btn-sm"
+              style="padding: 0.45rem 0.7rem;"
+              aria-label="LinkedIn Profile"
+              data-cursor="LINKEDIN"
+            >
+              <Linkedin size={15} />
+            </a>
+            <a 
+              href="mailto:varizkynr@gmail.com" 
+              class="btn-ghost btn-sm"
+              style="padding: 0.45rem 0.7rem;"
+              aria-label="Email"
+              data-cursor="EMAIL"
+            >
+              <Mail size={15} />
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      {/* Right Column: Narrative, Experience, and Verified Honors */}
+      <div class="dossier-content-col">
+        
+        {/* Engineering Philosophy Manifesto */}
         <div class="glass-card" style="margin-bottom: 2rem;">
-          <h3 style="font-size: 1.45rem; font-weight: 800; color: #fff; margin-bottom: 1rem; letter-spacing: -0.02em;">
+          <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin-bottom: 1rem; letter-spacing: -0.02em;">
             Menjembatani Perangkat Keras Fisik, Data Spasial, dan Kecerdasan Buatan Terapan.
           </h3>
-          <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+          <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem; font-size: 0.94rem;">
             Saya merupakan mahasiswa <strong>D4 Teknik Informatika di Politeknik Negeri Malang (Polinema)</strong>. 
-            Prinsip rekayasa saya berakar pada <em>Project-Based Learning</em> dan pemecahan masalah konkret: 
+            Prinsip rekayasa saya berakar pada <em>Project-Based Engineering</em> dan pemecahan masalah konkret: 
             mengkalibrasi sensor kimia air untuk pembudidaya lele dan rumput laut, memetakan risiko banjir 
-            DAS Brantas bersama BRIN, hingga merancang portal akademik terdesentralisasi.
+            DAS Brantas bersama BRIN, hingga membangun sistem pipeline animasi AI generatif terdistribusi.
           </p>
-          <p style="color: var(--text-secondary); line-height: 1.7;">
-            Disiplin operasional di dapur komersial sebelum mendalami informatika membentuk cara kerja saya: 
+          <p style="color: var(--text-secondary); line-height: 1.7; font-size: 0.94rem;">
+            Latar belakang disiplin operasional sebelum mendalami informatika membentuk etos kerja saya: 
             selalu siap menangani kondisi kritis, menghargai toleransi kesalahan nol, dan memastikan setiap baris kode 
             berfungsi optimal di lingkungan produksi.
           </p>
 
           {/* Education Callout */}
-          <div class="education-callout">
+          <div class="education-callout" style="margin-top: 1.5rem;">
             <div class="edu-icon-wrap">
-              <BookOpen size={22} />
+              <BookOpen size={20} />
             </div>
             <div>
               <span style="display: block; font-size: 0.95rem; font-weight: 700; color: #fff;">
@@ -163,22 +221,22 @@ const getBadgeClass = (badge: string) => {
               <span style="display: block; font-size: 0.82rem; color: var(--accent-cyan); margin-top: 0.2rem;">
                 Politeknik Negeri Malang (Polinema) · 2022 – Sekarang
               </span>
-              <span style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">
-                Fokus: Kecerdasan Buatan Terapan, Telemetri IoT, Sistem Informasi & WebGIS
+              <span style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem;">
+                Fokus Rekayasa: Applied Machine Learning, IoT Embedded Firmware, Geospatial Analytics &amp; WebGIS
               </span>
             </div>
           </div>
         </div>
 
-        {/* Work & Intern Experience */}
-        <div class="glass-card">
+        {/* Work & Applied Experience */}
+        <div class="glass-card" style="margin-bottom: 2rem;">
           <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
-            <div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); display: flex; align-items: center; justify-content: center; color: var(--accent-blue);">
-              <Briefcase size={18} />
+            <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); display: flex; align-items: center; justify-content: center; color: var(--accent-blue);">
+              <Briefcase size={16} />
             </div>
             <div>
-              <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff;">Pengalaman Kerja & Magang</h3>
-              <span style="font-size: 0.75rem; color: var(--text-muted);">Work, Internship & Applied Engineering Roles</span>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff;">Pengalaman Rekayasa Terapan</h3>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Industrial Internship, Institutional Research &amp; Commercial Systems</span>
             </div>
           </div>
 
@@ -188,7 +246,7 @@ const getBadgeClass = (badge: string) => {
               return (
                 <div key={idx} class="experience-item">
                   <div class="exp-icon-wrap">
-                    <ExpIcon size={16} />
+                    <ExpIcon size={15} />
                   </div>
                   <div style="flex: 1; min-width: 0;">
                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.35rem;">
@@ -196,9 +254,6 @@ const getBadgeClass = (badge: string) => {
                         {exp.type}
                       </span>
                       <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-cyan); display: inline-flex; align-items: center; gap: 0.35rem;">
-                        {exp.period.includes('Sekarang') && (
-                          <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 6px #4ade80;" title="Posisi Aktif"></span>
-                        )}
                         <Calendar size={12} />
                         {exp.period}
                       </span>
@@ -209,12 +264,12 @@ const getBadgeClass = (badge: string) => {
                     <div style="font-size: 0.8rem; font-weight: 600; color: #94a3b8; margin-bottom: 0.4rem;">
                       {exp.organization}
                     </div>
-                    <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 0.6rem;">
+                    <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 0.6rem;">
                       {exp.desc}
                     </p>
                     <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
                       {exp.skills.map((skill, sIdx) => (
-                        <span key={sIdx} class="exp-skill-pill">
+                        <span key={sIdx} class="exp-skill-tag">
                           {skill}
                         </span>
                       ))}
@@ -225,84 +280,45 @@ const getBadgeClass = (badge: string) => {
             })}
           </div>
         </div>
-      </div>
 
-      {/* Right Column: Verified Competition Honors & SK */}
-      <div>
+        {/* Verified Honors & Awards */}
         <div class="glass-card">
           <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
-            <div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); display: flex; align-items: center; justify-content: center; color: #fbbf24;">
-              <Trophy size={18} />
+            <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); display: flex; align-items: center; justify-content: center; color: var(--accent-amber);">
+              <Trophy size={16} />
             </div>
             <div>
-              <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff;">Prestasi & Rekam Jejak Terverifikasi</h3>
-              <span style="font-size: 0.75rem; color: var(--text-muted);">Didukung dokumen SK resmi dan sertifikat nasional</span>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff;">Prestasi &amp; Rekognisi Kompetisi</h3>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Verified National Honors &amp; Research Awards</span>
             </div>
           </div>
 
-          <div class="honors-list">
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
             {honors.map((h, idx) => (
-              <div key={idx} class="honor-item">
-                <div class="honor-badge-icon">
-                  <Award size={16} />
+              <div key={idx} style="padding: 1rem; border-radius: 10px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem; flex-wrap: wrap; gap: 0.5rem;">
+                  <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #fbbf24; background: rgba(245, 158, 11, 0.12); padding: 0.2rem 0.55rem; border-radius: 4px; border: 1px solid rgba(245, 158, 11, 0.25);">
+                    {h.badge}
+                  </span>
+                  <span style="font-size: 0.72rem; color: var(--text-muted);">
+                    {h.category}
+                  </span>
                 </div>
-                <div>
-                  <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
-                    <span class={getBadgeClass(h.badge)} style="max-width: 100%;">
-                      {h.badge}
-                    </span>
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">
-                      {h.sk}
-                    </span>
+                <div style="font-size: 0.88rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem;">
+                  {h.title}
+                </div>
+                {h.sk && (
+                  <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">
+                    {h.sk}
                   </div>
-                  <h4 style="font-size: 0.92rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem;">
-                    {h.title}
-                  </h4>
-                  <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
-                    {h.desc}
-                  </p>
-                </div>
+                )}
               </div>
             ))}
           </div>
-
         </div>
+
       </div>
 
-    </div>
-
-    {/* 4 Core Competency Pillars (Horizontal across full width, directly above Featured Engineering Systems) */}
-    <div class="pillars-horizontal-section">
-      <div class="pillars-horizontal-header">
-        <div>
-          <div class="kicker">Core Engineering Disciplines</div>
-          <h3 class="pillars-section-title">
-            4 Pilar Fondasi Rekayasa & Keahlian Teknis
-          </h3>
-        </div>
-        <p class="pillars-section-subtitle">
-          Arsitektur terintegrasi hulu-ke-hilir: dari sensor edge, visi komputer cerdas, geospasial analitik, hingga keandalan operasional.
-        </p>
-      </div>
-
-      <div class="pillars-horizontal-grid">
-        {pillars.map((p, idx) => {
-          const Icon = p.icon;
-          return (
-            <div key={idx} class="glass-card pillar-horizontal-card">
-              <div class="pillar-card-top">
-                <div class="pillar-icon-box">
-                  <Icon size={18} />
-                </div>
-                <h4 class="pillar-card-title">{p.title}</h4>
-              </div>
-              <p class="pillar-card-desc">
-                {p.desc}
-              </p>
-            </div>
-          );
-        })}
-      </div>
     </div>
 
   </div>
