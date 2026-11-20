@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://myprofile-nine-sigma.vercel.app/sitemap.xml

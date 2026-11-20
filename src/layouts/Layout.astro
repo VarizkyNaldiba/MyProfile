@@ -26,18 +26,62 @@ const {
     <meta name="author" content="Varizky Naldiba Rimra" />
     <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#000000" />
+    <link rel="canonical" href="https://myprofile-nine-sigma.vercel.app/" />
+
+    <!-- Performance: Preload Critical Image -->
+    <link rel="preload" as="image" href="/assets/image/saya.jpg" fetchpriority="high" />
 
     <!-- Open Graph / Meta -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content="https://myprofile-nine-sigma.vercel.app/" />
-    <meta property="og:image" content="/assets/image/saya.jpg" />
+    <meta property="og:image" content="https://myprofile-nine-sigma.vercel.app/assets/image/saya.jpg" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content="Varizky Naldiba Rimra Portfolio" />
 
-    <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://myprofile-nine-sigma.vercel.app/assets/image/saya.jpg" />
+
+    <!-- Structured Data (JSON-LD) for SEO & Agentic Browsing -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Varizky Naldiba Rimra",
+      "jobTitle": "Applied Machine Learning & IoT Systems Engineer",
+      "url": "https://myprofile-nine-sigma.vercel.app/",
+      "image": "https://myprofile-nine-sigma.vercel.app/assets/image/saya.jpg",
+      "sameAs": [
+        "https://github.com/VarizkyNaldiba",
+        "https://www.linkedin.com/in/varizkynaldiba/",
+        "https://www.instagram.com/v.naldiba/",
+        "https://www.tiktok.com/@oryzasatirva"
+      ],
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "Politeknik Negeri Malang"
+      },
+      "knowsAbout": [
+        "Applied Machine Learning",
+        "Computer Vision",
+        "Internet of Things",
+        "Embedded Firmware",
+        "Geospatial Information Systems",
+        "Full-Stack Web Development"
+      ]
+    })} />
+
+    <!-- Typography: Non-render-blocking font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+    </noscript>
   </head>
   <body>
     <!-- Accessible Skip to Main Content Link -->

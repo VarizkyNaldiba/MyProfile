@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "name": "Varizky Naldiba Rimra - Portfolio",
+  "description": "Portfolio of Varizky Naldiba Rimra, Applied Machine Learning & IoT Systems Engineer.",
+  "url": "https://myprofile-nine-sigma.vercel.app/",
+  "llms_txt": "https://myprofile-nine-sigma.vercel.app/llms.txt",
+  "author": {
+    "name": "Varizky Naldiba Rimra",
+    "email": "varizkynr@gmail.com",
+    "github": "https://github.com/VarizkyNaldiba",
+    "linkedin": "https://www.linkedin.com/in/varizkynaldiba/"
+  }
+}

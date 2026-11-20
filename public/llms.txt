@@ -1,0 +1,31 @@
+# Varizky Naldiba Rimra - Portfolio
+
+> Applied Machine Learning & IoT Systems Engineer based in Malang, East Java, Indonesia. Informatics Engineering Graduate from Politeknik Negeri Malang (Polinema).
+
+## Overview
+Engineering portfolio showcasing end-to-end applied engineering pipelines:
+- Edge Microcontroller Telemetry (ESP32, C/C++, analog sensor calibration, ring buffer failover)
+- Applied Deep Learning & Computer Vision (TensorFlow, Keras, OpenCV, YOLO, CSRNet density maps, LSTM time-series)
+- Production Geospatial Analytics & WebGIS (BRIN SIMOJANG Brantas early warning system, Leaflet, GeoJSON)
+- Web & Enterprise Systems (Astro, React, REST API gateway, Meta Ads API, Google Ads API)
+
+## Key Systems & Projects
+- [CatfishCare TFS 2026](https://myprofile-nine-sigma.vercel.app/#projects): National 2nd Runner Up IoT Aquaculture Monitoring System with automated actuator actuation (SK Direktur Polinema No. 27881/PL2.3/KM/2026).
+- [SIMOJANG Brantas WebGIS](https://myprofile-nine-sigma.vercel.app/#projects): Applied Research with BRIN (Badan Riset dan Inovasi Nasional) & Polinema for watershed disaster early warning.
+- [AlgaSense](https://myprofile-nine-sigma.vercel.app/#projects): Microalgae biomass photobioreactor monitoring system (Finalist TFS 2025).
+- [SAIS Aquaculture PKM-GFT](https://myprofile-nine-sigma.vercel.app/#projects): Multi-trophic aquaculture intelligence funded by Ministry incentive (SK No. 40/WADIR.III/KM/2026).
+- [Crowd Density Estimation](https://myprofile-nine-sigma.vercel.app/#projects): MCNN / CSRNet neural crowd density map regression for Hology 8.0.
+- [Agroclimatology Time-Series](https://myprofile-nine-sigma.vercel.app/#projects): LSTM rainfall and climate prediction for Intelecta Cup.
+
+## Core Capabilities
+- Applied Machine Learning & Neural Modeling (TensorFlow, Keras, OpenCV, YOLO, CSRNet, LSTM)
+- IoT Firmware & Telemetry (ESP32, C/C++, Sensors Calibration, Flash Ring Buffer)
+- Geospatial Intelligence & WebGIS (Leaflet, GeoJSON, Spatial Regression)
+- Web & Enterprise Systems (Astro, React, REST APIs, Fastify, Next.js)
+
+## Official Contacts
+- Website: https://myprofile-nine-sigma.vercel.app/
+- Email: varizkynr@gmail.com
+- GitHub: https://github.com/VarizkyNaldiba
+- LinkedIn: https://www.linkedin.com/in/varizkynaldiba/
+- Curriculum Vitae: https://myprofile-nine-sigma.vercel.app/CV%20-%20Varizky%20Naldiba%20Rimra.pdf

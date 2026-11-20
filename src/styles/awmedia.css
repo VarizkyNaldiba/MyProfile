@@ -31,7 +31,7 @@
   
   --text-main: #f8fafc;
   --text-secondary: #94a3b8;
-  --text-muted: #8fa0b5;
+  --text-muted: #9bb0c7;
   --text-inverse: #07090e;
 
   --accent-blue: #3d8bff;
@@ -3656,11 +3656,15 @@ body.is-light #methodology .metric-box {
 }
 
 body.is-light #methodology .metric-val {
-  color: #0284c7 !important;
+  color: #0369a1 !important;
 }
 
 body.is-light #methodology .metric-label {
   color: #0f172a !important;
+}
+
+body.is-light #methodology .metric-box div:last-child {
+  color: #475569 !important;
 }
 
 body.is-light .puture-hud {

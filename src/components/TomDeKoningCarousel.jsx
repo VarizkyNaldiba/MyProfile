@@ -25,7 +25,7 @@ const getImgSrc = (img) => {
 export default function TomDeKoningCarousel() {
   const [selectedCat, setSelectedCat] = useState('All');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [viewMode, setViewMode] = useState('3d'); // '3d' (Curved Panoramic) or 'flat' (Classic Track)
+  const [viewMode] = useState('3d'); // '3d' (Curved Panoramic) or 'flat' (Classic Track)
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeModalImg, setActiveModalImg] = useState(0);
 
@@ -399,13 +399,12 @@ export default function TomDeKoningCarousel() {
         {/* Controls Bar: Categories */}
         <div className="carousel-controls-bar">
           {/* Category Filter Pills */}
-          <div className="carousel-filter-pills" role="tablist" aria-label="Filter kategori proyek">
+          <div className="carousel-filter-pills" role="group" aria-label="Filter kategori proyek">
             {CATEGORIES.map(cat => (
               <button
                 key={cat.id}
                 type="button"
-                role="tab"
-                aria-selected={selectedCat === cat.id}
+                aria-pressed={selectedCat === cat.id}
                 className={`filter-pill ${selectedCat === cat.id ? 'active' : ''}`}
                 onClick={() => {
                   setSelectedCat(cat.id);
@@ -481,7 +480,6 @@ export default function TomDeKoningCarousel() {
                 ? getImgSrc(proj.images[activeCoverIdx]) 
                 : (proj.images && proj.images[0] ? getImgSrc(proj.images[0]) : '');
               const honor = getProjectHonor(proj.slug);
-              const numStr = String(idx + 1).padStart(2, '0');
               const isCenter = diff === 0;
 
               // Cylindrical 3D Circular Math (Reversed/Flipped Curve Direction):
@@ -529,7 +527,7 @@ export default function TomDeKoningCarousel() {
                     {/* 2. Image Cover */}
                     <div className="card-img-wrap curved-img-wrap">
                       {coverImg ? (
-                        <img src={coverImg} alt={proj.title} loading="lazy" />
+                        <img src={coverImg} alt={proj.title} loading="lazy" width="600" height="375" />
                       ) : (
                         <div style={{ width: '100%', height: '100%', background: '#111622' }} />
                       )}
@@ -687,14 +685,13 @@ export default function TomDeKoningCarousel() {
           onMouseEnter={() => setCursorVisible(true)}
         >
           <div className="carousel-track-inner">
-            {filteredProjects.map((proj, idx) => {
+            {filteredProjects.map((proj) => {
               const totalImgs = proj.images ? proj.images.length : 0;
               const activeCoverIdx = cardCoverIndexes[proj.id] ?? 0;
               const coverImg = (proj.images && proj.images[activeCoverIdx]) 
                 ? getImgSrc(proj.images[activeCoverIdx]) 
                 : (proj.images && proj.images[0] ? getImgSrc(proj.images[0]) : '');
               const honor = getProjectHonor(proj.slug);
-              const numStr = String(idx + 1).padStart(2, '0');
 
               return (
                 <article 
@@ -712,6 +709,8 @@ export default function TomDeKoningCarousel() {
                         src={coverImg} 
                         alt={proj.title}
                         loading="lazy"
+                        width="600"
+                        height="375"
                       />
                     ) : (
                       <div style={{ width: '100%', height: '100%', background: '#111622' }} />
@@ -890,6 +889,8 @@ export default function TomDeKoningCarousel() {
                     <img 
                       src={getImgSrc(selectedProject.images[activeModalImg])} 
                       alt={`Foto detail proyek: ${selectedProject.title}`}
+                      width="800"
+                      height="450"
                       style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />
 
@@ -958,6 +959,8 @@ export default function TomDeKoningCarousel() {
                           <img 
                             src={getImgSrc(img)} 
                             alt={`Thumbnail ${iIdx + 1}: ${selectedProject.title}`}
+                            width="80"
+                            height="52"
                             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                           />
                           {(cardCoverIndexes[selectedProject.id] ?? 0) === iIdx && (

@@ -117,7 +117,9 @@ const getExpBadgeClass = (type: string) => {
             alt="Foto profil resmi Varizky Naldiba Rimra"
             width="450"
             height="450"
-            loading="lazy"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
           />
         </div>
 
@@ -148,7 +150,8 @@ const getExpBadgeClass = (type: string) => {
               target="_blank" 
               rel="noopener noreferrer" 
               class="btn btn-primary btn-sm"
-              style="background: #2271e3; border: 1px solid #3d8bff; padding: 0.45rem 0.9rem;"
+              style="background: #2271e3; color: #ffffff !important; border: 1px solid #3d8bff; padding: 0.45rem 0.9rem;"
+              aria-label="Unduh berkas Curriculum Vitae (PDF)"
               data-cursor="CV PDF"
             >
               <FileText size={14} />
@@ -160,7 +163,7 @@ const getExpBadgeClass = (type: string) => {
               rel="noopener noreferrer" 
               class="btn-ghost btn-sm"
               style="padding: 0.45rem 0.7rem;"
-              aria-label="GitHub Profile"
+              aria-label="Kunjungi profil GitHub Varizky Naldiba di tab baru"
               data-cursor="GITHUB"
             >
               <Github size={15} />
@@ -171,7 +174,7 @@ const getExpBadgeClass = (type: string) => {
               rel="noopener noreferrer" 
               class="btn-ghost btn-sm"
               style="padding: 0.45rem 0.7rem;"
-              aria-label="LinkedIn Profile"
+              aria-label="Kunjungi profil LinkedIn Varizky Naldiba di tab baru"
               data-cursor="LINKEDIN"
             >
               <Linkedin size={15} />
@@ -180,7 +183,7 @@ const getExpBadgeClass = (type: string) => {
               href="mailto:varizkynr@gmail.com" 
               class="btn-ghost btn-sm"
               style="padding: 0.45rem 0.7rem;"
-              aria-label="Email"
+              aria-label="Kirim pesan email ke Varizky Naldiba"
               data-cursor="EMAIL"
             >
               <Mail size={15} />
