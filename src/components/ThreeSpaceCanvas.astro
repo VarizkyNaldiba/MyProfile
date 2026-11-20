@@ -519,12 +519,23 @@
     let targetScrollProgress = 0;
     let currentScrollProgress = 0;
 
+    let isRunning = false;
+    let initialSettleFrames = 45;
+
+    const requestTick = () => {
+      if (!isRunning) {
+        isRunning = true;
+        requestAnimationFrame(animate);
+      }
+    };
+
     window.addEventListener('pointermove', (e: MouseEvent) => {
       mouseCoord.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouseCoord.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
       targetMouseX = mouseCoord.x;
       targetMouseY = mouseCoord.y;
+      requestTick();
     }, { passive: true });
 
     // Interactive Click Impulse Spin
@@ -535,12 +546,14 @@
         hoveredItem.impulseRot.z += (Math.random() - 0.5) * 0.35;
         hoveredItem.impulseVel.z += 0.85;
       }
+      requestTick();
     }, { passive: true });
 
     const updateScroll = () => {
       const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
       const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       targetScrollProgress = Math.min(1, Math.max(0, scrollY / maxScroll));
+      requestTick();
     };
     window.addEventListener('scroll', updateScroll, { passive: true });
     updateScroll();
@@ -589,6 +602,7 @@
 
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
+      requestTick();
     };
     window.addEventListener('resize', onResize);
     onResize();
@@ -663,14 +677,19 @@
     // rapi -> saturnus kanan -> infinity tengah -> saturnus kiri -> infinity tengah -> rapi (di akhir page sudah rapi)
     // Motion constraint: "card hanya bergerak ketika di scroll ketika tidak discroll ga gerak"
     const animate = () => {
-      requestAnimationFrame(animate);
+      let needsNextFrame = false;
 
       // Damped mouse movement for subtle reactive parallax
-      curMouseX += (targetMouseX - curMouseX) * 0.055;
-      curMouseY += (targetMouseY - curMouseY) * 0.055;
+      const dMouseX = targetMouseX - curMouseX;
+      const dMouseY = targetMouseY - curMouseY;
+      curMouseX += dMouseX * 0.055;
+      curMouseY += dMouseY * 0.055;
+      if (Math.abs(dMouseX) > 0.001 || Math.abs(dMouseY) > 0.001) needsNextFrame = true;
 
       // Smooth scroll progress
-      currentScrollProgress += (targetScrollProgress - currentScrollProgress) * 0.075;
+      const dScroll = targetScrollProgress - currentScrollProgress;
+      currentScrollProgress += dScroll * 0.075;
+      if (Math.abs(dScroll) > 0.0001) needsNextFrame = true;
       const p = currentScrollProgress;
 
       // Raycasting for interactive hover
@@ -760,13 +779,16 @@
         // Hover interpolation
         const isHovered = (item === hoveredItem);
         const targetHover = isHovered ? 1.0 : 0.0;
-        item.hoverFactor += (targetHover - item.hoverFactor) * (isHovered ? 0.14 : 0.08);
+        const dHover = targetHover - item.hoverFactor;
+        item.hoverFactor += dHover * (isHovered ? 0.14 : 0.08);
+        if (Math.abs(dHover) > 0.002) needsNextFrame = true;
 
         // Physics impulse damping
         item.impulseVel.multiplyScalar(0.91);
         item.impulseRot.multiplyScalar(0.91);
         item.springOffset.add(item.impulseVel);
         item.springOffset.multiplyScalar(0.87);
+        if (item.impulseVel.lengthSq() > 0.00001 || item.impulseRot.lengthSq() > 0.00001) needsNextFrame = true;
 
         // Material glow on hover
         const mat = item.boxMesh.material as THREE.MeshPhysicalMaterial;
@@ -820,9 +842,20 @@
       camera.position.y = curMouseY * 0.20;
 
       renderer.render(scene, camera);
+
+      if (initialSettleFrames > 0) {
+        initialSettleFrames--;
+        needsNextFrame = true;
+      }
+
+      if (needsNextFrame) {
+        requestAnimationFrame(animate);
+      } else {
+        isRunning = false;
+      }
     };
 
-    animate();
+    requestTick();
   }
 
   if (typeof window !== 'undefined') {

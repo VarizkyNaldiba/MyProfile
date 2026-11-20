@@ -77,10 +77,10 @@ const {
     <!-- Typography: Non-render-blocking font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
     </noscript>
   </head>
   <body>
@@ -164,6 +164,14 @@ const {
         let labelX = -100;
         let labelY = -100;
         let isVisible = false;
+        let cursorRunning = false;
+
+        const requestCursorTick = () => {
+          if (!cursorRunning) {
+            cursorRunning = true;
+            requestAnimationFrame(renderCursor);
+          }
+        };
 
         window.addEventListener('pointermove', (e) => {
           mouseX = e.clientX;
@@ -172,6 +180,7 @@ const {
             isVisible = true;
             cursorDot.style.opacity = '1';
           }
+          requestCursorTick();
         }, { passive: true });
 
         document.addEventListener('mouseleave', () => {
@@ -234,17 +243,26 @@ const {
         });
 
         const renderCursor = () => {
-          dotX += (mouseX - dotX) * 0.35;
-          dotY += (mouseY - dotY) * 0.35;
-          labelX += (mouseX - labelX) * 0.16;
-          labelY += (mouseY - labelY) * 0.16;
+          const dDotX = mouseX - dotX;
+          const dDotY = mouseY - dotY;
+          const dLabX = mouseX - labelX;
+          const dLabY = mouseY - labelY;
+
+          dotX += dDotX * 0.35;
+          dotY += dDotY * 0.35;
+          labelX += dLabX * 0.16;
+          labelY += dLabY * 0.16;
 
           cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0)`;
           cursorLabel.style.transform = `translate3d(${labelX + 16}px, ${labelY + 16}px, 0)`;
 
-          requestAnimationFrame(renderCursor);
+          if (Math.abs(dDotX) > 0.1 || Math.abs(dDotY) > 0.1 || Math.abs(dLabX) > 0.1 || Math.abs(dLabY) > 0.1) {
+            requestAnimationFrame(renderCursor);
+          } else {
+            cursorRunning = false;
+          }
         };
-        requestAnimationFrame(renderCursor);
+        requestCursorTick();
       }
 
       // 3. Puture Dynamic Tone Shift Observer (Black -> Architectural White for Process)
