@@ -110,7 +110,7 @@ export default function Socials() {
               <FileText size={22} className="resume-icon" />
               <div>
                 <h4 className="resume-title">Curriculum Vitae</h4>
-                <p className="resume-desc">Arsip komprehensif proyek rekayasa, penghargaan kompetisi nasional terverifikasi, riwayat akademik, dan sertifikasi resmi.</p>
+                <p className="resume-desc">Comprehensive engineering project archive, verified national honors, academic credentials, and official certifications.</p>
               </div>
             </div>
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -121,7 +121,7 @@ export default function Socials() {
                 className="btn-download-resume"
                 title="Download CV (PDF)"
               >
-                <span>Unduh CV</span>
+                <span>Download CV (PDF)</span>
                 <ArrowUpRight size={14} />
               </a>
             </div>

@@ -66,7 +66,7 @@ export default function TomDeKoningCarousel() {
       }
       return updated;
     });
-    showToast(`Foto sampul "${projTitle || 'proyek'}" tersimpan!`);
+    showToast(`Cover photo for "${projTitle || 'project'}" saved!`);
   };
 
   // Floating cursor follower states (VIEW SPECS pill)
@@ -172,7 +172,7 @@ export default function TomDeKoningCarousel() {
 
     autoPlayTimerRef.current = setInterval(() => {
       handleNext();
-    }, 6000); // 6 detik jeda baca per elemen proyek
+    }, 6000); // 6s reading pause per project
 
     return () => {
       if (autoPlayTimerRef.current) clearInterval(autoPlayTimerRef.current);
@@ -340,19 +340,19 @@ export default function TomDeKoningCarousel() {
   const getProjectHonor = (slug) => {
     switch (slug) {
       case 'catfishcare-tfs2026':
-        return 'Juara Harapan 2 LKTI Techno Fair and Seminar (TFS) 2026';
+        return 'National 4th Place LKTI Techno Fair and Seminar (TFS) 2026';
       case 'pkm-gft-sais':
-        return 'PKM-GFT 2026 Tahap 2 Insentif';
+        return 'PKM-GFT 2026 Phase 2 Research Grant';
       case 'simojang-brin-webgis':
-        return 'Kolaborasi Riset Terapan BRIN x Polinema';
+        return 'Applied Research Collaboration BRIN × Polinema';
       case 'algasense':
-        return 'Finalis Nasional LKTI Techno Fair and Seminar (TFS) 2025';
+        return 'National Finalist LKTI Techno Fair and Seminar (TFS) 2025';
       case 'agroclimatology-intelecta':
-        return 'Peringkat 18/82 Intelecta Cup';
+        return 'Rank 18/82 Intelecta Cup 2025';
       case 'slb-spatial-disparity':
-        return 'Peserta Resmi Jatim Datathon 2025';
+        return 'Selected Competitor Jatim Datathon 2025';
       case 'crowd-density-hology':
-        return 'Peserta Resmi Hology 8.0';
+        return 'Selected Competitor Hology 8.0';
       default:
         return null;
     }
@@ -361,9 +361,9 @@ export default function TomDeKoningCarousel() {
   const getHonorBadgeClass = (text) => {
     if (!text) return '';
     const lower = text.toLowerCase();
-    if (lower.includes('juara')) return 'honor-juara';
+    if (lower.includes('juara') || lower.includes('4th place') || lower.includes('winner')) return 'honor-juara';
     if (lower.includes('finalis') || lower.includes('finalist')) return 'honor-finalist';
-    if (lower.includes('peserta')) return 'honor-peserta';
+    if (lower.includes('peserta') || lower.includes('selected') || lower.includes('competitor')) return 'honor-peserta';
     return 'honor-general';
   };
 
@@ -392,14 +392,14 @@ export default function TomDeKoningCarousel() {
           <div className="kicker">Featured Projects</div>
           <h2 className="section-title" id="projects-title">Featured Projects &amp; Portfolios</h2>
           <p className="section-subtitle">
-            Eksplorasi arsitektur machine learning, telemetri IoT, WebGIS, dan platform enterprise. Gunakan tombol navigasi atau tahan Shift + scroll mouse untuk menjelajah.
+            Explore applied machine learning architectures, edge IoT telemetry, WebGIS, and enterprise platforms. Use navigation buttons or hold Shift + mouse wheel to traverse.
           </p>
         </div>
 
         {/* Controls Bar: Categories */}
         <div className="carousel-controls-bar">
           {/* Category Filter Pills */}
-          <div className="carousel-filter-pills" role="group" aria-label="Filter kategori proyek">
+          <div className="carousel-filter-pills" role="group" aria-label="Project category filter">
             {CATEGORIES.map(cat => (
               <button
                 key={cat.id}
@@ -535,8 +535,8 @@ export default function TomDeKoningCarousel() {
                             type="button"
                             className="card-photo-switcher prev-photo"
                             onClick={(e) => handleCardPhotoSwitch(e, proj, -1)}
-                            title="Foto Sebelumnya"
-                            aria-label={`Foto sebelumnya untuk ${getShortProjectTitle(proj)}`}
+                            title="Previous Photo"
+                            aria-label={`Previous photo for ${getShortProjectTitle(proj)}`}
                           >
                             <ChevronLeft size={16} aria-hidden="true" />
                           </button>
@@ -544,8 +544,8 @@ export default function TomDeKoningCarousel() {
                             type="button"
                             className="card-photo-switcher next-photo"
                             onClick={(e) => handleCardPhotoSwitch(e, proj, 1)}
-                            title="Foto Berikutnya"
-                            aria-label={`Foto berikutnya untuk ${getShortProjectTitle(proj)}`}
+                            title="Next Photo"
+                            aria-label={`Next photo for ${getShortProjectTitle(proj)}`}
                           >
                             <ChevronRight size={16} aria-hidden="true" />
                           </button>
@@ -556,8 +556,8 @@ export default function TomDeKoningCarousel() {
                                 type="button"
                                 className={`card-photo-dot ${activeCoverIdx === pIdx ? 'active' : ''}`}
                                 onClick={(e) => handleSetCoverDirect(e, proj.id, pIdx, proj.title)}
-                                title={`Foto ${pIdx + 1} dari ${totalImgs}`}
-                                aria-label={`Pilih foto ${pIdx + 1} dari ${totalImgs} untuk ${getShortProjectTitle(proj)}`}
+                                title={`Photo ${pIdx + 1} of ${totalImgs}`}
+                                aria-label={`Select photo ${pIdx + 1} of ${totalImgs} for ${getShortProjectTitle(proj)}`}
                               />
                             ))}
                           </div>
@@ -588,7 +588,7 @@ export default function TomDeKoningCarousel() {
                             setSelectedProject(proj);
                             setActiveModalImg(activeCoverIdx);
                           }}
-                          aria-label={`Lihat spesifikasi detail teknis ${getShortProjectTitle(proj)}`}
+                          aria-label={`Explore technical specifications for ${getShortProjectTitle(proj)}`}
                         >
                           <Maximize2 size={14} aria-hidden="true" />
                           <span>Deep Dive Specs</span>
@@ -626,8 +626,8 @@ export default function TomDeKoningCarousel() {
               type="button"
               className="carousel-3d-side-btn"
               onClick={handlePrev}
-              title="Proyek Sebelumnya"
-              aria-label="Pindah ke proyek sebelumnya"
+              title="Previous Project"
+              aria-label="Previous project"
             >
               <ChevronLeft size={15} aria-hidden="true" />
               <span>PREV</span>
@@ -637,8 +637,8 @@ export default function TomDeKoningCarousel() {
               type="button"
               className="carousel-3d-counter-pill"
               onClick={() => setIsAutoPlay(prev => !prev)}
-              title={isAutoPlay ? 'Klik untuk jeda tayang otomatis (6s)' : 'Klik untuk mulai tayang otomatis'}
-              aria-label={isAutoPlay ? 'Jeda tayang otomatis (6 detik per proyek)' : 'Mulai tayang otomatis'}
+              title={isAutoPlay ? 'Click to pause autoplay (6s)' : 'Click to start autoplay'}
+              aria-label={isAutoPlay ? 'Pause autoplay (6s per project)' : 'Start autoplay'}
             >
               <span className="current" style={{ fontSize: '0.74rem', letterSpacing: '0.06em' }}>
                 {isAutoPlay ? 'AUTOPLAY' : 'PAUSED'}
@@ -654,8 +654,8 @@ export default function TomDeKoningCarousel() {
               type="button"
               className="carousel-3d-side-btn"
               onClick={handleNext}
-              title="Proyek Berikutnya"
-              aria-label="Pindah ke proyek berikutnya"
+              title="Next Project"
+              aria-label="Next project"
             >
               <span>NEXT</span>
               <ChevronRight size={15} aria-hidden="true" />
@@ -721,7 +721,7 @@ export default function TomDeKoningCarousel() {
                           type="button"
                           className="card-photo-switcher prev-photo"
                           onClick={(e) => handleCardPhotoSwitch(e, proj, -1)}
-                          title="Foto Sebelumnya"
+                          title="Previous Photo"
                           aria-label="Previous photo"
                         >
                           <ChevronLeft size={16} />
@@ -731,7 +731,7 @@ export default function TomDeKoningCarousel() {
                           type="button"
                           className="card-photo-switcher next-photo"
                           onClick={(e) => handleCardPhotoSwitch(e, proj, 1)}
-                          title="Foto Berikutnya"
+                          title="Next Photo"
                           aria-label="Next photo"
                         >
                           <ChevronRight size={16} />
@@ -744,7 +744,7 @@ export default function TomDeKoningCarousel() {
                               type="button"
                               className={`card-photo-dot ${activeCoverIdx === pIdx ? 'active' : ''}`}
                               onClick={(e) => handleSetCoverDirect(e, proj.id, pIdx, proj.title)}
-                              title={`Foto ${pIdx + 1} dari ${totalImgs}`}
+                              title={`Photo ${pIdx + 1} of ${totalImgs}`}
                               aria-label={`Switch to photo ${pIdx + 1}`}
                             />
                           ))}
@@ -861,7 +861,7 @@ export default function TomDeKoningCarousel() {
                 type="button"
                 className="modal-close-btn"
                 onClick={() => setSelectedProject(null)}
-                aria-label="Tutup jendela spesifikasi proyek (atau tekan tombol Escape)"
+                aria-label="Close project specifications modal (or press Escape)"
               >
                 <X size={18} aria-hidden="true" />
               </button>
@@ -876,7 +876,7 @@ export default function TomDeKoningCarousel() {
                   <div style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border-subtle)', marginBottom: '0.75rem', aspectRatio: '16/9', background: '#090b10', position: 'relative' }}>
                     <img 
                       src={getImgSrc(selectedProject.images[activeModalImg])} 
-                      alt={`Foto detail proyek: ${selectedProject.title}`}
+                      alt={`Project detail: ${selectedProject.title}`}
                       width="800"
                       height="450"
                       style={{ width: '100%', height: '100%', objectFit: 'contain' }}
@@ -888,7 +888,7 @@ export default function TomDeKoningCarousel() {
                       onClick={() => {
                         updateCardCover(selectedProject.id, activeModalImg, selectedProject.title);
                       }}
-                      aria-label={(cardCoverIndexes[selectedProject.id] ?? 0) === activeModalImg ? 'Foto sampul luar terpilih' : 'Jadikan foto ini sebagai sampul luar'}
+                      aria-label={(cardCoverIndexes[selectedProject.id] ?? 0) === activeModalImg ? 'Selected outer cover photo' : 'Set as outer cover photo'}
                       style={{
                         position: 'absolute',
                         bottom: '1rem',
@@ -911,12 +911,12 @@ export default function TomDeKoningCarousel() {
                       {(cardCoverIndexes[selectedProject.id] ?? 0) === activeModalImg ? (
                         <>
                           <Check size={14} aria-hidden="true" />
-                          <span>Foto Sampul Terpilih</span>
+                          <span>Selected Cover Photo</span>
                         </>
                       ) : (
                         <>
                           <ImageIcon size={14} aria-hidden="true" />
-                          <span>Jadikan Sampul Luar</span>
+                          <span>Set as Outer Cover</span>
                         </>
                       )}
                     </button>
@@ -930,7 +930,7 @@ export default function TomDeKoningCarousel() {
                           key={iIdx}
                           type="button"
                           onClick={() => setActiveModalImg(iIdx)}
-                          aria-label={`Pilih foto thumbnail ${iIdx + 1} dari ${selectedProject.images.length} untuk proyek ${selectedProject.title}`}
+                          aria-label={`Select thumbnail photo ${iIdx + 1} of ${selectedProject.images.length} for ${selectedProject.title}`}
                           style={{
                             width: '80px',
                             height: '52px',

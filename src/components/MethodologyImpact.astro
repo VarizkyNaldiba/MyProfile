@@ -6,27 +6,27 @@ const pipelineSteps = [
     stage: "Edge Hardware",
     title: "Sensing & Hardware Calibration",
     icon: Cpu,
-    desc: "Akuisisi sinyal analog dari sensor bawah air, kompensasi temperatur suhu seketika, dan pembuatan kurva kalibrasi polinomial untuk probe pH/kekeruhan."
+    desc: "Analog signal acquisition from subsea probes, real-time temperature compensation, and polynomial calibration curve derivation for pH and turbidity sensors."
   },
   {
     stage: "Intelligence",
     title: "Data Preprocessing & Deep Learning",
     icon: Database,
-    desc: "Ekstraksi fitur multi-skala (MCNN, GLCM, Wavelet), pembersihan derau deret waktu, dan pelatihan jaringan syaraf tiruan rekuren (LSTM) untuk peramalan panen."
+    desc: "Multi-scale spatial feature extraction (MCNN, GLCM, Wavelet), time-series noise filtering, and recurrent neural network (LSTM) training for yield forecasting."
   },
   {
     stage: "Infrastructure",
     title: "Cloud Sync, WebGIS & Decision Support",
     icon: Server,
-    desc: "Integrasi failover ring buffer pada memori flash ESP32, sinkronisasi datastore noSQL, perenderan layer spasial GeoJSON, dan algoritma PROMETHEE DSS."
+    desc: "ESP32 circular ring buffer failover to local flash, real-time cloud datastore synchronization, performant GeoJSON rendering, and PROMETHEE DSS algorithms."
   }
 ];
 
 const metrics = [
   { val: "Production", label: "Engineered Systems", sub: "ML, IoT, WebGIS & Enterprise" },
-  { val: "Harapan 2", label: "Juara Nasional LKTI", sub: "TFS 2026 (SK Direktur Polinema)" },
-  { val: "Rekognisi", label: "Prestasi & Riset", sub: "Kompetisi Nasional & Riset BRIN" },
-  { val: "Tahap 2", label: "Lolos Insentif Riset", sub: "PKM-GFT Polinema 2026" }
+  { val: "4th Place", label: "National LKTI Honor", sub: "TFS 2026 (Director SK Polinema)" },
+  { val: "Recognized", label: "National Awards", sub: "National Competitions & BRIN Research" },
+  { val: "Phase 2", label: "Research Grant", sub: "PKM-GFT Polinema 2026" }
 ];
 ---
 
@@ -39,7 +39,7 @@ const metrics = [
         From concept to hardware that works in the field.
       </h2>
       <p class="section-subtitle">
-        Pola metodologi hulu-ke-hilir yang diterapkan untuk menjamin keandalan instrumen di lapangan dan akurasi model prediktif.
+        An end-to-end engineering methodology ensuring field hardware reliability and machine learning predictive precision.
       </p>
     </div>
 

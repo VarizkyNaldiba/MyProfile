@@ -6,27 +6,27 @@ const experiences = [
   {
     role: "AI & Full-Stack Developer Intern",
     organization: "PT Naraya Telematika",
-    type: "Magang Industri",
-    period: "Juli 2026 – Sekarang",
-    desc: "Mengembangkan pipeline produksi animasi AI generatif berbasis integrasi workflow ComfyUI dan Dify, serta merancang dan mengimplementasikan platform website Ads Manager yang terintegrasi langsung dengan Meta Ads API dan Google Ads API.",
+    type: "Industrial Internship",
+    period: "July 2026 – Present",
+    desc: "Engineered generative AI animation production pipelines integrating ComfyUI and Dify workflows, while architecting and implementing an Ads Manager web platform integrated directly with Meta Ads API and Google Ads API.",
     skills: ["ComfyUI", "Dify", "Generative AI", "Meta Ads API", "Google Ads API", "Full-Stack Web"],
     icon: Building2
   },
   {
     role: "IT & WebGIS Production Developer",
-    organization: "Badan Riset dan Inovasi Nasional (BRIN) × Polinema",
-    type: "Magang Riset Terapan",
-    period: "Mei – Juli 2026",
-    desc: "Mengembangkan platform WebGIS produksi SIMOJANG Brantas untuk peringatan dini banjir DAS Brantas Hulu. Mengintegrasikan telemetri radar BMKG, data spasial BPBD, dan optimasi rendering GeoJSON.",
+    organization: "National Research and Innovation Agency (BRIN) × Polinema",
+    type: "Applied Research Fellowship",
+    period: "May – July 2026",
+    desc: "Developed the production WebGIS platform SIMOJANG Brantas for early flood warning in the Upper Brantas Watershed. Integrated BMKG radar telemetry, BPBD spatial risk datasets, and optimized GeoJSON rendering pipelines.",
     skills: ["WebGIS", "Leaflet", "GeoJSON", "Spatial DB", "BMKG Radar"],
     icon: Building2
   },
   {
     role: "Cook & Operations",
-    organization: "Sektor F&B Komersial (Hospitality & Culinary Operations)",
-    type: "Operasional Komersial",
+    organization: "Commercial Hospitality & Operations Sector",
+    type: "Commercial Operations",
     period: "2025",
-    desc: "Mengelola alur operasional dapur komersial berkecepatan tinggi, konsistensi mutu penyajian, manajemen bahan baku, serta penegakan standar kerja presisi dengan toleransi kesalahan nol.",
+    desc: "Managed high-velocity commercial kitchen workflows, presentation quality consistency, ingredient inventory flow, and zero-tolerance precision operational standards.",
     skills: ["Operational Rigor", "High-Pace Execution", "Quality Control", "Inventory Flow"],
     icon: Briefcase
   }
@@ -34,43 +34,43 @@ const experiences = [
 
 const honors = [
   {
-    badge: "Harapan 2 Nasional",
+    badge: "National 4th Place (Consolation 2)",
     title: "Techno Fair and Seminar (TFS) 2026 — CatfishCare",
     sk: "SK Direktur Polinema No. 27881/PL2.3/KM/2026",
-    category: "Lomba Karya Tulis Ilmiah Nasional"
+    category: "National Scientific Paper Competition"
   },
   {
-    badge: "Tahap 2 Lolos Insentif",
+    badge: "Phase 2 Grantee",
     title: "PKM-GFT POLINEMA 2026 — Smart Aquaculture Intelligence System (SAIS)",
     sk: "SK No. 40/WADIR.III/KM/2026",
-    category: "Program Kreativitas Mahasiswa"
+    category: "National Student Creativity Program"
   },
   {
-    badge: "Finalis",
+    badge: "National Finalist",
     title: "Intelecta Cup 2025 — Agroclimatology Time-Series Weather Forecasting",
-    category: "Kompetisi Sains Data Nasional"
+    category: "National Data Science Competition"
   },
   {
-    badge: "Finalis",
+    badge: "National Finalist",
     title: "Techno Fair and Seminar (TFS) 2025 — AlgaSense",
     sk: "SK Direktur Polinema No. 16002/PL2.3/KM/2025",
-    category: "LKTI Nasional"
+    category: "National Scientific Paper Competition"
   },
   {
-    badge: "Peserta Terpilih",
+    badge: "Selected Competitor",
     title: "Hology 8.0 (2025) Data Mining — Crowd Density Estimation",
-    category: "Kompetisi Nasional Data Mining"
+    category: "National Data Mining Competition"
   },
   {
-    badge: "Peserta Terpilih",
+    badge: "Selected Competitor",
     title: "Jatim Datathon 2025 — SLB Spatial Disparity Analysis",
-    category: "Kompetisi Analisis Data Jawa Timur"
+    category: "East Java Data Analytics Competition"
   }
 ];
 
 const getExpBadgeClass = (type: string) => {
-  if (type.includes('Industri')) return 'exp-badge exp-badge-industry';
-  if (type.includes('Riset')) return 'exp-badge exp-badge-research';
+  if (type.includes('Industr')) return 'exp-badge exp-badge-industry';
+  if (type.includes('Research') || type.includes('Riset')) return 'exp-badge exp-badge-research';
   return 'exp-badge exp-badge-commercial';
 };
 ---
@@ -85,7 +85,7 @@ const getExpBadgeClass = (type: string) => {
         About Me &amp; Applied Engineering
       </h2>
       <p class="section-subtitle">
-        Kombinasi disiplin akademik D4 Teknik Informatika Polinema, riset terapan institusional, dan eksekusi sistem di lapangan.
+        A synthesis of academic discipline in Informatics Engineering (Polinema), applied institutional research, and production field execution.
       </p>
     </div>
 
@@ -114,7 +114,7 @@ const getExpBadgeClass = (type: string) => {
         <div class="dossier-img-box">
           <img 
             src="/assets/image/saya.jpg?v=2" 
-            alt="Foto profil resmi Varizky Naldiba Rimra"
+            alt="Official portrait of Varizky Naldiba Rimra"
             width="450"
             height="450"
             loading="eager"
@@ -139,7 +139,7 @@ const getExpBadgeClass = (type: string) => {
             </div>
             <div style="display: flex; align-items: center; gap: 0.5rem;">
               <MapPin size={15} color="var(--accent-action)" />
-              <span>Malang, Jawa Timur, Indonesia</span>
+              <span>Malang, East Java, Indonesia</span>
             </div>
           </div>
 
@@ -151,7 +151,7 @@ const getExpBadgeClass = (type: string) => {
               rel="noopener noreferrer" 
               class="btn btn-primary btn-sm"
               style="background: var(--accent-action); color: #0b132b !important; border: 1px solid var(--accent-action); border-radius: var(--radius-lg); padding: 0.45rem 0.9rem; font-weight: 700;"
-              aria-label="Unduh berkas Curriculum Vitae (PDF)"
+              aria-label="Download Curriculum Vitae (PDF)"
               data-cursor="CV PDF"
             >
               <FileText size={14} />
@@ -163,7 +163,7 @@ const getExpBadgeClass = (type: string) => {
               rel="noopener noreferrer" 
               class="btn-ghost btn-sm"
               style="padding: 0.45rem 0.7rem;"
-              aria-label="Kunjungi profil GitHub Varizky Naldiba di tab baru"
+              aria-label="Visit Varizky Naldiba's GitHub profile in a new tab"
               data-cursor="GITHUB"
             >
               <Github size={15} />
@@ -174,7 +174,7 @@ const getExpBadgeClass = (type: string) => {
               rel="noopener noreferrer" 
               class="btn-ghost btn-sm"
               style="padding: 0.45rem 0.7rem;"
-              aria-label="Kunjungi profil LinkedIn Varizky Naldiba di tab baru"
+              aria-label="Visit Varizky Naldiba's LinkedIn profile in a new tab"
               data-cursor="LINKEDIN"
             >
               <Linkedin size={15} />
@@ -183,7 +183,7 @@ const getExpBadgeClass = (type: string) => {
               href="mailto:varizkynr@gmail.com" 
               class="btn-ghost btn-sm"
               style="padding: 0.45rem 0.7rem;"
-              aria-label="Kirim pesan email ke Varizky Naldiba"
+              aria-label="Send email inquiry to Varizky Naldiba"
               data-cursor="EMAIL"
             >
               <Mail size={15} />
@@ -198,18 +198,18 @@ const getExpBadgeClass = (type: string) => {
         {/* Engineering Philosophy Manifesto */}
         <div class="glass-card" style="margin-bottom: 2rem;">
           <h3 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 1rem; letter-spacing: -0.02em;">
-            Menjembatani Perangkat Keras Fisik, Data Spasial, dan Kecerdasan Buatan Terapan.
+            Bridging Physical Edge Hardware, Geospatial Data, and Applied Machine Learning.
           </h3>
           <p style="color: #cbd5e1; line-height: 1.7; margin-bottom: 1rem; font-size: 0.94rem;">
-            Saya merupakan mahasiswa <strong>D4 Teknik Informatika di Politeknik Negeri Malang (Polinema)</strong>. 
-            Prinsip rekayasa saya berakar pada <em>Project-Based Engineering</em> dan pemecahan masalah konkret: 
-            mengkalibrasi sensor kimia air untuk pembudidaya lele dan rumput laut, memetakan risiko banjir 
-            DAS Brantas bersama BRIN, hingga membangun sistem pipeline animasi AI generatif terdistribusi.
+            I am an Informatics Engineering (D4) undergraduate at <strong>Politeknik Negeri Malang (Polinema)</strong>. 
+            My engineering philosophy is rooted in <em>Project-Based Engineering</em> and concrete problem solving: 
+            calibrating underwater electrochemical water quality sensors for aquaculture, mapping regional flood risks 
+            with BRIN, and engineering distributed generative AI animation pipelines.
           </p>
           <p style="color: #cbd5e1; line-height: 1.7; font-size: 0.94rem;">
-            Latar belakang disiplin operasional sebelum mendalami informatika membentuk etos kerja saya: 
-            selalu siap menangani kondisi kritis, menghargai toleransi kesalahan nol, dan memastikan setiap baris kode 
-            berfungsi optimal di lingkungan produksi.
+            My prior operational background before engineering instilled a rigorous work ethic: 
+            thriving under high-pressure constraints, enforcing zero-tolerance precision, and ensuring every system 
+            performs reliably in production.
           </p>
 
           {/* Education Callout */}
@@ -219,13 +219,13 @@ const getExpBadgeClass = (type: string) => {
             </div>
             <div>
               <span style="display: block; font-size: 0.95rem; font-weight: 700; color: #ffffff;">
-                D4 Teknik Informatika (Informatics Engineering)
+                Bachelor of Applied Informatics (D4 Teknik Informatika)
               </span>
               <span style="display: block; font-size: 0.82rem; color: var(--accent-action); font-weight: 600; margin-top: 0.2rem;">
-                Politeknik Negeri Malang (Polinema) · 2022 – Sekarang
+                Politeknik Negeri Malang (Polinema) · 2022 – Present
               </span>
               <span style="display: block; font-size: 0.8rem; color: #cbd5e1; margin-top: 0.35rem;">
-                Fokus Rekayasa: Applied Machine Learning, IoT Embedded Firmware, Geospatial Analytics &amp; WebGIS
+                Core Engineering Focus: Applied Machine Learning, IoT Embedded Firmware, Geospatial Analytics &amp; WebGIS
               </span>
             </div>
           </div>
@@ -238,7 +238,7 @@ const getExpBadgeClass = (type: string) => {
               <Briefcase size={16} />
             </div>
             <div>
-              <h3 style="font-size: 1.15rem; font-weight: 800; color: #ffffff;">Pengalaman Rekayasa Terapan</h3>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #ffffff;">Applied Engineering Experience</h3>
               <span style="font-size: 0.75rem; color: #94a3b8;">Industrial Internship, Institutional Research &amp; Commercial Systems</span>
             </div>
           </div>
@@ -291,7 +291,7 @@ const getExpBadgeClass = (type: string) => {
               <Trophy size={16} />
             </div>
             <div>
-              <h3 style="font-size: 1.15rem; font-weight: 800; color: #ffffff;">Prestasi &amp; Rekognisi Kompetisi</h3>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #ffffff;">Honors &amp; Competitive Recognition</h3>
               <span style="font-size: 0.75rem; color: #94a3b8;">Verified National Honors &amp; Research Awards</span>
             </div>
           </div>

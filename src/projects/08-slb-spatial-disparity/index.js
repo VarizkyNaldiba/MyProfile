@@ -22,7 +22,7 @@ export const slbSpatialDisparity = {
     overview: "An analytical study developed for Datathon Jatim 2025 ('Shaping The Future with Open Data') by team Tim Maju Lancar (Politeknik Negeri Malang). The project investigated the spatial distribution of special education facilities across East Java, producing a data-driven gap index to highlight underserved municipalities and assist public resource allocation.",
     features: [
       "Official Participant in Jatim Datathon 2025 ('Shaping The Future with Open Data') by Diskominfo Provinsi Jawa Timur",
-      "Meraih Peringkat 22 Nasional dengan skor 83,85 pada Leaderboard resmi Jatim Datathon 2025",
+      "Achieved 22nd National Rank with an official score of 83.85 on the Jatim Datathon 2025 Leaderboard",
       "Demographic and municipal data harmonization across 38 administrative regencies and cities in East Java",
       "Spatial Accessibility Index (SAI) formulation correlating special education capacity with regional youth disability statistics",
       "Interactive web GIS dashboard with choropleth heatmaps deployed to HuggingFace Spaces"

@@ -20,7 +20,7 @@ export const algasense = {
   details: {
     overview: "Developed as a scientific innovation for the National Scientific Writing Competition Techno Fair and Seminar (TFS) 2025 at Politeknik Negeri Malang (Sertifikat No. 16002/PL2.3/KM/2025). It pairs subsea IoT sensing (salinity, pH, temperature, dissolved oxygen) with recurrent deep learning to safeguard marine seaweed cultivators in Sumenep.",
     features: [
-      "National Finalist at LKTI Nasional Techno Fair and Seminar (TFS) 2025 (UKM Pendidikan dan Penalaran Polinema)",
+      "National Finalist at the National Scientific Paper Competition Techno Fair and Seminar (TFS) 2025 (UKM Pendidikan dan Penalaran Polinema)",
       "Continuous oceanic telemetry acquisition capturing ambient salinity, pH, temperature, and dissolved oxygen",
       "Long Short-Term Memory (LSTM) recurrent neural network architecture forecasting seaweed growth trajectories",
       "Actionable harvest maturity index protecting cultivators from unexpected environmental salinity drops"
