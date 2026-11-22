@@ -63,14 +63,14 @@ const socialLinks = [
         
         {/* Direct Email Header */}
         <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem;">
-          <div style="width: 48px; height: 48px; border-radius: 14px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); display: flex; align-items: center; justify-content: center; color: var(--accent-blue); flex-shrink: 0;">
+          <div style="width: 48px; height: 48px; border-radius: var(--radius-lg); background: rgba(212, 255, 0, 0.1); border: 1px solid rgba(212, 255, 0, 0.28); display: flex; align-items: center; justify-content: center; color: var(--accent-action); flex-shrink: 0;">
             <Mail size={22} />
           </div>
           <div>
-            <span style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 0.2rem;">
+            <span style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; font-weight: 700; display: block; margin-bottom: 0.2rem;">
               Primary Direct Email
             </span>
-            <a href={`mailto:${emailAddress}`} style="font-size: 1.35rem; font-weight: 800; color: #fff; text-decoration: none; word-break: break-all;">
+            <a href={`mailto:${emailAddress}`} style="font-size: 1.35rem; font-weight: 800; color: #ffffff; text-decoration: none; word-break: break-all;">
               {emailAddress}
             </a>
           </div>
@@ -94,19 +94,19 @@ const socialLinks = [
         </div>
 
         {/* Official Document Download Cards */}
-        <div style="padding-top: 1.75rem; border-top: 1px solid var(--border-subtle);">
-          <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 1rem;">
+        <div style="padding-top: 1.75rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-action); text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 1rem;">
             Dokumen Dossier Resmi
           </span>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
             {/* CV Download Card */}
-            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <div style="background: rgba(5, 10, 22, 0.45); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 1.25rem;">
               <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.5rem;">
-                <FileText size={18} color="var(--accent-blue)" aria-hidden="true" />
-                <h3 style="font-size: 0.92rem; font-weight: 700; color: #fff;">Curriculum Vitae</h3>
+                <FileText size={18} color="var(--accent-action)" aria-hidden="true" />
+                <h3 style="font-size: 0.92rem; font-weight: 700; color: #ffffff;">Curriculum Vitae</h3>
               </div>
-              <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.5;">
+              <p style="font-size: 0.78rem; color: #cbd5e1; margin-bottom: 1rem; line-height: 1.5;">
                 Dossier lengkap 2 halaman A4 monokrom memuat seluruh 13 proyek & prestasi.
               </p>
               <a 
@@ -130,56 +130,56 @@ const socialLinks = [
       <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between; padding: 2rem;">
         <div>
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
-            <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); padding: 0.35rem 0.85rem; border-radius: 9999px;">
-              <span class="pulse-dot" style="background: #22c55e;"></span>
-              <span style="font-size: 0.76rem; font-weight: 700; color: #4ade80; text-transform: uppercase; letter-spacing: 0.05em;">
+            <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(212, 255, 0, 0.1); border: 1px solid rgba(212, 255, 0, 0.3); padding: 0.35rem 0.85rem; border-radius: var(--radius-md);">
+              <span class="pulse-dot" style="background: var(--accent-action);"></span>
+              <span style="font-size: 0.76rem; font-weight: 700; color: var(--accent-action); text-transform: uppercase; letter-spacing: 0.05em;">
                 Available for Engineering Roles
               </span>
             </div>
-            <Sparkles size={18} color="var(--accent-cyan)" />
+            <Sparkles size={18} color="var(--accent-action)" />
           </div>
 
-          <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 0.75rem; line-height: 1.35;">
+          <h3 style="font-size: 1.3rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem; line-height: 1.35;">
             Siap Berkolaborasi Membangun Sistem Handal
           </h3>
-          <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.75rem;">
+          <p style="font-size: 0.84rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1.75rem;">
             Terbuka untuk posisi full-time, magang industri, maupun kolaborasi proyek rekayasa perangkat lunak, machine learning terapan, dan telemetri IoT edge-to-cloud.
           </p>
 
           <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.75rem;">
             <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(59, 130, 246, 0.1); display: flex; align-items: center; justify-content: center; color: var(--accent-blue);">
+              <div style="width: 32px; height: 32px; border-radius: var(--radius-sm); background: rgba(212, 255, 0, 0.1); border: 1px solid rgba(212, 255, 0, 0.25); display: flex; align-items: center; justify-content: center; color: var(--accent-action);">
                 <Clock size={16} />
               </div>
               <div>
-                <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #fff;">Waktu Respon Cepat</span>
-                <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">&lt; 24 jam melalui email resmi</span>
+                <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #ffffff;">Waktu Respon Cepat</span>
+                <span style="display: block; font-size: 0.75rem; color: #94a3b8;">&lt; 24 jam melalui email resmi</span>
               </div>
             </div>
 
             <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(6, 182, 212, 0.1); display: flex; align-items: center; justify-content: center; color: var(--accent-cyan);">
+              <div style="width: 32px; height: 32px; border-radius: var(--radius-sm); background: rgba(212, 255, 0, 0.1); border: 1px solid rgba(212, 255, 0, 0.25); display: flex; align-items: center; justify-content: center; color: var(--accent-action);">
                 <MapPin size={16} />
               </div>
               <div>
-                <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #fff;">Lokasi & Mobilitas</span>
-                <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">Malang, Jawa Timur (Onsite / Hybrid / Remote)</span>
+                <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #ffffff;">Lokasi &amp; Mobilitas</span>
+                <span style="display: block; font-size: 0.75rem; color: #94a3b8;">Malang, Jawa Timur (Onsite / Hybrid / Remote)</span>
               </div>
             </div>
 
             <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(245, 158, 11, 0.1); display: flex; align-items: center; justify-content: center; color: #fbbf24;">
+              <div style="width: 32px; height: 32px; border-radius: var(--radius-sm); background: rgba(212, 255, 0, 0.1); border: 1px solid rgba(212, 255, 0, 0.25); display: flex; align-items: center; justify-content: center; color: var(--accent-action);">
                 <CheckCircle2 size={16} />
               </div>
               <div>
-                <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #fff;">Fokus Keahlian Utama</span>
-                <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">Applied ML, Edge IoT Probes &amp; WebGIS Systems</span>
+                <span style="display: block; font-size: 0.82rem; font-weight: 700; color: #ffffff;">Fokus Keahlian Utama</span>
+                <span style="display: block; font-size: 0.75rem; color: #94a3b8;">Applied ML, Edge IoT Probes &amp; WebGIS Systems</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div style="padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); display: flex; gap: 0.75rem;">
+        <div style="padding-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; gap: 0.75rem;">
           <a href="https://www.linkedin.com/in/varizkynaldiba/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="flex: 1; text-align: center;" aria-label="Kunjungi profil LinkedIn Varizky Naldiba">
             <span>Koneksi LinkedIn</span>
             <ArrowUpRight size={13} aria-hidden="true" />
@@ -207,15 +207,15 @@ const socialLinks = [
             style="padding: 1.25rem; text-decoration: none; display: flex; align-items: flex-start; gap: 0.85rem; transition: transform 0.2s ease;"
             aria-label={`Kunjungi profil ${item.name} (${item.handle}) di tab baru`}
           >
-            <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0;" aria-hidden="true">
+            <div style="width: 34px; height: 34px; border-radius: var(--radius-sm); background: rgba(212, 255, 0, 0.1); border: 1px solid rgba(212, 255, 0, 0.25); display: flex; align-items: center; justify-content: center; color: var(--accent-action); flex-shrink: 0;" aria-hidden="true">
               <Icon size={16} />
             </div>
             <div>
               <div style="display: flex; align-items: center; gap: 0.4rem;">
-                <span style="font-size: 0.88rem; font-weight: 700; color: #fff;">{item.name}</span>
-                <ArrowUpRight size={12} color="var(--text-muted)" aria-hidden="true" />
+                <span style="font-size: 0.88rem; font-weight: 700; color: #ffffff;">{item.name}</span>
+                <ArrowUpRight size={12} color="var(--accent-action)" aria-hidden="true" />
               </div>
-              <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent-cyan); display: block; margin-top: 0.1rem;">
+              <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent-action); font-weight: 600; display: block; margin-top: 0.1rem;">
                 {item.handle}
               </span>
             </div>

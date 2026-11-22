@@ -23,7 +23,7 @@
   if (canvas && !prefersReducedMotion) {
     // 1. Scene & Perspective Camera Setup
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x060a12, 0.0016);
+    scene.fog = new THREE.FogExp2(0xcce6f6, 0.0016);
 
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(0, 0, 9.4);
@@ -41,19 +41,19 @@
     renderer.toneMappingExposure = 1.25;
 
     // 3. Directional Key & Specular Lighting
-    const keyLight = new THREE.DirectionalLight(0xffffff, 4.2);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 4.0);
     keyLight.position.set(12, 16, 14);
     scene.add(keyLight);
 
-    const fillLight = new THREE.DirectionalLight(0x60a5fa, 2.6);
+    const fillLight = new THREE.DirectionalLight(0xbae6fd, 2.6);
     fillLight.position.set(-8, -4, 6);
     scene.add(fillLight);
 
-    const rimLight = new THREE.DirectionalLight(0x38bdf8, 2.4);
+    const rimLight = new THREE.DirectionalLight(0xd4ff00, 1.4);
     rimLight.position.set(4, -8, -6);
     scene.add(rimLight);
 
-    const ambientLight = new THREE.AmbientLight(0x091224, 1.4);
+    const ambientLight = new THREE.AmbientLight(0xcce6f6, 2.2);
     scene.add(ambientLight);
 
     // 4. Coordinates for 4x3 Grid (Clean Puture Layout)
@@ -62,7 +62,7 @@
     const gridStartX = 1.55;
     const gridStartY = 1.62;
 
-    // Soft Blue Glow Sprite Behind Cards
+    // Soft Sky & Ambient Glow Sprite Behind Cards
     const createGlowTexture = () => {
       const c = document.createElement('canvas');
       c.width = 256;
@@ -70,10 +70,10 @@
       const ctx = c.getContext('2d');
       if (ctx) {
         const g = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
-        g.addColorStop(0, 'rgba(59, 130, 246, 0.45)');
-        g.addColorStop(0.35, 'rgba(37, 99, 235, 0.22)');
-        g.addColorStop(0.75, 'rgba(14, 165, 233, 0.06)');
-        g.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        g.addColorStop(0, 'rgba(56, 189, 248, 0.45)');
+        g.addColorStop(0.35, 'rgba(14, 165, 233, 0.22)');
+        g.addColorStop(0.75, 'rgba(254, 243, 199, 0.12)');
+        g.addColorStop(1, 'rgba(255, 255, 255, 0)');
         ctx.fillStyle = g;
         ctx.fillRect(0, 0, 256, 256);
       }
@@ -92,12 +92,12 @@
     backGlow.scale.set(18, 18, 1);
     scene.add(backGlow);
 
-    // 5. Track A: Saturn Right Orbital System (Saturnus Sebelah Kanan)
+    // 5. Track A: Centered Saturn Orbital System (Saturnus Ditengah Layar)
     const saturnRightPivot = new THREE.Group();
-    saturnRightPivot.position.set(3.9, 0.0, -0.6);
-    saturnRightPivot.rotation.x = Math.PI * 0.32;
-    saturnRightPivot.rotation.z = -Math.PI * 0.20;
-    saturnRightPivot.rotation.y = Math.PI * 0.10;
+    saturnRightPivot.position.set(0.0, 0.0, -0.5);
+    saturnRightPivot.rotation.x = Math.PI * 0.30;
+    saturnRightPivot.rotation.z = -Math.PI * 0.16;
+    saturnRightPivot.rotation.y = 0.0;
     saturnRightPivot.updateMatrixWorld(true);
     scene.add(saturnRightPivot);
 
@@ -113,14 +113,21 @@
     };
 
     const saturnRightRingMat = new THREE.LineBasicMaterial({
-      color: 0x38bdf8,
+      color: 0xd4ff00, // Acid Lime accent ring
       transparent: true,
       opacity: 0.0,
+      visible: false,
       blending: THREE.AdditiveBlending
     });
-    saturnRightPivot.add(new THREE.Line(createSaturnRingLine(3.4), saturnRightRingMat));
-    saturnRightPivot.add(new THREE.Line(createSaturnRingLine(4.0), saturnRightRingMat));
-    saturnRightPivot.add(new THREE.Line(createSaturnRingLine(4.6), saturnRightRingMat));
+    const saturnRightLine1 = new THREE.Line(createSaturnRingLine(3.4), saturnRightRingMat);
+    const saturnRightLine2 = new THREE.Line(createSaturnRingLine(4.0), saturnRightRingMat);
+    const saturnRightLine3 = new THREE.Line(createSaturnRingLine(4.6), saturnRightRingMat);
+    saturnRightLine1.visible = false;
+    saturnRightLine2.visible = false;
+    saturnRightLine3.visible = false;
+    saturnRightPivot.add(saturnRightLine1);
+    saturnRightPivot.add(saturnRightLine2);
+    saturnRightPivot.add(saturnRightLine3);
 
     // Track B: Saturn Left Orbital System (Saturnus Sebelah Kiri)
     const saturnLeftPivot = new THREE.Group();
@@ -132,14 +139,21 @@
     scene.add(saturnLeftPivot);
 
     const saturnLeftRingMat = new THREE.LineBasicMaterial({
-      color: 0x38bdf8,
+      color: 0x0b132b, // Midnight Navy orbital ring
       transparent: true,
       opacity: 0.0,
+      visible: false,
       blending: THREE.AdditiveBlending
     });
-    saturnLeftPivot.add(new THREE.Line(createSaturnRingLine(3.4), saturnLeftRingMat));
-    saturnLeftPivot.add(new THREE.Line(createSaturnRingLine(4.0), saturnLeftRingMat));
-    saturnLeftPivot.add(new THREE.Line(createSaturnRingLine(4.6), saturnLeftRingMat));
+    const saturnLeftLine1 = new THREE.Line(createSaturnRingLine(3.4), saturnLeftRingMat);
+    const saturnLeftLine2 = new THREE.Line(createSaturnRingLine(4.0), saturnLeftRingMat);
+    const saturnLeftLine3 = new THREE.Line(createSaturnRingLine(4.6), saturnLeftRingMat);
+    saturnLeftLine1.visible = false;
+    saturnLeftLine2.visible = false;
+    saturnLeftLine3.visible = false;
+    saturnLeftPivot.add(saturnLeftLine1);
+    saturnLeftPivot.add(saturnLeftLine2);
+    saturnLeftPivot.add(saturnLeftLine3);
 
     // 6. Track C: 3D Infinity Loop Track (∞ / Figure-8 Lemniscate - Centered & Wide)
     let currentInfWidth = 7.4;
@@ -169,12 +183,14 @@
     };
 
     const infRingMat = new THREE.LineBasicMaterial({
-      color: 0x38bdf8,
+      color: 0x0b132b,
       transparent: true,
       opacity: 0.0,
+      visible: false,
       blending: THREE.AdditiveBlending
     });
     const infLineMesh = new THREE.Line(createInfinityLine(160), infRingMat);
+    infLineMesh.visible = false;
     infLineMesh.scale.set(currentInfWidth, currentInfHeight, currentInfDepth);
     infPivot.add(infLineMesh);
 
@@ -371,8 +387,8 @@
       // Clear & High-Contrast Typography: "semua card keliatan tulisannya"
       ctx.textAlign = 'center';
       
-      // Subtle background badge for text readability
-      ctx.fillStyle = 'rgba(5, 12, 28, 0.45)';
+      // Midnight Navy background badge for text readability (25% Navy structure)
+      ctx.fillStyle = 'rgba(11, 19, 43, 0.94)';
       if (ctx.roundRect) ctx.roundRect(40, 345, 432, 115, 12);
       else ctx.fillRect(40, 345, 432, 115);
       ctx.fill();
@@ -382,8 +398,8 @@
       ctx.font = '800 27px "Inter", -apple-system, sans-serif';
       ctx.fillText(title, 256, 392);
 
-      // Monospace Subtitle
-      ctx.fillStyle = 'rgba(186, 230, 253, 0.95)';
+      // Acid Lime Disruptor Monospace Subtitle (Option 1)
+      ctx.fillStyle = '#d4ff00';
       ctx.font = '700 15px "JetBrains Mono", monospace';
       ctx.fillText(sub, 256, 428);
 
@@ -461,14 +477,14 @@
       cardContainer.rotation.copy(neatRot);
 
       const boxMat = new THREE.MeshPhysicalMaterial({
-        color: 0x226ee6,
-        roughness: 0.12,
-        metalness: 0.08,
+        color: 0x0b132b, // 25% Midnight Navy 3D glossy tiles
+        roughness: 0.16,
+        metalness: 0.12,
         clearcoat: 1.0,
         clearcoatRoughness: 0.08,
         reflectivity: 0.95,
-        emissive: new THREE.Color(0x1d4ed8),
-        emissiveIntensity: 0.0
+        emissive: new THREE.Color(0x050a16),
+        emissiveIntensity: 0.25
       });
 
       const boxMesh = new THREE.Mesh(cardGeo, boxMat);
@@ -553,7 +569,7 @@
         camera.position.z = 12.8;
         cardsGroup.scale.setScalar(0.68);
         cardsGroup.position.x = -0.8;
-        saturnRightPivot.position.set(1.8, 0.0, -0.6);
+        saturnRightPivot.position.set(0.0, 0.0, -0.5);
         saturnLeftPivot.position.set(-1.8, 0.0, -0.6);
         infPivot.position.set(0.0, 0.0, -0.4);
         currentInfWidth = 4.2;
@@ -563,7 +579,7 @@
         camera.position.z = 10.6;
         cardsGroup.scale.setScalar(0.84);
         cardsGroup.position.x = 0;
-        saturnRightPivot.position.set(3.4, 0.0, -0.6);
+        saturnRightPivot.position.set(0.0, 0.0, -0.5);
         saturnLeftPivot.position.set(-3.4, 0.0, -0.6);
         infPivot.position.set(0.0, 0.0, -0.4);
         currentInfWidth = 6.2;
@@ -573,7 +589,7 @@
         camera.position.z = 9.4;
         cardsGroup.scale.setScalar(1.0);
         cardsGroup.position.x = 0;
-        saturnRightPivot.position.set(3.9, 0.0, -0.6);
+        saturnRightPivot.position.set(0.0, 0.0, -0.5);
         saturnLeftPivot.position.set(-3.9, 0.0, -0.6);
         infPivot.position.set(0.0, 0.0, -0.4);
         currentInfWidth = 7.6;
@@ -600,9 +616,10 @@
     const tempLocalPos = new THREE.Vector3();
 
     const ringRadius = 4.0;
-    type ChoreographyState = 'grid' | 'saturnR' | 'saturnL' | 'inf';
+    type ChoreographyState = 'grid' | 'saturn' | 'helix' | 'sphere' | 'wave' | 'cascade' | 'vortex';
 
     // State Evaluator: returns exact 3D world pos and Euler rotation for each mode
+    // Every single choreography appears strictly 1 time (no repeats)
     const evalCardState = (
       stateType: ChoreographyState,
       item: CardItem,
@@ -613,7 +630,8 @@
       if (stateType === 'grid') {
         outPos.copy(item.neatPos);
         outRot.copy(item.neatRot);
-      } else if (stateType === 'saturnR') {
+      } else if (stateType === 'saturn') {
+        // Gaya Saturnus (1 kali saja)
         tempLocalPos.set(
           Math.cos(angle) * ringRadius,
           Math.sin(angle * 2) * 0.08,
@@ -626,40 +644,119 @@
           saturnRightPivot.rotation.y - tangent * 0.45,
           saturnRightPivot.rotation.z
         );
-      } else if (stateType === 'saturnL') {
-        tempLocalPos.set(
-          Math.cos(angle) * ringRadius,
-          Math.sin(angle * 2) * 0.08,
-          Math.sin(angle) * ringRadius
+      } else if (stateType === 'helix') {
+        // Opsi 1: The Double Helix (Neural DNA)
+        // 2 untaian spiral berpilin vertikal di sumbu Y (Strand 0: genap, Strand 1: ganjil)
+        const i = item.index;
+        const strand = i % 2;
+        const rank = Math.floor(i / 2); // 0 to 5
+        const normRank = (rank / 5) - 0.5; // -0.5 to 0.5
+        const strandPhase = strand * Math.PI;
+
+        const helixRadius = 3.65;
+        const helixHeight = 5.8;
+        const theta = normRank * Math.PI * 2.2 + angle * 0.85 + strandPhase;
+
+        outPos.set(
+          Math.cos(theta) * helixRadius,
+          normRank * helixHeight,
+          Math.sin(theta) * (helixRadius * 0.65) - 0.35
         );
-        outPos.copy(tempLocalPos).applyMatrix4(saturnLeftPivot.matrixWorld);
-        const tangent = angle + Math.PI / 2;
+
         outRot.set(
-          saturnLeftPivot.rotation.x * 0.65,
-          saturnLeftPivot.rotation.y - tangent * 0.45,
-          saturnLeftPivot.rotation.z
+          0.16 * Math.cos(theta),
+          -theta + Math.PI * 0.5,
+          0.12 * Math.sin(theta)
         );
-      } else { // 'inf'
-        tempLocalPos.set(
-          currentInfWidth * Math.sin(angle),
-          currentInfHeight * Math.sin(angle * 2),
-          currentInfDepth * Math.cos(angle)
-        );
-        outPos.copy(tempLocalPos).applyMatrix4(infPivot.matrixWorld);
-        const dx = currentInfWidth * Math.cos(angle);
-        const dy = 2.0 * currentInfHeight * Math.cos(angle * 2);
-        const infTangentXY = Math.atan2(dy, dx);
+      } else if (stateType === 'sphere') {
+        // Opsi 3: The Satellite Constellation (Fibonacci Sphere / Spatial Orbit - Menggantikan Infinity)
+        // 12 kartu tersebar merata di cangkang bola 3D seperti konstelasi satelit LEO WebGIS
+        const i = item.index;
+        const total = 12;
+        const normY = 1.0 - (i / (total - 1)) * 2.0; // 1 to -1
+        const circleRadius = Math.sqrt(Math.max(0, 1.0 - normY * normY));
+        const goldenAngle = 2.39996323; // Golden angle in radians
+        const phi = i * goldenAngle + angle * 0.72;
+        const sphereR = 3.85;
+
+        const sx = Math.cos(phi) * circleRadius * sphereR;
+        const sy = normY * (sphereR * 0.92);
+        const sz = Math.sin(phi) * circleRadius * (sphereR * 0.75) - 0.25;
+
+        outPos.set(sx, sy, sz);
+
+        // Orientasi menghadap radial keluar dengan sudut inklinasi natural
+        const yaw = Math.atan2(sx, sz);
+        const pitch = -Math.atan2(sy, Math.sqrt(sx * sx + sz * sz)) * 0.65;
+        outRot.set(pitch, yaw, 0.12 * Math.sin(phi));
+      } else if (stateType === 'wave') {
+        // Opsi 2: The Topographic Wave (Telemetry Signal)
+        // Gelombang harmonik sinus-kosinus melintang horizontal di sumbu X
+        const i = item.index;
+        const u = (i / 11) - 0.5; // -0.5 to 0.5
+        const waveSpanX = 9.4;
+
+        const wx = u * waveSpanX;
+        const wavePhase = u * Math.PI * 2.8 + angle * 0.75;
+        const wy = Math.sin(wavePhase) * 1.6 + Math.cos(u * Math.PI * 1.2) * 0.4;
+        const wz = Math.cos(wavePhase * 0.85) * 1.85 - 0.5;
+
+        outPos.set(wx, wy, wz);
+
+        const slope = Math.cos(wavePhase) * 0.45;
         outRot.set(
-          infPivot.rotation.x + infTangentXY * 0.18,
-          infPivot.rotation.y,
-          infPivot.rotation.z + infTangentXY * 0.28
+          -0.25 * Math.sin(wavePhase),
+          0.28 * Math.cos(u * Math.PI),
+          slope
+        );
+      } else if (stateType === 'cascade') {
+        // Opsi 4: The Depth Cascade (Staggered Pipeline Flow)
+        // Kartu bertingkat meluncur ke kedalaman sumbu Z seperti aliran pipeline arsitektural
+        const i = item.index;
+        const u = (i / 11) - 0.5; // -0.5 to 0.5
+        const alpha = u * Math.PI * 1.35 + angle * 0.62;
+
+        const cx = Math.sin(alpha) * 4.2 + u * 2.4;
+        const cy = -u * 4.4 + Math.cos(alpha * 1.5) * 0.35;
+        const cz = -Math.cos(alpha) * 2.6 - u * 1.4 + 0.3;
+
+        outPos.set(cx, cy, cz);
+
+        outRot.set(
+          0.22,
+          -u * 0.95 + 0.22 * Math.sin(alpha),
+          -0.16 * Math.cos(alpha)
+        );
+      } else if (stateType === 'vortex') {
+        // Opsi 5: The Golden Spiral / Archimedean Radar Disk
+        // Spiral logaritmik mengembang menyapu ruang data telemetri mirip piringan radar cuaca
+        const i = item.index;
+        const s = (i + 1) / 12; // 0.08 to 1.0
+        const spiralR = 1.35 + s * 3.4;
+        const theta = s * Math.PI * 3.2 + angle * 0.85;
+
+        const lx = Math.cos(theta) * spiralR;
+        const ly = Math.sin(theta) * (spiralR * 0.32);
+        const lz = Math.sin(theta) * (spiralR * 0.82);
+
+        // Bidang piringan radar miring
+        const vx = lx;
+        const vy = ly * Math.cos(0.35) - lz * Math.sin(0.35);
+        const vz = ly * Math.sin(0.35) + lz * Math.cos(0.35) - 0.55;
+
+        outPos.set(vx, vy, vz);
+
+        outRot.set(
+          0.32,
+          -theta * 0.72 + Math.PI * 0.5,
+          -0.18 * Math.cos(theta)
         );
       }
     };
 
     // 10. Dynamic Kinetic Render Loop:
-    // User Specified Choreography Sequence:
-    // rapi -> saturnus kanan -> infinity tengah -> saturnus kiri -> infinity tengah -> rapi (di akhir page sudah rapi)
+    // Rangkaian Koreografi Unik (Setiap Gerakan Tepat 1 Kali):
+    // grid (Buka Rapi) -> saturn -> helix (Opsi 1 DNA) -> sphere (Opsi 3 Satelit) -> wave (Opsi 2 Gelombang) -> cascade (Opsi 4 Pipeline) -> vortex (Opsi 5 Spiral Radar) -> grid (Tutup Rapi)
     // Motion constraint: "card hanya bergerak ketika di scroll ketika tidak discroll ga gerak"
     const animate = () => {
       requestAnimationFrame(animate);
@@ -702,54 +799,55 @@
       // When scroll stops, p is stationary -> orbitalSpeed is constant -> cards are completely motionless!
       const orbitalSpeed = p * (Math.PI * 10.0);
 
-      // Exact Sequence as requested by user:
-      // rapi -> saturnus kanan -> infinity tengah -> saturnus kiri -> infinity tengah -> rapi (di akhir page sudah rapi)
+      // Rangkaian Koreografi Presisi Sesuai Bagian Halaman (Setiap Gerakan 1 Kali):
+      // 1. Hero: Grid (Matriks Rapi)
+      // 2. About: Saturn (Orbit Cincin Pengantar)
+      // 3. Projects: Sphere (Konstelasi Satelit 13 Proyek)
+      // 4. Capabilities: Helix (Double Helix DNA Teknologi)
+      // 5. Methodology: Wave (Gelombang Sinyal Telemetri Sensor)
+      // 6. Media: Cascade (Depth Pipeline Aliran Konten)
+      // 7. Contact: Vortex (Spiral Radar Pemancar Kontak)
+      // 8. Footer: Grid (Tutup Matriks Rapi)
       let stateA: ChoreographyState = 'grid';
       let stateB: ChoreographyState = 'grid';
       let t = 0;
 
-      if (p <= 0.06) {
+      if (p <= 0.04) {
         stateA = 'grid'; stateB = 'grid'; t = 0;
-      } else if (p < 0.15) {
-        stateA = 'grid'; stateB = 'saturnR'; t = smootherstep(0.06, 0.15, p);
-      } else if (p <= 0.28) {
-        stateA = 'saturnR'; stateB = 'saturnR'; t = 0;
-      } else if (p < 0.38) {
-        stateA = 'saturnR'; stateB = 'inf'; t = smootherstep(0.28, 0.38, p);
-      } else if (p <= 0.50) {
-        stateA = 'inf'; stateB = 'inf'; t = 0;
-      } else if (p < 0.60) {
-        stateA = 'inf'; stateB = 'saturnL'; t = smootherstep(0.50, 0.60, p);
-      } else if (p <= 0.72) {
-        stateA = 'saturnL'; stateB = 'saturnL'; t = 0;
-      } else if (p < 0.82) {
-        stateA = 'saturnL'; stateB = 'inf'; t = smootherstep(0.72, 0.82, p);
+      } else if (p < 0.12) {
+        stateA = 'grid'; stateB = 'saturn'; t = smootherstep(0.04, 0.12, p);
+      } else if (p <= 0.20) {
+        stateA = 'saturn'; stateB = 'saturn'; t = 0;
+      } else if (p < 0.28) {
+        stateA = 'saturn'; stateB = 'sphere'; t = smootherstep(0.20, 0.28, p);
+      } else if (p <= 0.46) {
+        stateA = 'sphere'; stateB = 'sphere'; t = 0;
+      } else if (p < 0.54) {
+        stateA = 'sphere'; stateB = 'helix'; t = smootherstep(0.46, 0.54, p);
+      } else if (p <= 0.65) {
+        stateA = 'helix'; stateB = 'helix'; t = 0;
+      } else if (p < 0.72) {
+        stateA = 'helix'; stateB = 'wave'; t = smootherstep(0.65, 0.72, p);
+      } else if (p <= 0.79) {
+        stateA = 'wave'; stateB = 'wave'; t = 0;
+      } else if (p < 0.85) {
+        stateA = 'wave'; stateB = 'cascade'; t = smootherstep(0.79, 0.85, p);
       } else if (p <= 0.90) {
-        stateA = 'inf'; stateB = 'inf'; t = 0;
-      } else if (p < 0.96) {
-        stateA = 'inf'; stateB = 'grid'; t = smootherstep(0.90, 0.96, p);
+        stateA = 'cascade'; stateB = 'cascade'; t = 0;
+      } else if (p < 0.94) {
+        stateA = 'cascade'; stateB = 'vortex'; t = smootherstep(0.90, 0.94, p);
+      } else if (p <= 0.97) {
+        stateA = 'vortex'; stateB = 'vortex'; t = 0;
+      } else if (p < 0.985) {
+        stateA = 'vortex'; stateB = 'grid'; t = smootherstep(0.97, 0.985, p);
       } else {
-        // p >= 0.96: "ketika diakhir page sudah harus rapi"
+        // p >= 0.985: Penutup rapi di akhir halaman (Footer)
         stateA = 'grid'; stateB = 'grid'; t = 0;
       }
 
-      // Dynamic track line glow opacities
-      let wSaturnR = 0;
-      let wSaturnL = 0;
-      let wInf = 0;
-
-      if (stateA === 'saturnR') wSaturnR += (1 - t);
-      if (stateB === 'saturnR') wSaturnR += t;
-
-      if (stateA === 'saturnL') wSaturnL += (1 - t);
-      if (stateB === 'saturnL') wSaturnL += t;
-
-      if (stateA === 'inf') wInf += (1 - t);
-      if (stateB === 'inf') wInf += t;
-
-      saturnRightRingMat.opacity = Math.min(0.38, wSaturnR * 0.38);
-      saturnLeftRingMat.opacity = Math.min(0.38, wSaturnL * 0.38);
-      infRingMat.opacity = Math.min(0.38, wInf * 0.38);
+      saturnRightRingMat.opacity = 0.0;
+      saturnLeftRingMat.opacity = 0.0;
+      infRingMat.opacity = 0.0;
 
       // Update 12 Cards
       cardItems.forEach((item) => {

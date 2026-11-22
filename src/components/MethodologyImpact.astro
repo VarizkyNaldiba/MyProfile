@@ -50,18 +50,18 @@ const metrics = [
         return (
           <div key={idx} class="feature-card" style="padding: 1.5rem; justify-content: flex-start;">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
-              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #92c3ff; background: rgba(61, 139, 255, 0.12); border: 1px solid rgba(61, 139, 255, 0.25); padding: 0.2rem 0.6rem; border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--accent-action); background: rgba(212, 255, 0, 0.1); border: 1px solid rgba(212, 255, 0, 0.25); padding: 0.2rem 0.6rem; border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase;">
                 STAGE // {step.stage}
               </span>
-              <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(61, 139, 255, 0.15); border: 1px solid rgba(61, 139, 255, 0.4); display: flex; align-items: center; justify-content: center; color: #3d8bff;" aria-hidden="true">
+              <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(14, 165, 233, 0.12); border: 1px solid rgba(14, 165, 233, 0.35); display: flex; align-items: center; justify-content: center; color: #ffffff;" aria-hidden="true">
                 <Icon size={18} />
               </div>
             </div>
 
-            <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 0.65rem; line-height: 1.35; letter-spacing: -0.02em;">
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #ffffff; margin-bottom: 0.65rem; line-height: 1.35; letter-spacing: -0.02em;">
               {step.title}
             </h3>
-            <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65;">
+            <p style="font-size: 0.86rem; color: #cbd5e1; line-height: 1.65;">
               {step.desc}
             </p>
           </div>
@@ -75,7 +75,7 @@ const metrics = [
         <div key={idx} class="metric-box">
           <div class="metric-val">{m.val}</div>
           <div class="metric-label">{m.label}</div>
-          <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">{m.sub}</div>
+          <div style="font-size: 0.72rem; color: #cbd5e1; margin-top: 0.2rem;">{m.sub}</div>
         </div>
       ))}
     </div>

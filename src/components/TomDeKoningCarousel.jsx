@@ -431,24 +431,12 @@ export default function TomDeKoningCarousel() {
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerUp}
         >
-          {/* Dynamic Moving Background Elements */}
+          {/* Dynamic Background Canvas without line grids */}
           <div className="carousel-3d-bg-canvas" aria-hidden="true">
-            {/* Moving 3D Perspective Grid Floor */}
-            <div className="carousel-3d-moving-grid" />
-
-            {/* Kinetic Floating Aurora Light Orbs */}
-            <div className="carousel-3d-orb orb-cyan" />
-            <div className="carousel-3d-orb orb-indigo" />
-            <div className="carousel-3d-orb orb-violet" />
-
-            {/* Rotating 3D Circular Pedestal Platform */}
+            {/* Clean 3D Circular Pedestal Platform */}
             <div className="carousel-3d-pedestal-platform">
               <div className="pedestal-ring-glow" />
-              <div className="pedestal-ring-radar" />
             </div>
-
-            {/* Center Core Ambient Glow */}
-            <div className="carousel-3d-ambient-core" />
           </div>
 
           {/* Floating Typography Watermark (In-Out Animation on Project Switch) */}
@@ -857,10 +845,10 @@ export default function TomDeKoningCarousel() {
             <div className="modal-header">
               <div>
                 <span className="card-index">SPECIFICATION ARCHIVE · {selectedProject.categories?.[0] || 'SYSTEM ARCHITECTURE'}</span>
-                <h2 id="modal-project-title" className="modal-title" style={{ fontSize: '1.65rem', fontWeight: 800, color: '#fff' }}>
+                <h2 id="modal-project-title" className="modal-title" style={{ fontSize: '1.65rem', fontWeight: 800, color: '#ffffff' }}>
                   {selectedProject.title}
                 </h2>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '0.4rem' }}>
+                <span style={{ fontSize: '0.85rem', color: '#cbd5e1', display: 'block', marginBottom: '0.4rem' }}>
                   {selectedProject.role}
                 </span>
                 {getProjectHonor(selectedProject.slug) && (
@@ -906,10 +894,10 @@ export default function TomDeKoningCarousel() {
                         bottom: '1rem',
                         right: '1rem',
                         padding: '0.45rem 0.9rem',
-                        borderRadius: '9999px',
-                        background: (cardCoverIndexes[selectedProject.id] ?? 0) === activeModalImg ? 'var(--accent-cyan)' : 'rgba(10, 14, 22, 0.85)',
-                        color: (cardCoverIndexes[selectedProject.id] ?? 0) === activeModalImg ? '#06080d' : '#ffffff',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        borderRadius: 'var(--radius-lg)',
+                        background: (cardCoverIndexes[selectedProject.id] ?? 0) === activeModalImg ? 'var(--accent-action)' : 'rgba(11, 19, 43, 0.9)',
+                        color: (cardCoverIndexes[selectedProject.id] ?? 0) === activeModalImg ? '#0b132b' : '#ffffff',
+                        border: '1px solid rgba(255, 255, 255, 0.15)',
                         fontSize: '0.75rem',
                         fontWeight: 700,
                         display: 'flex',
@@ -948,8 +936,8 @@ export default function TomDeKoningCarousel() {
                             height: '52px',
                             borderRadius: '8px',
                             overflow: 'hidden',
-                            border: activeModalImg === iIdx ? '2px solid var(--accent-cyan)' : '1px solid var(--border-subtle)',
-                            background: '#090b10',
+                            border: activeModalImg === iIdx ? '2px solid var(--accent-action)' : '1px solid rgba(255, 255, 255, 0.12)',
+                            background: '#050a16',
                             padding: 0,
                             cursor: 'pointer',
                             position: 'relative',
@@ -971,7 +959,7 @@ export default function TomDeKoningCarousel() {
                               width: '8px',
                               height: '8px',
                               borderRadius: '50%',
-                              background: 'var(--accent-cyan)'
+                              background: 'var(--accent-action)'
                             }} />
                           )}
                         </button>
@@ -985,7 +973,7 @@ export default function TomDeKoningCarousel() {
               {selectedProject.details?.overview && (
                 <div className="modal-section-block">
                   <h4 className="modal-section-title">System Architecture Overview</h4>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem', lineHeight: 1.65 }}>
+                  <p style={{ color: '#cbd5e1', fontSize: '0.94rem', lineHeight: 1.65 }}>
                     {selectedProject.details.overview}
                   </p>
                 </div>
@@ -1014,7 +1002,7 @@ export default function TomDeKoningCarousel() {
                       <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#f87171', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '0.4rem' }}>
                         Engineering Challenge
                       </span>
-                      <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+                      <p style={{ fontSize: '0.86rem', color: '#cbd5e1', lineHeight: 1.55 }}>
                         {selectedProject.details.challenges}
                       </p>
                     </div>
@@ -1025,7 +1013,7 @@ export default function TomDeKoningCarousel() {
                       <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#34d399', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '0.4rem' }}>
                         Architected Solution
                       </span>
-                      <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+                      <p style={{ fontSize: '0.86rem', color: '#cbd5e1', lineHeight: 1.55 }}>
                         {selectedProject.details.solution}
                       </p>
                     </div>
@@ -1042,11 +1030,11 @@ export default function TomDeKoningCarousel() {
                       key={idx}
                       style={{
                         padding: '0.35rem 0.75rem',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid var(--border-subtle)',
-                        borderRadius: '9999px',
+                        background: 'rgba(255, 255, 255, 0.08)',
+                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        borderRadius: 'var(--radius-sm)',
                         fontSize: '0.8rem',
-                        color: 'var(--text-main)',
+                        color: '#cbd5e1',
                         fontWeight: 500
                       }}
                     >

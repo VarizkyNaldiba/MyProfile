@@ -1,22 +1,14 @@
 ---
-import { ArrowRight, FileText, Mail } from 'lucide-react';
+import { ArrowRight, Mail } from 'lucide-react';
 ---
 
 <section class="hero-section puture-hero" id="home" aria-labelledby="hero-title" data-chapter="about">
   <div class="container puture-hero-container">
-    
-    {/* Puture Live Pulse Status Pill */}
-    <div class="hero-status-pill puture-pill">
-      <span class="pulse-dot" style="background: #22c55e;" aria-hidden="true"></span>
-      <span class="pill-text" style="font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.05em; color: var(--text-secondary);">
-        Varizky Naldiba Rimra · Available for Software &amp; ML Engineering Roles
-      </span>
-    </div>
 
     {/* Puture Massive Spatial Title with Letter Emerge Animation */}
     <div class="puture-hero-center">
-      <div style="font-family: var(--font-mono); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: #94a3b8; font-weight: 600; letter-spacing: 0.04em; margin-bottom: 1rem;">
-        We engineer intelligent systems with AI
+      <div style="font-family: var(--font-mono); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-main); font-weight: 700; letter-spacing: 0.05em; margin-bottom: 0.75rem; text-transform: uppercase;">
+        Applied Machine Learning &amp; Distributed Systems Engineer
       </div>
       <h1 class="puture-massive-title" id="hero-title">
         <div class="emerge-line">
@@ -28,7 +20,7 @@ import { ArrowRight, FileText, Mail } from 'lucide-react';
       </h1>
     </div>
 
-    {/* Bottom Narrative & Puture Action Buttons */}
+    {/* Bottom Narrative & Single Primary CTA Action */}
     <div class="puture-hero-bottom">
       <div class="puture-hero-lede-col">
         <p class="puture-hero-lede">
@@ -40,16 +32,18 @@ import { ArrowRight, FileText, Mail } from 'lucide-react';
 
       <div class="puture-hero-actions-col">
         <div class="hero-actions" style="display: flex; flex-wrap: wrap; gap: 0.85rem; align-items: center;">
+          {/* One Single Main Primary Button per Unslop Rule #10 */}
           <a href="#projects" class="btn--puture-primary" data-cursor="PROJECTS">
             <span>Explore Projects</span>
             <ArrowRight size={16} aria-hidden="true" />
           </a>
 
-          <a href="#about" class="btn btn-glass" data-cursor="ABOUT" style="border-radius: 9999px; padding: 0.72rem 1.4rem; border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(14, 18, 30, 0.8);">
-            <span>About Me</span>
+          {/* Secondary Actions: Clean Ghost / Outline Links */}
+          <a href="#about" class="btn btn-ghost" data-cursor="ABOUT" style="border-radius: var(--radius-lg); border: 1px solid rgba(11, 19, 43, 0.25); color: var(--text-main); background: transparent;">
+            <span>About</span>
           </a>
 
-          <a href="#contact" class="btn btn-ghost" data-cursor="CONTACT" style="border-radius: 9999px;">
+          <a href="#contact" class="btn btn-ghost" data-cursor="CONTACT" style="border-radius: var(--radius-lg); border: 1px solid rgba(11, 19, 43, 0.25); color: var(--text-main); background: transparent;">
             <Mail size={15} aria-hidden="true" />
             <span>Contact</span>
           </a>
