@@ -1,10 +1,33 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { 
   ChevronLeft, ChevronRight, ArrowUpRight, ExternalLink, 
-  X, CheckCircle, Maximize2, Check, Image as ImageIcon
+  X, CheckCircle, Maximize2, Check, Image as ImageIcon, FileText
 } from 'lucide-react';
-import { Github } from './BrandIcons';
+import { Github, GoogleColab, HuggingFace, Kaggle } from './BrandIcons';
 import { projectsData } from '../projects';
+
+const renderLinkIcon = (link, size = 14) => {
+  const url = (link?.url || '').toLowerCase();
+  const type = (link?.type || '').toLowerCase();
+  const label = (link?.label || '').toLowerCase();
+
+  if (url.includes('github.com') || type === 'repo') {
+    return <Github size={size} />;
+  }
+  if (url.includes('colab.research.google.com') || label.includes('colab') || type === 'colab') {
+    return <GoogleColab size={size} />;
+  }
+  if (url.includes('huggingface.co') || label.includes('huggingface') || type === 'huggingface') {
+    return <HuggingFace size={size} />;
+  }
+  if (url.includes('kaggle.com') || label.includes('kaggle') || type === 'kaggle') {
+    return <Kaggle size={size} />;
+  }
+  if (type === 'doc' || url.endsWith('.pdf') || label.includes('sk') || label.includes('award') || label.includes('letter')) {
+    return <FileText size={size} />;
+  }
+  return <ExternalLink size={size} />;
+};
 
 const CATEGORIES = [
   { id: 'All', label: 'All Projects', count: 13 },
@@ -501,7 +524,10 @@ export default function TomDeKoningCarousel() {
                     {/* 1. Card Header: Title & Meta placed at the very top */}
                     <div className="curved-card-header">
                       <div className="card-index-row">
-                        <div className="card-index-left">
+                        <div className="card-index-left" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+                          {proj.icon && (
+                            <proj.icon size={13} aria-hidden="true" style={{ color: 'var(--accent-action)', flexShrink: 0 }} />
+                          )}
                           <span className="card-index">{proj.categories[0] || 'ENGINEERED SYSTEM'}</span>
                         </div>
                         {isCenter && (
@@ -595,22 +621,19 @@ export default function TomDeKoningCarousel() {
                         </button>
 
                         <div className="card-links-group">
-                          {proj.links && proj.links.map((link, lIdx) => {
-                            const isGit = link.url.includes('github.com');
-                            return (
-                              <a
-                                key={lIdx}
-                                href={link.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="card-link-icon"
-                                title={link.label}
-                                aria-label={`${link.label} (${getShortProjectTitle(proj)})`}
-                              >
-                                {isGit ? <Github size={14} /> : <ExternalLink size={14} />}
-                              </a>
-                            );
-                          })}
+                          {proj.links && proj.links.map((link, lIdx) => (
+                            <a
+                              key={lIdx}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="card-link-icon"
+                              title={link.label}
+                              aria-label={`${link.label} (${getShortProjectTitle(proj)})`}
+                            >
+                              {renderLinkIcon(link, 14)}
+                            </a>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -789,22 +812,19 @@ export default function TomDeKoningCarousel() {
                       </button>
 
                       <div className="card-links-group">
-                        {proj.links && proj.links.map((link, lIdx) => {
-                          const isGit = link.url.includes('github.com');
-                          return (
-                            <a
-                              key={lIdx}
-                              href={link.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="card-link-icon"
-                              title={link.label}
-                              aria-label={link.label}
-                            >
-                              {isGit ? <Github size={14} /> : <ExternalLink size={14} />}
-                            </a>
-                          );
-                        })}
+                        {proj.links && proj.links.map((link, lIdx) => (
+                          <a
+                            key={lIdx}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="card-link-icon"
+                            title={link.label}
+                            aria-label={link.label}
+                          >
+                            {renderLinkIcon(link, 14)}
+                          </a>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -844,7 +864,12 @@ export default function TomDeKoningCarousel() {
             {/* Modal Header */}
             <div className="modal-header">
               <div>
-                <span className="card-index">SPECIFICATION ARCHIVE · {selectedProject.categories?.[0] || 'SYSTEM ARCHITECTURE'}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.35rem' }}>
+                  {selectedProject.icon && (
+                    <selectedProject.icon size={14} aria-hidden="true" style={{ color: 'var(--accent-action)', flexShrink: 0 }} />
+                  )}
+                  <span className="card-index" style={{ margin: 0 }}>SPECIFICATION ARCHIVE · {selectedProject.categories?.[0] || 'SYSTEM ARCHITECTURE'}</span>
+                </div>
                 <h2 id="modal-project-title" className="modal-title" style={{ fontSize: '1.65rem', fontWeight: 800, color: '#ffffff' }}>
                   {selectedProject.title}
                 </h2>
@@ -1054,10 +1079,11 @@ export default function TomDeKoningCarousel() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn btn-primary btn-sm"
-                      style={{ textDecoration: 'none' }}
+                      style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}
                     >
+                      {renderLinkIcon(link, 15)}
                       <span>{link.label}</span>
-                      <ArrowUpRight size={14} />
+                      <ArrowUpRight size={13} />
                     </a>
                   ))}
                 </div>

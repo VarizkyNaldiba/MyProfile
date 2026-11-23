@@ -1479,6 +1479,34 @@ body {
   border-color: #d4ff00;
 }
 
+.btn-channel-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-md);
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.btn-channel-icon:hover {
+  background: var(--accent-action);
+  color: #0b132b;
+  border-color: var(--accent-action);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(212, 255, 0, 0.28);
+}
+
+.btn-channel-icon:focus-visible {
+  outline: 2px solid var(--accent-action);
+  outline-offset: 2px;
+}
+
 /* Progress Bar at the bottom */
 .carousel-progress-track {
   width: 100%;

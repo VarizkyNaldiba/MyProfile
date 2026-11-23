@@ -1,16 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
-  <!-- Background rounded box -->
-  <rect width="512" height="512" rx="128" fill="#2563eb"/>
-  
-  <!-- Left side: Terminal Prompt / Code angle bracket -->
-  <path d="M130 160 L230 256 L130 352" stroke="#ffffff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/>
-  
-  <!-- Right side: Data nodes connected by lines -->
-  <line x1="380" y1="170" x2="300" y2="270" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
-  <line x1="300" y1="270" x2="400" y2="350" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
-  
-  <!-- Connected circles (Data / ML nodes) -->
-  <circle cx="380" cy="170" r="32" fill="#38bdf8" stroke="#ffffff" stroke-width="12"/>
-  <circle cx="300" cy="270" r="32" fill="#38bdf8" stroke="#ffffff" stroke-width="12"/>
-  <circle cx="400" cy="350" r="32" fill="#38bdf8" stroke="#ffffff" stroke-width="12"/>
+  <!-- Precision Rounded Chassis (Midnight Navy) -->
+  <rect width="512" height="512" rx="120" fill="#070d1e"/>
+  <rect x="8" y="8" width="496" height="496" rx="112" stroke="rgba(212, 255, 0, 0.25)" stroke-width="12"/>
+
+  <!-- Left: Precision Engineering Terminal Glyph (<) in Electric Lime -->
+  <path d="M172 152 L284 256 L172 360" stroke="#d4ff00" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Right: Distributed Neural & Telemetry Nodes in Electric Cyan -->
+  <line x1="284" y1="256" x2="368" y2="188" stroke="#00e5ff" stroke-width="28" stroke-linecap="round"/>
+  <line x1="284" y1="256" x2="368" y2="324" stroke="#00e5ff" stroke-width="28" stroke-linecap="round"/>
+  <line x1="368" y1="188" x2="368" y2="324" stroke="#00e5ff" stroke-width="20" stroke-dasharray="14 14" stroke-linecap="round"/>
+
+  <!-- Glowing Sensor & Compute Nodes -->
+  <circle cx="368" cy="188" r="40" fill="#00e5ff"/>
+  <circle cx="368" cy="324" r="40" fill="#00e5ff"/>
+  <circle cx="284" cy="256" r="28" fill="#d4ff00"/>
 </svg>
