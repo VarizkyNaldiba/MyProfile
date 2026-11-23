@@ -17,7 +17,7 @@ export const simpres = {
   icon: Trophy,
   images: [imgDashboard, imgPromethee, imgPenilaian],
   details: {
-    overview: "Developed as the 5th-semester Project-Based Learning capstone for the Information Technology Department at Politeknik Negeri Malang. It unifies the submission, advisory, and verification workflows for student academic and non-academic competition achievements.",
+    overview: "Developed as the 4th-semester Project-Based Learning capstone for the Information Technology Department at Politeknik Negeri Malang. It unifies the submission, advisory, and verification workflows for student academic and non-academic competition achievements.",
     features: [
       "Role-based access control (RBAC) supporting Students, Faculty Mentors, and Department Administrators",
       "Comprehensive Faculty portal for reviewing achievement evidence, audit trails, and official competition recommendations",
