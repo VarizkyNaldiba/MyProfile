@@ -11,7 +11,7 @@ export const catfishCareTfs2026 = {
   slug: "catfishcare-tfs2026",
   title: "CatfishCare — Automated Aquaculture Care System",
   role: "Lead Systems Architect & Competitor",
-  desc: "Award-winning IoT ecosystem for catfish farm monitoring and automated care, recognized as 4th Place (Consolation Prize 2) at the National Scientific Writing Competition Techno Fair and Seminar (TFS) 2026.",
+  desc: "Award-winning IoT ecosystem for catfish farm monitoring and automated care, recognized as 5th Place (Consolation Prize 2) at the National Scientific Writing Competition Techno Fair and Seminar (TFS) 2026.",
   tech: ["ESP32", "C++", "IoT Telemetry", "Automated Care", "Sensors"],
   categories: ["IoT", "Hardware & Systems"],
   links: [
@@ -23,7 +23,7 @@ export const catfishCareTfs2026 = {
   details: {
     overview: "Formulated for the National Scientific Writing Competition Techno Fair and Seminar (TFS) 2026 at Politeknik Negeri Malang under the theme 'Empowering Indonesia's Digital Sovereignty'. CatfishCare introduces an autonomous framework bridging IoT sensing directly to actionable physical pond interventions.",
     features: [
-      "Awarded 4th Place (Consolation Prize 2) at National Level LKTI Techno Fair and Seminar (TFS) 2026 (SK No. 27881/PL2.3/KM/2026)",
+      "Awarded 5th Place (Consolation Prize 2) at National Level LKTI Techno Fair and Seminar (TFS) 2026 (SK No. 27881/PL2.3/KM/2026)",
       "Real-time continuous water quality monitoring (pH, temperature, turbidity, water level)",
       "Automated water exchange actuation mechanism triggered when water parameters breach safety thresholds",
       "Actionable architecture framework: DATA (Sensors) -> INTELLIGENCE (Analytics & Prediction) -> ACTION (Automated Care)"

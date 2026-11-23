@@ -340,7 +340,7 @@ export default function TomDeKoningCarousel() {
   const getProjectHonor = (slug) => {
     switch (slug) {
       case 'catfishcare-tfs2026':
-        return 'National 4th Place LKTI Techno Fair and Seminar (TFS) 2026';
+        return 'National 5th Place LKTI Techno Fair and Seminar (TFS) 2026';
       case 'pkm-gft-sais':
         return 'PKM-GFT 2026 Phase 2 Research Grant';
       case 'simojang-brin-webgis':
@@ -361,7 +361,7 @@ export default function TomDeKoningCarousel() {
   const getHonorBadgeClass = (text) => {
     if (!text) return '';
     const lower = text.toLowerCase();
-    if (lower.includes('juara') || lower.includes('4th place') || lower.includes('winner')) return 'honor-juara';
+    if (lower.includes('juara') || lower.includes('5th place') || lower.includes('winner')) return 'honor-juara';
     if (lower.includes('finalis') || lower.includes('finalist')) return 'honor-finalist';
     if (lower.includes('peserta') || lower.includes('selected') || lower.includes('competitor')) return 'honor-peserta';
     return 'honor-general';
