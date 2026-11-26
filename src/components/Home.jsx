@@ -66,27 +66,27 @@ export default function Home() {
                 <MapPin size={14} /> Malang, East Java, Indonesia
               </span>
               <span className="meta-bullet">•</span>
-              <span className="meta-item">Politeknik Negeri Malang (Polinema)</span>
+              <span className="meta-item">State Polytechnic of Malang</span>
             </motion.div>
 
             {/* Executive Bio */}
             <motion.p className="hero-paragraph" variants={itemVariants}>
-              Informatics Engineer with a proven track record in architecting data-driven systems. 
-              Specializing in applied machine learning, computer vision pipelines, and IoT edge telemetry—delivering 
+              Informatics Engineer with a proven track record in architecting data-driven systems.
+              Specializing in applied machine learning, computer vision pipelines, and IoT edge telemetry—delivering
               resilient solutions from calibrated microcontroller firmware and spatial analytics to cloud-connected platforms.
             </motion.p>
 
             {/* Primary Action Buttons */}
             <motion.div className="hero-actions" variants={itemVariants}>
-              <button 
-                onClick={() => scrollTo('projects')} 
+              <button
+                onClick={() => scrollTo('projects')}
                 className="btn-primary"
               >
                 <span>View Engineered Projects</span>
                 <ArrowRight size={16} />
               </button>
 
-              <a 
+              <a
                 href="/CV - Varizky Naldiba Rimra.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -97,8 +97,8 @@ export default function Home() {
                 <span>Curriculum Vitae (PDF)</span>
               </a>
 
-              <button 
-                onClick={() => scrollTo('contact')} 
+              <button
+                onClick={() => scrollTo('contact')}
                 className="btn-ghost"
               >
                 <Mail size={16} />
@@ -108,39 +108,39 @@ export default function Home() {
 
             {/* Social & Contact Direct Links */}
             <motion.div className="hero-social-row" variants={itemVariants}>
-              <a 
-                href="https://github.com/VarizkyNaldiba" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="social-icon-btn" 
+              <a
+                href="https://github.com/VarizkyNaldiba"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-icon-btn"
                 title="GitHub Profile"
                 aria-label="GitHub Profile"
               >
                 <Github size={18} />
               </a>
-              <a 
-                href="https://www.linkedin.com/in/varizkynaldiba/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="social-icon-btn" 
+              <a
+                href="https://www.linkedin.com/in/varizkynaldiba/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-icon-btn"
                 title="LinkedIn Profile"
                 aria-label="LinkedIn Profile"
               >
                 <Linkedin size={18} />
               </a>
-              <a 
-                href="mailto:varizkynr@gmail.com" 
-                className="social-icon-btn" 
+              <a
+                href="mailto:varizkynr@gmail.com"
+                className="social-icon-btn"
                 title="Email: varizkynr@gmail.com"
                 aria-label="Send Email"
               >
                 <Mail size={18} />
               </a>
-              <a 
-                href="https://www.instagram.com/v.naldiba/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="social-icon-btn" 
+              <a
+                href="https://www.instagram.com/v.naldiba/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-icon-btn"
                 title="Instagram Profile"
                 aria-label="Instagram Profile"
               >
@@ -153,9 +153,9 @@ export default function Home() {
           <motion.div className="hero-profile-col" variants={itemVariants}>
             <div className="profile-card">
               <div className="profile-image-container">
-                <img 
-                  src="/assets/image/saya.jpg" 
-                  alt="Varizky Naldiba Rimra" 
+                <img
+                  src="/assets/image/saya.jpg"
+                  alt="Varizky Naldiba Rimra"
                   className="profile-img"
                   fetchpriority="high"
                   width="400"

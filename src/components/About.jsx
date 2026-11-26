@@ -27,7 +27,7 @@ export default function About() {
   return (
     <section className="section-container" id="about">
       <div className="container">
-        
+
         {/* Section Header */}
         <div className="section-head">
           <span className="section-kicker">Professional Background</span>
@@ -45,19 +45,19 @@ export default function About() {
               Merging practical software craft with rigorous data science.
             </h3>
             <p className="narrative-text">
-              I am an <strong>Informatics Engineer (D4 Teknik Informatika) from Politeknik Negeri Malang (Polinema)</strong>. 
-              My engineering foundation is built upon rigorous Project-Based Learning (PBL), systems architecture, 
+              I am an <strong>Informatics Engineer (D4 Teknik Informatika) from State Polytechnic of Malang</strong>.
+              My engineering foundation is built upon rigorous Project-Based Learning (PBL), systems architecture,
               and applied research across artificial intelligence and the Internet of Things.
             </p>
             <p className="narrative-text">
-              Rather than building abstract prototypes, I prioritize solving real operational challenges: 
-              calibrating water quality probes for catfish and seaweed cultivators in East Java, 
-              evaluating educational equity through spatial GIS analytics, and designing transparent 
+              Rather than building abstract prototypes, I prioritize solving real operational challenges:
+              calibrating water quality probes for catfish and seaweed cultivators in East Java,
+              evaluating educational equity through spatial GIS analytics, and designing transparent
               academic tracking systems for university departments.
             </p>
             <p className="narrative-text">
-              My previous experience in professional kitchen and culinary operations taught me how 
-              to execute under pressure, manage supply flows, and maintain exacting standards—an operational 
+              My previous experience in professional kitchen and culinary operations taught me how
+              to execute under pressure, manage supply flows, and maintain exacting standards—an operational
               discipline I bring directly to every codebase, model, and data pipeline I build.
             </p>
 
@@ -68,7 +68,7 @@ export default function About() {
               </div>
               <div className="education-info">
                 <span className="education-degree">D4 Teknik Informatika (Informatics Engineering)</span>
-                <span className="education-school">Politeknik Negeri Malang (Polinema) · 2022 – Present</span>
+                <span className="education-school">State Polytechnic of Malang · 2022 – Present</span>
                 <span className="education-focus">Specialization: Applied AI, IoT Telemetry, and Information Systems</span>
               </div>
             </div>

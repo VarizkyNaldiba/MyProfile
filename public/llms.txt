@@ -1,6 +1,6 @@
 # Varizky Naldiba Rimra - Portfolio
 
-> Applied Machine Learning & IoT Systems Engineer based in Malang, East Java, Indonesia. Informatics Engineering Graduate from Politeknik Negeri Malang (Polinema).
+> Applied Machine Learning & IoT Systems Engineer based in Malang, East Java, Indonesia. Informatics Engineering from State Polytechnic of Malang.
 
 ## Overview
 Engineering portfolio showcasing end-to-end applied engineering pipelines:

@@ -50,7 +50,7 @@ export default function App() {
           <div className="footer-left">
             <span className="footer-brand">Varizky Naldiba Rimra</span>
             <p className="footer-subtext">
-              Informatics Engineering — Politeknik Negeri Malang (Polinema). Applied Machine Learning & IoT Systems.
+              Informatics Engineering — State Polytechnic of Malang. Applied Machine Learning & IoT Systems.
             </p>
           </div>
 
@@ -58,8 +58,8 @@ export default function App() {
             <p className="footer-copyright">
               &copy; {new Date().getFullYear()} Varizky Naldiba Rimra. All rights reserved.
             </p>
-            <button 
-              onClick={scrollToTop} 
+            <button
+              onClick={scrollToTop}
               className="btn-back-to-top"
               aria-label="Scroll back to top"
             >
