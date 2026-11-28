@@ -112,8 +112,13 @@ const {
 
     <script>
       import Lenis from 'lenis';
+      import { ParallaxManager } from '../scripts/parallaxEngine';
 
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Initialize Unified High-Performance Parallax Engine
+      const parallax = new ParallaxManager();
+      parallax.init();
 
       // 1. Lenis Smooth Momentum Scroll Engine
       if (!prefersReducedMotion) {
@@ -127,8 +132,13 @@ const {
             touchMultiplier: 1.5
           });
 
+          lenis.on('scroll', () => {
+            parallax.updateOnScroll(window.innerHeight);
+          });
+
           function raf(time: number) {
             lenis.raf(time);
+            parallax.updateOnFrame();
             requestAnimationFrame(raf);
           }
           requestAnimationFrame(raf);
@@ -148,7 +158,10 @@ const {
           });
         } catch (e) {
           console.warn('Lenis smooth scroll initialized with fallback.', e);
+          window.addEventListener('scroll', () => parallax.updateOnScroll(window.innerHeight), { passive: true });
         }
+      } else {
+        parallax.resetAll();
       }
 
       // 2. Puture Magnetic Cursor with Dynamic Follower Label

@@ -93,7 +93,7 @@ const getExpBadgeClass = (type: string) => {
     <div class="dossier-layout-grid">
       
       {/* Left Column: Authentic Portrait Card (Sticky Desktop) */}
-      <aside class="dossier-portrait-card">
+      <aside class="dossier-portrait-card" data-parallax-speed="0.04" data-parallax-mouse="0.02">
         {/* Crosshair Coordinates */}
         <span class="hero-card-crosshair tl">+</span>
         <span class="hero-card-crosshair tr">+</span>
@@ -120,6 +120,7 @@ const getExpBadgeClass = (type: string) => {
             loading="eager"
             fetchpriority="high"
             decoding="async"
+            data-parallax-inner="0.22"
           />
         </div>
 
@@ -193,7 +194,7 @@ const getExpBadgeClass = (type: string) => {
       </aside>
 
       {/* Right Column: Narrative, Experience, and Verified Honors */}
-      <div class="dossier-content-col" data-in>
+      <div class="dossier-content-col" data-in data-parallax-speed="0.05">
         
         {/* Engineering Philosophy Manifesto */}
         <div class="glass-card" style="margin-bottom: 2rem;">

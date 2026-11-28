@@ -3578,6 +3578,45 @@ body {
   transition: background-color 0.85s cubic-bezier(0.45, 0, 0.25, 1), color 0.85s ease;
 }
 
+/* ==========================================================================
+   Multi-Layer Parallax Architecture & Performance Optimizations
+   ========================================================================== */
+
+[data-parallax-speed],
+[data-parallax-inner],
+[data-parallax-type="stagger"],
+[data-parallax-mouse] {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.dossier-img-box {
+  position: relative;
+  overflow: hidden;
+}
+
+.dossier-img-box img[data-parallax-inner] {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+  transform-origin: center center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-parallax-speed],
+  [data-parallax-inner],
+  [data-parallax-type="stagger"],
+  [data-parallax-mouse],
+  .dossier-img-box img[data-parallax-inner] {
+    transform: none !important;
+    will-change: auto !important;
+    transition: none !important;
+  }
+}
+
+
 body.is-light {
   background-color: #cce6f6 !important;
   color: #0b132b !important;

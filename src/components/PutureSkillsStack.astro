@@ -68,6 +68,8 @@ const capabilities = [
           return (
             <article 
               class={`stack-card ${isEven ? 'is-right' : 'is-left'}`}
+              data-parallax-type="stagger"
+              data-parallax-speed="28"
               data-parallax-dir={isEven ? '1' : '-1'}
               aria-label={cap.title}
             >
@@ -111,40 +113,3 @@ const capabilities = [
 
   </div>
 </section>
-
-<script>
-  // Smooth Parallax Scroll: Differential vertical drift between Left and Right cards
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const stackCards = document.querySelectorAll<HTMLElement>('.stack-card');
-
-  if (!prefersReducedMotion && stackCards.length > 0 && window.matchMedia('(min-width: 992px)').matches) {
-    let isUpdating = false;
-
-    const updateParallax = () => {
-      const windowHeight = window.innerHeight;
-      const viewCenter = windowHeight / 2;
-
-      stackCards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        if (rect.bottom >= -150 && rect.top <= windowHeight + 150) {
-          const cardCenter = rect.top + rect.height / 2;
-          const offsetProgress = (cardCenter - viewCenter) / windowHeight;
-          const dir = parseFloat(card.dataset.parallaxDir || '0');
-          // Smooth differential translation: subtle 24px drift
-          const translateY = offsetProgress * dir * 24;
-          card.style.transform = `translate3d(0, ${translateY.toFixed(2)}px, 0)`;
-        }
-      });
-      isUpdating = false;
-    };
-
-    window.addEventListener('scroll', () => {
-      if (!isUpdating) {
-        isUpdating = true;
-        requestAnimationFrame(updateParallax);
-      }
-    }, { passive: true });
-
-    updateParallax();
-  }
-</script>
